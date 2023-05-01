@@ -1,0 +1,21 @@
+.menu {
+  width: 12rem;
+  background-color: #01123D;
+  padding: 2rem;
+  position: fixed;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  overflow: auto;
+  a {
+    margin: .2rem;
+    padding: 1rem 1rem 1rem 1rem;
+    cursor: pointer;
+    border-radius: 2rem;
+
+    &:hover{
+      background-color: #1b0b93;
+    }
+  }
+}

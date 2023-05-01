@@ -1,0 +1,93 @@
+import * as React from 'react';
+import {useContext} from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import {ax} from "../../utils/axios";
+import {AlertContext, UserContext} from "../_app";
+import {useRouter} from "next/router";
+
+
+export default function Login() {
+    const router = useRouter()
+    const {setError, setMessage} = useContext(AlertContext)
+
+    const {setUser} = useContext(UserContext)
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const model = {
+            email: data.get('email'),
+            password: data.get('password'),
+        };
+        ax.post("/users/login", model).then((res) => {
+            setUser(res.data.user);
+            setMessage('welcome back ;)')
+            localStorage.setItem('authenticated', res.data.user._id)
+            router.push('/')
+        }).catch(e => {
+            setError(e.response.data.message)
+        })
+
+    };
+
+    return (
+        <div className="flex justify-center">
+            <div className="mt-4 flex w-96 flex flex-col items-center glass p-4">
+                <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
+                    <LockOutlinedIcon/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign in
+                </Typography>
+                <form onSubmit={handleSubmit} className="mt-1">
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        autoFocus
+                    />
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                    />
+
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant={"contained"}
+                        sx={{mt: 3, mb: 2}}
+                    >
+                        Sign In
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                            <Link href="pages/Login/index#" variant="body2">
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                        <Grid item>
+                            <Link href="pages/Login/index#" variant="body2">
+                                {"Don't have an account? Sign Up"}
+                            </Link>
+                        </Grid>
+                    </Grid>
+                </form>
+            </div>
+        </div>
+    );
+}
