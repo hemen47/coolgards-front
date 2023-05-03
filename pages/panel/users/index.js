@@ -23,14 +23,14 @@ export default function Index() {
 
     const searchQueryInitialState = {
         email: '',
-        fullname: '',
+        fullName: '',
         roles: '',
     }
     const [searchQuery, setSearchQuery] = useState(searchQueryInitialState)
 
     const addQueryInitialState = {
         email: '',
-        fullname: '',
+        fullName: '',
         roles: '',
         password: '',
     }
@@ -141,7 +141,7 @@ export default function Index() {
                     <TextField value={searchQuery.email} label="Email" variant="standard" name="email"
                                onChange={handleChangeSearch}
                                sx={{width: 300}}/>
-                    <TextField value={searchQuery.fullname} label="Full Name" variant="standard" name="fullname"
+                    <TextField value={searchQuery.fullName} label="Full Name" variant="standard" name="fullname"
                                onChange={handleChangeSearch}
                                sx={{width: 300}}/>
 
@@ -182,7 +182,7 @@ export default function Index() {
                           onSelectionChange={(row) => (setSelectedRow(row))}
                 >
                     <GridColumn field="_id" title="Id" align="center" width="20%"/>
-                    <GridColumn field="fullname" title="Full Name" align="center" width="30%"/>
+                    <GridColumn field="fullName" title="Full Name" align="center" width="30%"/>
                     <GridColumn field="email" title="Email" align="center" width="30%"/>
                     <GridColumn field="roles" title="Roles" align="center" width="20%"/>
                 </DataGrid>
@@ -198,7 +198,7 @@ export default function Index() {
                             <TextField value={addQuery.email} label="Email" variant="standard" name="email"
                                        onChange={handleChangeAdd}
                                        sx={{width: 300, margin: 2}}/>
-                            <TextField value={addQuery.fullname} label="Full Name" variant="standard" name="fullname"
+                            <TextField value={addQuery.fullName} label="Full Name" variant="standard" name="fullname"
                                        onChange={handleChangeAdd}
                                        sx={{width: 300, margin: 2}}/>
                             <TextField value={addQuery.password} label="Password" variant="standard" name="password"

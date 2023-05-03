@@ -8,6 +8,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 
+
 export const UserContext = createContext();
 export const AlertContext = createContext();
 
@@ -16,6 +17,10 @@ function MyApp({Component, pageProps}) {
     const [user, setUser] = useState('')
     const [error, setError] = useState('')
     const [message, setMessage] = useState(null)
+
+    useEffect(() => {
+        import('preline')
+    }, [])
 
     const renderMainMenu = () => {
         if (!router.pathname.includes('/panel') && router.pathname !== '/login') return <MainMenu/>

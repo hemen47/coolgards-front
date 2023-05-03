@@ -19,7 +19,7 @@ export default function PanelSideBar() {
         <nav className={styles.menu}>
             <div>
                 <p>
-                    {user?.fullname}
+                    {user?.fullName}
                 </p>
                 <p>
                     {user?.roles}

@@ -26,7 +26,7 @@ export default function MainMenu() {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                {user?.fullname}
+                {user?.fullName}
             </Button>
                 <Menu
                     id="basic-menu"

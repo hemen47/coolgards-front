@@ -11,7 +11,7 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import {queryRemover} from "../../../utils/queryRemover";
 import Uploader from "../../../components/Uploader";
 import MenuItem from "@mui/material/MenuItem";
-import {AlertContext} from "../../_app";
+import {AlertContext, UserContext} from "../../_app";
 import Modal from '@mui/material/Modal';
 import Dialog from '@mui/material/Dialog';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -32,6 +32,7 @@ const ReactQuill = dynamic(
 
 export default function Index() {
     const {setError, setMessage} = useContext(AlertContext)
+    const {user} = useContext(UserContext)
     const [selectedRow, setSelectedRow] = useState(null)
     const [modal, setModal] = useState(false)
     const [uploaderModal, setUploaderModal] = useState(false)
@@ -72,6 +73,7 @@ export default function Index() {
         tags: [],
         status: '',
         slug: '',
+        writer: user,
     }
     const [addQuery, setAddQuery] = useState(addQueryInitialState)
 
@@ -170,6 +172,14 @@ export default function Index() {
         }).catch(e => {
             setError(e.response.data.message)
         })
+    }
+
+    const handleSubmitPost = (mode) => {
+        if (!mode) {
+            submitAdd();
+        }else{
+            submitEdit();
+        }
     }
 
     const cancelAdd = () => {
@@ -285,7 +295,7 @@ export default function Index() {
                             </div>
                         </div>
                         <div className="flex justify-center items-start">
-                            <Button sx={{margin: 2}} onClick={mode ? submitEdit : submitAdd} variant="contained"
+                            <Button sx={{margin: 2}} onClick={() => handleSubmitPost(mode)} variant="contained"
                                     startIcon={mode ? <ManageAccountsOutlinedIcon/> :
                                         <PersonAddOutlinedIcon/>}>{mode ? "Edit Post" : "Add Post"}</Button>
                             <Button sx={{margin: 2}} onClick={cancelAdd} variant="contained">Cancel</Button>
