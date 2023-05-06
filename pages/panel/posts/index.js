@@ -80,6 +80,12 @@ export default function Index() {
         console.log('addQuery', addQuery)
     }, [addQuery])
 
+    useEffect(() =>  {
+        console.log('selectedRow', selectedRow)
+    }, [selectedRow])
+
+
+
     const [pagination, setPagination] = useState({
         page: 1,
         size: 5,
@@ -110,7 +116,6 @@ export default function Index() {
 
     const handleChangeAdd = (e) => {
         if (e.target.name === 'title') {
-            console.log('test')
             slug(e.target.value)
             setAddQuery({...addQuery, slug : slug( e.target.value), title: e.target.value })
         }else{
@@ -124,6 +129,7 @@ export default function Index() {
     const edit = () => {
         setMode(1);
         setAddQuery(selectedRow);
+        console.log('editor modal opened')
         setModal(true)
     }
 
@@ -161,6 +167,7 @@ export default function Index() {
             data: addQuery
         }).then(res => {
             search()
+            setAddQuery(addQueryInitialState)
             setMessage(res.data.message)
             cancelAdd();
         }).catch(e => {
@@ -196,7 +203,8 @@ export default function Index() {
     }
 
     const handleEditorChange = (content, delta, source, editor) => {
-        setAddQuery({...addQuery, content: content});
+        console.log('handleEditorChange')
+        setAddQuery(prev => ({...prev, content : content}));
     }
 
 
