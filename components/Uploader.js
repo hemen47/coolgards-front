@@ -1,97 +1,166 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {ax} from "../utils/axios";
-import {queryRemover} from "../utils/queryRemover";
-import {AlertContext} from "../pages/_app";
-import {FilePond, registerPlugin} from 'react-filepond'
-import FilePondPluginImageExifOrientation from 'filepond-plugin-image-exif-orientation'
-import FilePondPluginImagePreview from 'filepond-plugin-image-preview'
-import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
-import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css'
-import 'filepond/dist/filepond.min.css'
+import React, { useContext, useEffect, useState } from "react";
+import { ax } from "../utils/axios";
+import { queryRemover } from "../utils/queryRemover";
+import { AlertContext } from "../pages/_app";
+import { FilePond, registerPlugin } from "react-filepond";
+import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+import "filepond/dist/filepond.min.css";
 import Masonry from "react-responsive-masonry";
-import styles from './Uploader.module.scss'
+import styles from "./Uploader.module.scss";
 import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
 
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType)
+registerPlugin(
+  FilePondPluginImageExifOrientation,
+  FilePondPluginImagePreview,
+  FilePondPluginFileValidateType
+);
 
-export default function Uploader({onSelect, onClose}) {
-    const {setError, setMessage} = useContext(AlertContext)
-    const [hovered, setHovered] = useState('')
-    const [selectedImage, setSelectedImage] = useState({})
-    const [files, setFiles] = useState([])
-    const [downloadedFiles, setDownloadedFiles] = useState({
-        data: [],
-        total: '',
+export default function Uploader({ onSelect, onClose }) {
+  const { setError, setMessage } = useContext(AlertContext);
+  const [hovered, setHovered] = useState("");
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState({});
+  const [files, setFiles] = useState([]);
+  const [downloadedFiles, setDownloadedFiles] = useState({
+    data: [],
+    total: "",
+  });
+  useEffect(() => {
+    search();
+  }, []);
+
+  const search = () => {
+    ax({
+      url: "/media/all",
+      params: queryRemover({}),
     })
-    useEffect(() => {
-        search()
-    }, [])
+      .then((res) => {
+        setDownloadedFiles(res.data);
+        setSelectedImage(res.data.data[0]);
+      })
+      .catch((e) => {
+        setError(e.response?.data?.message || e.message);
+      });
+  };
+  const serverConfigs = {
+    url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+    process: {
+      url: `./media`,
+      method: "POST",
+      withCredentials: true,
+      onload: (res) => search(),
+      onerror: (err) => setError(err.data),
+    },
+  };
+  const handleSelect = (p) => {
+    setSelectedImage(p);
+  };
 
-    const search = () => {
-        ax({
-            url: '/media/all',
-            params: queryRemover({})
-        }).then(res => {
-            setDownloadedFiles(res.data)
-        }).catch(e => {
-            setError(e.response.data.message)
+  const handleCloseUploader = () => {
+    setSelectedImage({});
+    onClose();
+  };
+
+  const handleDeleteImage = () => {
+    if (selectedImage) {
+      ax({
+        url: "/media",
+        method: "delete",
+        data: selectedImage,
+      })
+        .then((res) => {
+          search();
+          setMessage(res.data.message);
+          setConfirmModal(false);
         })
+        .catch((e) => {
+          setError(e.response?.data?.message || e.message);
+        });
     }
-    const serverConfigs = {
-        url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
-        process: {
-            url: `./upload/public`,
-            method: 'POST',
-            withCredentials: true,
-            // onload: (res) => console.log('onload', res),
-            // onerror: (res) => setError(res.data),
-        },
-    }
-    const handleSelect = (p) => {
-        setSelectedImage(p)
-    }
+  };
 
-    return (
-        <div className='ml-56 max-[600px]:ml-20 mr-8'>
-            <div className='pt-10'>
-                <div>
-                    <FilePond
-                        credits={false}
-                        files={files}
-                        onupdatefiles={setFiles}
-                        allowMultiple={true}
-                        maxFiles={3}
-                        acceptedFileTypes={['image/*']}
-                        server={serverConfigs}
-                        name="files"
-                        labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-                    />
-                </div>
-                <div>
-                    <Button onClick={() => onSelect(selectedImage)}>Select</Button>
-                    <Button onClick={() => onClose()}>Cancel</Button>
-                </div>
-
-                <div>
-                    <Masonry columnsCount={5} gutter="15px">
-                        {downloadedFiles.data.map((pic) => (
-                            <img
-                                onClick={()=>handleSelect(pic)}
-                                id={pic._id}
-                                className={hovered === pic._id ? styles.hovered : styles.not-hovered}
-                                onMouseOver={() => setHovered(pic._id)}
-                                onMouseLeave={() => setHovered('')}
-                                alt={pic.name}
-                                key={pic._id}
-                                src={pic.path}
-                                style={selectedImage?._id === pic._id ? {width: "100%", display: "block", border: "dotted #fdd700 2px"} :{width: "100%", display: "block"}}
-                            />
-                        ))}
-                    </Masonry>
-                </div>
-
-
-            </div>
+  return (
+    <div className="m-20">
+      <div className="pt-10">
+        <div>
+          <FilePond
+            credits={false}
+            files={files}
+            onupdatefiles={setFiles}
+            allowMultiple={true}
+            maxFiles={3}
+            acceptedFileTypes={["image/*"]}
+            server={serverConfigs}
+            name="files"
+            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          />
         </div>
-    )
+        <div className="flex justify-center">
+          {selectedImage && (
+            <>
+              <Button onClick={() => onSelect(selectedImage)}>Select</Button>
+              <Button color="error" onClick={() => setConfirmModal(true)}>
+                Delete
+              </Button>
+            </>
+          )}
+          <Button onClick={handleCloseUploader}>Cancel</Button>
+        </div>
+
+        <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>
+          <div className="flex flex-center flex-col p-10 items-center truncate">
+            <p>Are you sure?</p>
+            <div className="flex justify-center items-center ">
+              <Button
+                sx={{ margin: 1 }}
+                variant="contained"
+                onClick={handleDeleteImage}
+              >
+                Yes
+              </Button>
+              <Button
+                sx={{ margin: 1 }}
+                onClick={() => setConfirmModal(false)}
+                autoFocus
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Dialog>
+
+        <div>
+          <Masonry columnsCount={5} gutter="15px">
+            {downloadedFiles.data.map((pic) => (
+              <img
+                onClick={() => handleSelect(pic)}
+                id={pic._id}
+                className={
+                  hovered === pic._id ? styles.hovered : styles.released
+                }
+                onMouseOver={() => setHovered(pic._id)}
+                onMouseLeave={() => setHovered("")}
+                alt={pic.name}
+                key={pic._id}
+                src={pic.path}
+                style={
+                  selectedImage?._id === pic._id
+                    ? {
+                        width: "100%",
+                        display: "block",
+                        border: "dashed 3px #003eff",
+                      }
+                    : { width: "100%", display: "block" }
+                }
+              />
+            ))}
+          </Masonry>
+        </div>
+      </div>
+    </div>
+  );
 }

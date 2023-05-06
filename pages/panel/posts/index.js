@@ -11,17 +11,19 @@ import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlin
 import {queryRemover} from "../../../utils/queryRemover";
 import Uploader from "../../../components/Uploader";
 import MenuItem from "@mui/material/MenuItem";
-import {AlertContext, UserContext} from "../../_app";
+import {AlertContext } from "../../_app";
 import Modal from '@mui/material/Modal';
 import Dialog from '@mui/material/Dialog';
 import Autocomplete from '@mui/material/Autocomplete';
 import 'react-quill/dist/quill.snow.css';
 import {modules, toolbarOptions} from "../../../utils/quilOptions";
 import dynamic from "next/dynamic";
+import slug from "slug";
 
 const ReactQuill = dynamic(
     async () => {
         const {default: RQ} = await import("react-quill");
+        // eslint-disable-next-line react/display-name
         return ({forwardedRef, ...props}) => <RQ ref={forwardedRef} {...props} />;
     },
     {
@@ -32,7 +34,6 @@ const ReactQuill = dynamic(
 
 export default function Index() {
     const {setError, setMessage} = useContext(AlertContext)
-    const {user} = useContext(UserContext)
     const [selectedRow, setSelectedRow] = useState(null)
     const [modal, setModal] = useState(false)
     const [uploaderModal, setUploaderModal] = useState(false)
@@ -63,7 +64,6 @@ export default function Index() {
         title: '',
         content: '',
         tags: [],
-        status: '',
     }
     const [searchQuery, setSearchQuery] = useState(searchQueryInitialState)
 
@@ -71,11 +71,14 @@ export default function Index() {
         title: '',
         content: '',
         tags: [],
-        status: '',
+        status: 'published',
         slug: '',
-        writer: user,
     }
     const [addQuery, setAddQuery] = useState(addQueryInitialState)
+
+    useEffect(() =>  {
+        console.log('addQuery', addQuery)
+    }, [addQuery])
 
     const [pagination, setPagination] = useState({
         page: 1,
@@ -97,7 +100,7 @@ export default function Index() {
             setPosts(res.data);
             setSelectedRow(res.data.data[0])
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -106,11 +109,16 @@ export default function Index() {
     }
 
     const handleChangeAdd = (e) => {
-        setAddQuery({...addQuery, [e.target.name]: e.target.value})
+        if (e.target.name === 'title') {
+            console.log('test')
+            slug(e.target.value)
+            setAddQuery({...addQuery, slug : slug( e.target.value), title: e.target.value })
+        }else{
+            setAddQuery({...addQuery, [e.target.name]: e.target.value})
+        }
     }
     const add = () => {
         setMode(0);
-        setAddQuery({...addQuery, roles: ['customer']})
         setModal(true)
     }
     const edit = () => {
@@ -141,7 +149,7 @@ export default function Index() {
             setMessage(res.data.message)
             setConfirmModal(false);
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -156,7 +164,7 @@ export default function Index() {
             setMessage(res.data.message)
             cancelAdd();
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -170,7 +178,7 @@ export default function Index() {
             cancelAdd();
             setMessage(res.data.message)
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -215,15 +223,15 @@ export default function Index() {
                     />
 
                     <Select
-                        value={searchQuery.roles}
+                        value={searchQuery.status}
                         label="Status"
                         name="status"
                         onChange={handleChangeSearch}
                         displayEmpty
                     >
                         <MenuItem value="">All</MenuItem>
-                        <MenuItem value='published'>Customer</MenuItem>
-                        <MenuItem value='draft'>Admin</MenuItem>
+                        <MenuItem value='published'>published</MenuItem>
+                        <MenuItem value='draft'>draft</MenuItem>
                     </Select>
 
 
@@ -252,10 +260,10 @@ export default function Index() {
                           selection={selectedRow}
                           onSelectionChange={(row) => (setSelectedRow(row))}
                 >
-                    <GridColumn field="title" title="Id" align="center" width="20%"/>
-                    <GridColumn field="content" title="Full Name" align="center" width="30%"/>
-                    <GridColumn field="tags" title="Email" align="center" width="30%"/>
-                    <GridColumn field="status" title="Roles" align="center" width="20%"/>
+                    <GridColumn field="title" title="title" align="center" width="20%"/>
+                    <GridColumn field="content" title="content" align="center" width="30%"/>
+                    <GridColumn field="tags" title="tags" align="center" width="30%"/>
+                    <GridColumn field="status" title="status" align="center" width="20%"/>
                 </DataGrid>
 
 
@@ -267,24 +275,23 @@ export default function Index() {
                 >
                     <div className="modal">
                         <div className="flex justify-center items-start flex-wrap">
-                            <TextField value={addQuery.title} label="Email" variant="standard" name="title"
-                                       onChange={handleChangeAdd}
+                            <TextField value={addQuery.title} label="title" variant="standard" name="title"
+                                       onChange={(e) => handleChangeAdd(e)}
                                        sx={{width: 300, margin: 2}}/>
-                            <TextField value={addQuery.slug} label="Slug" variant="standard" name="slug"
+                            <TextField value={addQuery.slug} label="slug" variant="standard" name="slug"
                                        onChange={handleChangeAdd}
                                        sx={{width: 300, margin: 2}}/>
 
 
                             <Select
-                                value={addQuery.roles}
                                 sx={{margin: 2}}
                                 label="Status"
                                 name="status"
+                                value={addQuery.status}
                                 onChange={handleChangeAdd}
-                                displayEmpty
                             >
-                                <MenuItem value='draft'>Customer</MenuItem>
-                                <MenuItem value='published'>Admin</MenuItem>
+                                <MenuItem value='draft'>draft</MenuItem>
+                                <MenuItem value='published'>published</MenuItem>
                             </Select>
 
                             <div className="w-screen">
@@ -320,7 +327,7 @@ export default function Index() {
                     <div className="flex flex-center flex-col p-10 items-center truncate">
                         <p>Are you sure?</p>
                         <div className="flex justify-center items-center ">
-                            <Button sx={{margin: 1}} variant="contained" onClick={submitDelete}>Agree</Button>
+                            <Button sx={{margin: 1}} variant="contained" onClick={submitDelete}>Yes</Button>
                             <Button sx={{margin: 1}} onClick={() => setConfirmModal(false)} autoFocus>
                                 Cancel
                             </Button>

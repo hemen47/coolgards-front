@@ -1,12 +1,14 @@
 import {useContext, useState} from "react";
-import {UserContext} from "../pages/_app";
+import {AlertContext, UserContext} from "../pages/_app";
 import Link from "next/link";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import {ax} from "../utils/axios";
 
 export default function MainMenu() {
-    const {user} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
+    const {setError, setMessage} = useContext(AlertContext)
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -16,6 +18,18 @@ export default function MainMenu() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const handleLogout = () => {
+        ax.post('/users/logout').then((res) => {
+            setMessage(res.data.message);
+            setUser('');
+        }).catch((e) => {
+            setError(e.response?.data?.message || e.message)
+            localStorage.removeItem('authenticated')
+        })
+        setAnchorEl(null);
+
+    }
 
     return (
         <div className="flex glass fixed top-3 left-8 right-8 p-4 h-12">
@@ -39,8 +53,7 @@ export default function MainMenu() {
                 >
                     {user.roles.includes('admin')? <Link onClick={handleClose} href='/panel'>Dashboard</Link> : ""}
                     <Link onClick={handleClose} href='/profile'>Profile</Link>
-                    <Link onClick={handleClose} href='/'>My account</Link>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                    <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </Menu></> : <Link href='/login'>login</Link>}
         </div>
     )

@@ -30,7 +30,7 @@ export default function Login() {
             localStorage.setItem('authenticated', res.data.user._id)
             router.push('/')
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
 
     };

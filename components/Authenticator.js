@@ -12,7 +12,7 @@ export default function Authenticator() {
                 ax.get('/users/me').then((res) => {
                     setUser(res.data)
                 }).catch((e) => {
-                    setError(e.response.data.message)
+                    setError(e.response?.data?.message || e.message)
                     localStorage.removeItem('authenticated')
                 })
             }

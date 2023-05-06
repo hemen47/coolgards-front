@@ -1,9 +1,9 @@
-.not-hovered {
+.released {
   transform: scale(1);
-  transition: all .3s ease-out;
+  transition: transform .3s ease-out;
 }
 .hovered {
   transform: scale(1.05);
   box-shadow: -4px 10px 28px 5px rgba(0,0,0,0.2);
-  transition: all .3s ease-out;
+  transition: transform .3s ease-out;
 }

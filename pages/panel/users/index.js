@@ -56,7 +56,7 @@ export default function Index() {
             setUsers(res.data);
             setSelectedRow(res.data.data[0])
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -95,7 +95,7 @@ export default function Index() {
             setMessage(res.data.message)
             setConfirmModal(false);
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -110,7 +110,7 @@ export default function Index() {
             setMessage(res.data.message)
             cancelAdd();
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -124,7 +124,7 @@ export default function Index() {
             cancelAdd();
             setMessage(res.data.message)
         }).catch(e => {
-            setError(e.response.data.message)
+            setError(e.response?.data?.message || e.message)
         })
     }
 
@@ -233,7 +233,7 @@ export default function Index() {
                     <div className="flex flex-center flex-col p-10 items-center truncate">
                         <p>Are you sure?</p>
                         <div className="flex justify-center items-center ">
-                            <Button sx={{margin: 1}} variant="contained" onClick={submitDelete}>Agree</Button>
+                            <Button sx={{margin: 1}} variant="contained" onClick={submitDelete}>Yes</Button>
                             <Button sx={{margin: 1}} onClick={() => setConfirmModal(false)} autoFocus>
                                 Cancel
                             </Button>
