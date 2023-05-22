@@ -146,6 +146,8 @@ export default function Index() {
                                sx={{width: 300}}/>
 
                     <Select
+                        sx={{marginRight: "17rem"}}
+                        variant="standard"
                         value={searchQuery.roles}
                         label="Role"
                         name="roles"
@@ -205,8 +207,9 @@ export default function Index() {
                                        onChange={handleChangeAdd}
                                        sx={{width: 300, margin: 2}}/>
                             <Select
+                                variant="standard"
                                 value={addQuery.roles}
-                                sx={{margin: 2}}
+                                sx={{margin: 4}}
                                 label="Role"
                                 name="roles"
                                 onChange={handleChangeAdd}

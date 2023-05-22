@@ -8,7 +8,8 @@ import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 import "filepond/dist/filepond.min.css";
-import Masonry from "react-responsive-masonry";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
+
 import styles from "./Uploader.module.scss";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -92,7 +93,7 @@ export default function Uploader({ onSelect, onClose }) {
             files={files}
             onupdatefiles={setFiles}
             allowMultiple={true}
-            maxFiles={3}
+            maxFiles={20}
             acceptedFileTypes={["image/*"]}
             server={serverConfigs}
             name="files"
@@ -134,31 +135,39 @@ export default function Uploader({ onSelect, onClose }) {
         </Dialog>
 
         <div>
-          <Masonry columnsCount={5} gutter="15px">
-            {downloadedFiles.data.map((pic) => (
-              <img
-                onClick={() => handleSelect(pic)}
-                id={pic._id}
-                className={
-                  hovered === pic._id ? styles.hovered : styles.released
-                }
-                onMouseOver={() => setHovered(pic._id)}
-                onMouseLeave={() => setHovered("")}
-                alt={pic.name}
-                key={pic._id}
-                src={pic.path}
-                style={
-                  selectedImage?._id === pic._id
-                    ? {
-                        width: "100%",
-                        display: "block",
-                        border: "dashed 3px #003eff",
-                      }
-                    : { width: "100%", display: "block" }
-                }
-              />
-            ))}
-          </Masonry>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3 }}
+          >
+            <Masonry columnsCount={3} gutter="20px">
+              {downloadedFiles.data.map((pic) => (
+                <img
+                  onClick={() => handleSelect(pic)}
+                  onDoubleClick={() => {
+                    handleSelect(pic);
+                    onSelect(selectedImage);
+                  }}
+                  id={pic._id}
+                  className={
+                    hovered === pic._id ? styles.hovered : styles.released
+                  }
+                  onMouseOver={() => setHovered(pic._id)}
+                  onMouseLeave={() => setHovered("")}
+                  alt={pic.name}
+                  key={pic._id}
+                  src={pic.path}
+                  style={
+                    selectedImage?._id === pic._id
+                      ? {
+                          width: "100%",
+                          display: "block",
+                          border: "dashed 3px #003eff",
+                        }
+                      : { width: "100%", display: "block" }
+                  }
+                />
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
         </div>
       </div>
     </div>
