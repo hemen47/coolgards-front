@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { AlertContext } from "../../_app";
 import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
-import Autocomplete from "@mui/material/Autocomplete";
+import excerpts from "excerpts";
 import "react-quill/dist/quill.snow.css";
 import { modules, toolbarOptions } from "../../../utils/quilOptions";
 import dynamic from "next/dynamic";
@@ -251,20 +251,19 @@ export default function Index() {
         </div>
 
         <div className="mt-5 flex flex-wrap justify-evenly">
-
           <InputTags
-              onChange={(e) => setSearchQuery({ ...searchQuery, tags: e })}
-              value={searchQuery.tags}
+            onChange={(e) => setSearchQuery({ ...searchQuery, tags: e })}
+            value={searchQuery.tags}
           />
 
           <Select
-              sx={{marginRight: "17rem"}}
-              variant="standard"
-              value={searchQuery.status}
-              label="Status"
-              name="status"
-              onChange={handleChangeSearch}
-              displayEmpty
+            sx={{ marginRight: "17rem", marginBottom: "1rem" }}
+            variant="standard"
+            value={searchQuery.status}
+            label="Status"
+            name="status"
+            onChange={handleChangeSearch}
+            displayEmpty
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="published">published</MenuItem>
@@ -346,9 +345,15 @@ export default function Index() {
           selection={selectedRow}
           onSelectionChange={(row) => setSelectedRow(row)}
         >
-          <GridColumn field="title" title="title" align="center" width="20%" />
           <GridColumn
-            field="content"
+              render={(row) => {
+                return <p>{excerpts(row.row.title, { words: 3 })}</p>;
+              }}
+              title="title" align="center" width="30%" />
+          <GridColumn
+            render={(row) => {
+              return <p>{excerpts(row.row.content, { words: 5 })}</p>;
+            }}
             title="content"
             align="center"
             width="30%"
@@ -357,7 +362,7 @@ export default function Index() {
             field="tags"
             title="tags"
             align="center"
-            width="30%"
+            width="25%"
             render={({ row }) => (
               <>
                 {row.tags.map((tag) => {
@@ -377,18 +382,12 @@ export default function Index() {
             field="status"
             title="status"
             align="center"
-            width="20%"
-          />
-          <GridColumn
-            field="status"
-            title="status"
-            align="center"
-            width="20%"
+            width="10%"
           />
           <GridColumn
             title="url"
             align="center"
-            width="10%"
+            width="5%"
             render={({ row }) => (
               <Link href={"/blog/" + row.slug} target="_blank">
                 <InsertLinkOutlinedIcon className="cursor-pointer" />
@@ -419,7 +418,7 @@ export default function Index() {
               />
 
               <Select
-                sx={{ margin: 2 }}
+                sx={{ margin: "2rem" }}
                 label="Status"
                 name="status"
                 variant="standard"

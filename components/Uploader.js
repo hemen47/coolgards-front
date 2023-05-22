@@ -85,7 +85,7 @@ export default function Uploader({ onSelect, onClose }) {
   };
 
   return (
-    <div className="m-20">
+    <div >
       <div className="pt-10">
         <div>
           <FilePond
