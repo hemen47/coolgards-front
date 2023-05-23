@@ -3,11 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { AlertContext, UserContext } from "../_app";
 import { useRouter } from "next/router";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import styles from "./blog.module.scss";
+import styles from "./store.module.scss";
 import Link from 'next/link'
 
 
-export default function Blog({ data, error }) {
+export default function Store({ data, error }) {
   const router = useRouter();
   const { setError, setMessage } = useContext(AlertContext);
   const [hovered, setHovered] = useState("");
@@ -26,7 +26,7 @@ export default function Blog({ data, error }) {
         <Masonry columnsCount={5} gutter="20px">
           {data.data?.map((item) => {
             return (
-              <Link key={item._id} className={styles.card} href={'/blog/'+item.slug}>
+              <Link key={item._id} className={styles.card} href={'/store/'+item.slug}>
                 <img
                   src={item.imageUrl}
                   alt={item.title}
@@ -52,7 +52,7 @@ export default function Blog({ data, error }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}posts`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}products`);
     const data = await res.json();
     return { props: { data: data } };
   } catch (err) {

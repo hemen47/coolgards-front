@@ -1,11 +1,13 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import { AlertContext } from "../_app";
-import styles from "./post.module.scss";
+import { AlertContext, UserContext } from "../_app";
+import { useRouter } from "next/router";
+import styles from "./product.module.scss";
 import formatDistance from "date-fns/formatDistance";
 import parse from "html-react-parser";
 
-export default function Post({ data, error }) {
+export default function Product({ data, error }) {
+  const router = useRouter();
   const { setError } = useContext(AlertContext);
 
   if (error) {
@@ -46,7 +48,7 @@ export default function Post({ data, error }) {
 export async function getServerSideProps(context) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}posts/${context.params.slug}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}products/${context.params.slug}`
     );
     const data = await res.json();
     return { props: { data } };

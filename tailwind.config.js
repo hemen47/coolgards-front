@@ -15,6 +15,9 @@ module.exports = {
         '100': '28rem',
         '128': '32rem',
         '144': '36rem',
+      },
+      colors: {
+        logo: '#00a2ea'
       }
     },
   },

@@ -1,0 +1,25 @@
+.container {
+  margin: 5rem;
+}
+
+.card {
+  overflow: hidden;
+  border-radius: 1rem;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+}
+
+.default {
+  transition: transform .3s ease-in-out;
+  object-fit: cover;
+  width: 100%;
+}
+.released {
+  @extend .default;
+  transform: scale(1.05);
+}
+.hovered {
+  @extend .default;
+  transform: scale(1.08);
+}

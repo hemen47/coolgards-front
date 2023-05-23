@@ -25,6 +25,7 @@ import Link from "next/link";
 import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 import { useRouter } from "next/router";
 import InputTags from "../../../components/InputTags";
+import { InputAdornment } from "@mui/material";
 
 const ReactQuill = dynamic(
   async () => {
@@ -80,6 +81,7 @@ export default function Index() {
     title: "",
     content: "",
     status: "",
+    price: "",
     tags: [],
   };
   const [searchQuery, setSearchQuery] = useState(searchQueryInitialState);
@@ -90,6 +92,7 @@ export default function Index() {
     tags: [],
     status: "published",
     slug: "",
+    price: "",
     imageUrl: "",
   };
   const [addQuery, setAddQuery] = useState(addQueryInitialState);
@@ -102,7 +105,7 @@ export default function Index() {
     page: 1,
     size: 5,
   });
-  const [posts, setPosts] = useState({
+  const [products, setProducts] = useState({
     data: [],
     total: "",
   });
@@ -112,11 +115,11 @@ export default function Index() {
 
   const search = () => {
     ax({
-      url: "/panel/posts",
+      url: "/panel/products",
       params: queryRemover({ ...searchQuery, ...pagination }),
     })
       .then((res) => {
-        setPosts(res.data);
+        setProducts(res.data);
         setSelectedRow(res.data.data[0]);
       })
       .catch((e) => {
@@ -164,7 +167,7 @@ export default function Index() {
   };
   const submitDelete = () => {
     ax({
-      url: "/panel/posts",
+      url: "/panel/products",
       method: "delete",
       data: selectedRow,
     })
@@ -180,7 +183,7 @@ export default function Index() {
 
   const submitAdd = () => {
     ax({
-      url: "/panel/posts",
+      url: "/panel/products",
       method: "post",
       data: addQuery,
     })
@@ -197,7 +200,7 @@ export default function Index() {
 
   const submitEdit = () => {
     ax({
-      url: "/panel/posts",
+      url: "/panel/products",
       method: "patch",
       data: addQuery,
     })
@@ -211,7 +214,7 @@ export default function Index() {
       });
   };
 
-  const handleSubmitPost = (mode) => {
+  const handleSubmitProduct = (mode) => {
     if (!mode) {
       submitAdd();
     } else {
@@ -232,7 +235,7 @@ export default function Index() {
     <div className="ml-56 max-[600px]:ml-20 mr-8">
       <div className="pt-10">
         <div className="flex justify-center">
-          <h1 className="font-thin	text-gray-400	">Blog Posts</h1>
+          <h1 className="font-thin	text-gray-400	">Products</h1>
         </div>
         <div className="flex flex-wrap justify-evenly">
           <TextField
@@ -260,7 +263,7 @@ export default function Index() {
           />
 
           <Select
-            sx={{ marginRight: "17rem", marginBottom: "1rem" }}
+            sx={{ marginRight: "5rem", marginBottom: "1rem" }}
             variant="standard"
             value={searchQuery.status}
             label="Status"
@@ -269,9 +272,23 @@ export default function Index() {
             displayEmpty
           >
             <MenuItem value="">All</MenuItem>
-            <MenuItem value="published">published</MenuItem>
-            <MenuItem value="draft">draft</MenuItem>
+            <MenuItem value="available">available</MenuItem>
+            <MenuItem value="sold">sold</MenuItem>
           </Select>
+
+          <TextField
+            sx={{ width: 300, marginTop: ".8rem" }}
+            value={searchQuery.price}
+            label="Price"
+            variant="standard"
+            name="price"
+            onChange={handleChangeSearch}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">$</InputAdornment>
+              ),
+            }}
+          />
         </div>
 
         <div className="flex flex-wrap justify-evenly w-144 my-4">
@@ -306,20 +323,20 @@ export default function Index() {
             Delete
           </Button>
 
-          <Link href="/blog" className="block">
+          <Link href="/store" className="block">
             <Button
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
             >
-              Go to Blog
+              Go to Store
             </Button>
           </Link>
         </div>
 
         <DataGrid
           columnResizing
-          data={posts?.data}
-          total={posts?.total}
+          data={products?.data}
+          total={products?.total}
           pageNumber={pagination.page}
           pageSize={pagination.size}
           idField="_id"
@@ -348,10 +365,13 @@ export default function Index() {
           onSelectionChange={(row) => setSelectedRow(row)}
         >
           <GridColumn
-              render={(row) => {
-                return <p>{excerpts(row.row.title, { words: 3 })}</p>;
-              }}
-              title="title" align="center" width="30%" />
+            render={(row) => {
+              return <p>{excerpts(row.row.title, { words: 3 })}</p>;
+            }}
+            title="title"
+            align="center"
+            width="30%"
+          />
           <GridColumn
             render={(row) => {
               return <p>{excerpts(row.row.content, { words: 5 })}</p>;
@@ -381,6 +401,14 @@ export default function Index() {
             )}
           />
           <GridColumn
+              render={({ row }) => (
+                  <p>{row.price} $</p>
+              )}
+              title="Price"
+              align="center"
+              width="10%"
+          />
+          <GridColumn
             field="status"
             title="status"
             align="center"
@@ -391,7 +419,7 @@ export default function Index() {
             align="center"
             width="5%"
             render={({ row }) => (
-              <Link href={"/blog/" + row.slug} target="_blank">
+              <Link href={"/store/" + row.slug} target="_blank">
                 <InsertLinkOutlinedIcon className="cursor-pointer" />
               </Link>
             )}
@@ -427,8 +455,8 @@ export default function Index() {
                 value={addQuery.status}
                 onChange={handleChangeAdd}
               >
-                <MenuItem value="draft">draft</MenuItem>
-                <MenuItem value="published">published</MenuItem>
+                <MenuItem value="available">available</MenuItem>
+                <MenuItem value="sold">sold</MenuItem>
               </Select>
 
               <MiniUploader
@@ -439,6 +467,20 @@ export default function Index() {
               <InputTags
                 onChange={(e) => setAddQuery({ ...addQuery, tags: e })}
                 value={addQuery.tags}
+              />
+
+              <TextField
+                  sx={{ width: 300, marginTop: ".8rem" }}
+                  value={addQuery.price}
+                  label="Price"
+                  variant="standard"
+                  name="price"
+                  onChange={handleChangeAdd}
+                  InputProps={{
+                    startAdornment: (
+                        <InputAdornment position="start">$</InputAdornment>
+                    ),
+                  }}
               />
 
               <div className="w-screen">
@@ -454,7 +496,7 @@ export default function Index() {
             <div className="flex justify-center items-start">
               <Button
                 sx={{ margin: 2 }}
-                onClick={() => handleSubmitPost(mode)}
+                onClick={() => handleSubmitProduct(mode)}
                 variant="contained"
                 startIcon={
                   mode ? (
@@ -464,7 +506,7 @@ export default function Index() {
                   )
                 }
               >
-                {mode ? "Edit Post" : "Add Post"}
+                {mode ? "Edit Product" : "Add Product"}
               </Button>
               <Button
                 sx={{ margin: 2 }}
