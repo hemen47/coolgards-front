@@ -1,26 +1,64 @@
 import Image from "next/image";
 import logo from "./logo.png";
 import Link from "next/link";
-import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
+import InstagramIcon from "@mui/icons-material/Instagram";
+import YouTubeIcon from "@mui/icons-material/YouTube";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import PinterestIcon from "@mui/icons-material/Pinterest";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function Footer() {
   return (
     <footer className="glass rounded-lg shadow dark:bg-gray-900 m-4">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
-
-          <div className="flex justify-start flex-1">
+          <div className="flex justify-start items-center">
             <Image src={logo} alt="coolgards logo" width={50} height={50} />
             <p className="mr-2 text-logo">CoolGards</p>
           </div>
 
-          <div>
-            <p className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">feel free to follow us on:</p>
-            <Link href="#" className="mr-4 hover:underline md:mr-6 ">
-              <FacebookOutlinedIcon/>
+          <div className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <p className="mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+              feel free to follow us on:
+            </p>
+            <Link
+              href="#"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <InstagramIcon />
+            </Link>
+            <Link
+              href="#"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <YouTubeIcon />
+            </Link>
+            <Link
+              href="#"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <FacebookIcon />
+            </Link>
+            <Link
+              href="#"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <TwitterIcon />
+            </Link>
+            <Link
+              href="#"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <PinterestIcon />
+            </Link>
+            <Link
+              href="#"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <LinkedInIcon />
             </Link>
           </div>
-
 
           <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
             <li>
@@ -28,6 +66,12 @@ export default function Footer() {
                 Home
               </Link>
             </li>
+            <li>
+              <Link href="/profile" className="mr-4 hover:underline md:mr-6 ">
+                Profile
+              </Link>
+            </li>
+
             <li>
               <Link href="/blog" className="mr-4 hover:underline md:mr-6">
                 Blog
@@ -44,8 +88,6 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-
-
         </div>
 
         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />

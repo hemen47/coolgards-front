@@ -19,9 +19,11 @@
   justify-content: space-evenly;
 }
 
-.slider {
+.sliderContainer {
   border-radius: 4px;
   margin: 2rem;
+  overflow: hidden;
+  max-width: 350px
 }
 
 .headerDetails {
@@ -29,6 +31,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.title {
+  font-weight: 200;
+  font-size: 2rem;
+  margin: 2rem;
+}
+
+.price {
+  font-weight: 100;
+  font-size: 2rem;
+  margin: .5rem;
 }
 
 .content {

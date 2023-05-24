@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { AlertContext, UserContext } from "../pages/_app";
+import {AlertContext, CartContext, UserContext} from "../pages/_app";
 import Link from "next/link";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -19,6 +19,7 @@ import { useRouter } from "next/router";
 export default function MainMenu() {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
+  const { cart, setCart } = useContext(CartContext);
   const { setError, setMessage } = useContext(AlertContext);
   const [showHam, setShowHam] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -136,9 +137,12 @@ export default function MainMenu() {
       </div>
 
       <div className="flex justify-end mr-8 flex-1">
-        <Badge badgeContent={4} color="primary">
-          <ShoppingCartOutlinedIcon color="action" />
-        </Badge>
+          <Link href="/cart">
+              <Badge badgeContent={cart?.length} color="primary">
+                  <ShoppingCartOutlinedIcon color="action" />
+              </Badge>
+          </Link>
+
       </div>
     </nav>
   );

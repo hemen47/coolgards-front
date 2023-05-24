@@ -4,6 +4,7 @@ import { AlertContext } from "../_app";
 import styles from "./store.module.scss";
 import Link from "next/link";
 import Button from "@mui/material/Button";
+import AddButton from "../../components/AddButton";
 
 export default function Store({ data, error }) {
   const { setError } = useContext(AlertContext);
@@ -35,9 +36,7 @@ export default function Store({ data, error }) {
                     <h1 className={styles.title}>{item.title}</h1>
                     <p className={styles.price}>{item.price} $</p>
                     <div className={styles.buttonContainer}>
-                      <Button fullWidth variant="contained" sx={{ margin: ".5rem", height: "50px" }}>
-                        Add to Cart
-                      </Button>
+                      <AddButton data={item}/>
                       <Link href={"/store/" + item.slug}>
                         <Button fullWidth variant="standard" sx={{ margin: ".5rem", fontSize: ".8rem", height: "50px" }}>
                           read more

@@ -5,11 +5,10 @@ import { useRouter } from "next/router";
 import styles from "./product.module.scss";
 import ImageGallery from 'react-image-gallery';
 import parse from "html-react-parser";
-import "react-image-gallery/styles/scss/image-gallery.scss";
-
 import Button from "@mui/material/Button";
 import Link from "next/link";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
+import AddButton from "../../components/AddButton";
 
 export default function Product({ data, error }) {
   const router = useRouter();
@@ -25,12 +24,6 @@ export default function Product({ data, error }) {
     })
   }
 
-  useEffect(() => {
-    return () => {
-      console.log('data', data)
-    };
-  }, [data]);
-
 
   if (error) {
     setError(error);
@@ -40,14 +33,13 @@ export default function Product({ data, error }) {
     <div className={styles.container}>
       <article>
         <div className={styles.header}>
-          <div className={styles.slider}>
-            <ImageGallery items={sliderItemsGenerator(data?.data?.imageUrls)}/>
+          <div className={styles.sliderContainer}>
+            <ImageGallery className={styles.slider} showPlayButton={false} items={sliderItemsGenerator(data?.data?.imageUrls)}/>
           </div>
           <div className={styles.headerDetails}>
-            <h1>{data?.data?.title}</h1>
-            <Button fullWidth variant="contained" sx={{ margin: ".5rem", height: "50px" }}>
-              Add to Cart
-            </Button>
+            <h1 className={styles.title}>{data?.data?.title}</h1>
+            <p className={styles.price}>{data?.data?.price} $</p>
+            <AddButton data={data?.data}/>
           </div>
 
         </div>

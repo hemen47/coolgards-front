@@ -120,7 +120,7 @@ export default function Store({ data, error }) {
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
                 I'm Leila, and I manage an excellent team at Coolgards.
                 {/* eslint-disable-next-line react/no-unescaped-entities */}
-                I'm enthusiastic about promoting products and services for your
+                I'm enthusiastic about promoting products and services for our
                 business..
               </p>
 
