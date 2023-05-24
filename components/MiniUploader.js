@@ -1,20 +1,18 @@
+import React, {useState} from "react";
 import Image from "next/image";
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
-export const MiniUploader = ({ onClick, selectedImageUrl }) => {
+export const MiniUploader = ({onDelete, selectedImageUrl }) => {
+  const [hovered, setHovered] = useState(false)
   return (
     <div
-      onClick={onClick}
-      className="p-10 m-5 bg-white drop-shadow-xl rounded-md w-96 relative h-56"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={() => onDelete(selectedImageUrl)}
+      className="p-2 m-5 bg-white drop-shadow-lg rounded-md w-36 relative h-36 relative cursor-pointer"
     >
-      {selectedImageUrl ? (
-        <Image src={selectedImageUrl} alt="main cover image" className="p-5 rounded-[2rem]" fill={true}/>
-      ) : (
-        <>
-          <div className="p-10 border-dashed border-1 border-indigo-400 rounded-md ">
-            <p>click to upload cover image</p>
-          </div>
-        </>
-      )}
+      <Image src={selectedImageUrl} alt="main cover image" className="p-5 rounded-[2rem]" style={hovered? { opacity: .3} : {}} fill={true}/>
+      {hovered && <ClearOutlinedIcon className="absolute top-5 left-5 " sx={{ fontSize: 100, color: '#480000', fontWeight: '100' }}/>}
     </div>
   );
 };

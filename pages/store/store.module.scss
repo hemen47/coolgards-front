@@ -1,25 +1,72 @@
+.mainContainer {
+  margin-top: 6rem;
+}
+.mainTitle {
+  font-weight: 200;
+  font-size: 2.5rem;
+  color: #3f3f3f;
+  text-align: center;
+}
+
+
 .container {
-  margin: 5rem;
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
 .card {
   overflow: hidden;
-  border-radius: 1rem;
   position: relative;
-  cursor: pointer;
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px -1px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
+  width: 320px;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  margin: 1.5rem;
+  align-items: center;
 }
 
-.default {
-  transition: transform .3s ease-in-out;
+.image {
   object-fit: cover;
-  width: 100%;
+  width: 300px;
 }
-.released {
-  @extend .default;
-  transform: scale(1.05);
+
+.hoveredCard {
+  @extend .card;
+  transform: scale(1.01);
+  box-shadow: 2px 5px 14px -1px rgba(0, 0, 0, 0.41);
 }
-.hovered {
-  @extend .default;
-  transform: scale(1.08);
+
+.details {
+  display: flex;
+  width: 300px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 200;
+  margin: 0.5rem;
+}
+
+.price {
+  font-size: 2.2rem;
+  font-weight: 100;
+  margin: 0.8rem;
+}
+
+.buttonContainer {
+  display: flex;
+  height: 50px;
+  margin-bottom: 1rem;
 }

@@ -2,14 +2,14 @@
   flex: 1 1 0;
   margin-left: 1rem;
   cursor: pointer;
-  @media screen and (min-width: 600px) {
+  @media screen and (min-width: 650px) {
     display: none;
   }
 }
 .menu {
   display: flex;
   flex: 1 1 0;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     display: none;
   }
 }
@@ -17,7 +17,7 @@
 .menu2 {
   display: flex;
   flex: 1 1 0;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 650px) {
     flex-direction: column;
     background-color: #ffffff;
     width: 200px;

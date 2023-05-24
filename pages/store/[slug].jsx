@@ -3,12 +3,34 @@ import { useContext, useEffect, useState } from "react";
 import { AlertContext, UserContext } from "../_app";
 import { useRouter } from "next/router";
 import styles from "./product.module.scss";
-import formatDistance from "date-fns/formatDistance";
+import ImageGallery from 'react-image-gallery';
 import parse from "html-react-parser";
+import "react-image-gallery/styles/scss/image-gallery.scss";
+
+import Button from "@mui/material/Button";
+import Link from "next/link";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 
 export default function Product({ data, error }) {
   const router = useRouter();
   const { setError } = useContext(AlertContext);
+
+  const sliderItemsGenerator = (urls) => {
+    return urls.map((url) =>{
+      return {
+        original: url,
+        thumbnail: url,
+        thumbnailClass: styles.shadow
+      }
+    })
+  }
+
+  useEffect(() => {
+    return () => {
+      console.log('data', data)
+    };
+  }, [data]);
+
 
   if (error) {
     setError(error);
@@ -18,19 +40,19 @@ export default function Product({ data, error }) {
     <div className={styles.container}>
       <article>
         <div className={styles.header}>
-          <img
-            className={styles.image}
-            src={data?.data.imageUrl}
-            alt={data?.data.title}
-          />
-          <div className={styles.titleContainer}>
-            <h1 className={styles.title}>{data?.data.title}</h1>
-            <h2 className={styles.writer}>by {data?.data.writerName}</h2>
-            <p className={styles.date}>
-              {formatDistance(new Date(data?.data.createdAt), new Date())} ago
-            </p>
+          <div className={styles.slider}>
+            <ImageGallery items={sliderItemsGenerator(data?.data?.imageUrls)}/>
           </div>
+          <div className={styles.headerDetails}>
+            <h1>{data?.data?.title}</h1>
+            <Button fullWidth variant="contained" sx={{ margin: ".5rem", height: "50px" }}>
+              Add to Cart
+            </Button>
+          </div>
+
         </div>
+
+
 
         <div className={styles.content}>
           <div className="m-8">{parse(data?.data.content)}</div>
@@ -39,6 +61,18 @@ export default function Product({ data, error }) {
           {data?.data.tags.map((tag) => {
             return <p className={styles.tags} key={tag}> {tag}</p>;
           })}
+        </div>
+        <div>
+          <Link href="/store">
+            <Button
+                fullWidth
+                variant="standard"
+                sx={{ margin: "1rem", fontSize: "1.5rem" }}
+            >
+              <ReplyOutlinedIcon sx={{ marginRight: "1rem" }} />
+              Go Back to Store
+            </Button>
+          </Link>
         </div>
       </article>
     </div>

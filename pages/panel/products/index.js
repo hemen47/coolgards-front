@@ -23,9 +23,9 @@ import { MiniUploader } from "../../../components/MiniUploader";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import Link from "next/link";
 import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
-import { useRouter } from "next/router";
 import InputTags from "../../../components/InputTags";
 import { InputAdornment } from "@mui/material";
+import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 
 const ReactQuill = dynamic(
   async () => {
@@ -39,7 +39,6 @@ const ReactQuill = dynamic(
 );
 
 export default function Index() {
-  const router = useRouter();
   const { setError, setMessage } = useContext(AlertContext);
   const [selectedRow, setSelectedRow] = useState(null);
   const [modal, setModal] = useState(false);
@@ -49,7 +48,7 @@ export default function Index() {
   const [insertMode, setInsertMode] = useState(false);
   const quillRef = useRef();
 
-  const imageHandler = (quill) => {
+  const imageHandler = () => {
     setInsertMode(true);
     setUploaderModal(true);
   };
@@ -65,7 +64,10 @@ export default function Index() {
       handleCloseUploader();
       setInsertMode(false);
     } else {
-      setAddQuery({ ...addQuery, imageUrl: picObject.path });
+      setAddQuery({
+        ...addQuery,
+        imageUrls: [...addQuery.imageUrls, picObject.path],
+      });
       setUploaderModal(false);
     }
   };
@@ -90,16 +92,12 @@ export default function Index() {
     title: "",
     content: "",
     tags: [],
-    status: "published",
+    status: "available",
     slug: "",
     price: "",
-    imageUrl: "",
+    imageUrls: [],
   };
   const [addQuery, setAddQuery] = useState(addQueryInitialState);
-
-  useEffect(() => {}, [addQuery]);
-
-  useEffect(() => {}, [selectedRow]);
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -263,6 +261,7 @@ export default function Index() {
           />
 
           <Select
+            defaultValue = ""
             sx={{ marginRight: "5rem", marginBottom: "1rem" }}
             variant="standard"
             value={searchQuery.status}
@@ -401,12 +400,10 @@ export default function Index() {
             )}
           />
           <GridColumn
-              render={({ row }) => (
-                  <p>{row.price} $</p>
-              )}
-              title="Price"
-              align="center"
-              width="10%"
+            render={({ row }) => <p>{row.price} $</p>}
+            title="Price"
+            align="center"
+            width="10%"
           />
           <GridColumn
             field="status"
@@ -449,6 +446,7 @@ export default function Index() {
 
               <Select
                 sx={{ margin: "2rem" }}
+                defaultValue = ""
                 label="Status"
                 name="status"
                 variant="standard"
@@ -459,29 +457,49 @@ export default function Index() {
                 <MenuItem value="sold">sold</MenuItem>
               </Select>
 
-              <MiniUploader
-                onClick={() => setUploaderModal(true)}
-                selectedImageUrl={addQuery.imageUrl}
-              />
-
               <InputTags
                 onChange={(e) => setAddQuery({ ...addQuery, tags: e })}
                 value={addQuery.tags}
               />
 
               <TextField
-                  sx={{ width: 300, marginTop: ".8rem" }}
-                  value={addQuery.price}
-                  label="Price"
-                  variant="standard"
-                  name="price"
-                  onChange={handleChangeAdd}
-                  InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">$</InputAdornment>
-                    ),
-                  }}
+                sx={{ width: 300, marginTop: ".8rem" }}
+                value={addQuery.price}
+                label="Price"
+                variant="standard"
+                name="price"
+                onChange={handleChangeAdd}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">$</InputAdornment>
+                  ),
+                }}
               />
+
+              <div className="flex flex-wrap align-middle">
+                {addQuery.imageUrls.map((imageUrl, i) => {
+                  return (
+                    <MiniUploader
+                      key={i}
+                      selectedImageUrl={imageUrl}
+                      onDelete={() =>
+                        setAddQuery((prevState) => ({...prevState,
+                          imageUrls: prevState.imageUrls.filter((val, j) => {
+                            return j !== i;
+                          }),
+                        }))
+                      }
+                    />
+                  );
+                })}
+                <Button
+                  onClick={() => setUploaderModal(true)}
+                  variant="standard"
+                  startIcon={<AddPhotoAlternateOutlinedIcon />}
+                >
+                  Add Cover Image
+                </Button>
+              </div>
 
               <div className="w-screen">
                 <ReactQuill

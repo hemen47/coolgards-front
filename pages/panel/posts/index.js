@@ -23,8 +23,8 @@ import { MiniUploader } from "../../../components/MiniUploader";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import Link from "next/link";
 import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
-import { useRouter } from "next/router";
 import InputTags from "../../../components/InputTags";
+import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 
 const ReactQuill = dynamic(
   async () => {
@@ -38,7 +38,6 @@ const ReactQuill = dynamic(
 );
 
 export default function Index() {
-  const router = useRouter();
   const { setError, setMessage } = useContext(AlertContext);
   const [selectedRow, setSelectedRow] = useState(null);
   const [modal, setModal] = useState(false);
@@ -48,7 +47,7 @@ export default function Index() {
   const [insertMode, setInsertMode] = useState(false);
   const quillRef = useRef();
 
-  const imageHandler = (quill) => {
+  const imageHandler = () => {
     setInsertMode(true);
     setUploaderModal(true);
   };
@@ -93,10 +92,6 @@ export default function Index() {
     imageUrl: "",
   };
   const [addQuery, setAddQuery] = useState(addQueryInitialState);
-
-  useEffect(() => {}, [addQuery]);
-
-  useEffect(() => {}, [selectedRow]);
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -262,6 +257,7 @@ export default function Index() {
           <Select
             sx={{ marginRight: "17rem", marginBottom: "1rem" }}
             variant="standard"
+            defaultValue = ""
             value={searchQuery.status}
             label="Status"
             name="status"
@@ -348,10 +344,13 @@ export default function Index() {
           onSelectionChange={(row) => setSelectedRow(row)}
         >
           <GridColumn
-              render={(row) => {
-                return <p>{excerpts(row.row.title, { words: 3 })}</p>;
-              }}
-              title="title" align="center" width="30%" />
+            render={(row) => {
+              return <p>{excerpts(row.row.title, { words: 3 })}</p>;
+            }}
+            title="title"
+            align="center"
+            width="30%"
+          />
           <GridColumn
             render={(row) => {
               return <p>{excerpts(row.row.content, { words: 5 })}</p>;
@@ -420,6 +419,7 @@ export default function Index() {
               />
 
               <Select
+                defaultValue = ""
                 sx={{ margin: "2rem" }}
                 label="Status"
                 name="status"
@@ -431,15 +431,32 @@ export default function Index() {
                 <MenuItem value="published">published</MenuItem>
               </Select>
 
-              <MiniUploader
-                onClick={() => setUploaderModal(true)}
-                selectedImageUrl={addQuery.imageUrl}
-              />
-
               <InputTags
                 onChange={(e) => setAddQuery({ ...addQuery, tags: e })}
                 value={addQuery.tags}
               />
+
+              <div className="flex flex-wrap align-middle">
+                {addQuery.imageUrl ? (
+                  <MiniUploader
+                    selectedImageUrl={addQuery.imageUrl}
+                    onDelete={() =>
+                      setAddQuery((prevState) => ({
+                        ...prevState,
+                        imageUrl: "",
+                      }))
+                    }
+                  />
+                ) : (
+                  <Button
+                    onClick={() => setUploaderModal(true)}
+                    variant="standard"
+                    startIcon={<AddPhotoAlternateOutlinedIcon />}
+                  >
+                    Add Cover Image
+                  </Button>
+                )}
+              </div>
 
               <div className="w-screen">
                 <ReactQuill

@@ -1,5 +1,13 @@
 .container {
-  margin: 5rem;
+  margin: 6rem;
+}
+
+.mainTitle {
+  font-weight: 200;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #3f3f3f;
+  text-align: center;
 }
 
 .card {
@@ -7,7 +15,7 @@
   border-radius: 1rem;
   position: relative;
   cursor: pointer;
-  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  box-shadow: 10px 11px 16px -13px rgba(0,0,0,0.75);
 }
 
 .default {
@@ -22,4 +30,29 @@
 .hovered {
   @extend .default;
   transform: scale(1.08);
+}
+
+.titleContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+}
+
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin: 0.5rem;
+  padding: 1rem;
+  background-color: rgba(250, 250, 250, .8);
+  border-radius: 5px;
+}
+
+.read {
+  position: absolute;
+  bottom: 17px;
+  right: 32px;
+  font-size: .8rem;
 }

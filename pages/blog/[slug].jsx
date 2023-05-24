@@ -4,6 +4,9 @@ import { AlertContext } from "../_app";
 import styles from "./post.module.scss";
 import formatDistance from "date-fns/formatDistance";
 import parse from "html-react-parser";
+import Link from "next/link";
+import Button from "@mui/material/Button";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 
 export default function Post({ data, error }) {
   const { setError } = useContext(AlertContext);
@@ -37,6 +40,18 @@ export default function Post({ data, error }) {
           {data?.data.tags.map((tag) => {
             return <p className={styles.tags} key={tag}> {tag}</p>;
           })}
+        </div>
+        <div>
+          <Link href="/blog">
+            <Button
+                fullWidth
+                variant="standard"
+                sx={{ margin: "1rem", fontSize: "1.5rem" }}
+            >
+              <ReplyOutlinedIcon sx={{ marginRight: "1rem" }} />
+              Go Back to Blog
+            </Button>
+          </Link>
         </div>
       </article>
     </div>

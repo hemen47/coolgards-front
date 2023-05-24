@@ -6,6 +6,8 @@ import Authenticator from "../components/Authenticator";
 import PanelSideBar from "../components/PanelSideBar";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Footer from "../components/Footer";
+import Head from "next/head";
 
 
 
@@ -37,6 +39,11 @@ function MyApp({Component, pageProps}) {
     return <>
         <AlertContext.Provider value={{setMessage, setError}}>
             <UserContext.Provider value={{user, setUser}}>
+                <Head>
+                    <title>Coolgards</title>
+                    <meta name="description" content="Welcome to Coolgards"/>
+                    <link rel="icon" href="/favicon.ico"/>
+                </Head>
                 <Authenticator/>
                 <Snackbar open={!!error} autoHideDuration={6000} onClose={handleCloseAlert}>
                     <Alert onClose={handleCloseAlert} variant="filled"
@@ -46,9 +53,11 @@ function MyApp({Component, pageProps}) {
                     <Alert onClose={handleCloseAlert} variant="filled"
                            severity={"success"}>{message}</Alert>
                 </Snackbar>
+
                 {renderMainMenu()}
                 {renderPanelSideBar()}
                 {(router.pathname.includes('/panel')) && !user.roles?.includes('admin') ? "Please Login As Admin" : <Component {...pageProps} />  }
+                <Footer/>
             </UserContext.Provider>
         </AlertContext.Provider>
 

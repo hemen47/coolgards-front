@@ -65,6 +65,7 @@
 .tagContainer {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .tags {
@@ -73,4 +74,5 @@
   background-color: #8c8c8c;
   border-radius: .5rem;
   margin: .5rem;
+  cursor: pointer;
 }
