@@ -10,57 +10,54 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 
 export default function Footer() {
   return (
-    <footer className="glass rounded-lg shadow dark:bg-gray-900 m-4">
+    <footer className="glass rounded-lg shadow ">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <div className="flex justify-start items-center">
+          <div className="flex-1 flex justify-start items-center">
             <Image src={logo} alt="coolgards logo" width={50} height={50} />
             <p className="mr-2 text-logo">CoolGards</p>
           </div>
 
-          <div className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-            <p className="mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-              feel free to follow us on:
-            </p>
+          <div className="justify-center flex-1  flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 ">
             <Link
               href="#"
-              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 "
             >
               <InstagramIcon />
             </Link>
             <Link
               href="#"
-              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 "
             >
               <YouTubeIcon />
             </Link>
             <Link
               href="#"
-              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 "
             >
               <FacebookIcon />
             </Link>
             <Link
               href="#"
-              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 "
             >
               <TwitterIcon />
             </Link>
             <Link
               href="#"
-              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 "
             >
               <PinterestIcon />
             </Link>
             <Link
               href="#"
-              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+              className="mt-4 ml-2 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 "
             >
               <LinkedInIcon />
             </Link>
           </div>
 
-          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <ul className="flex-1 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 ">
             <li>
               <Link href="/" className="mr-4 hover:underline md:mr-6 ">
                 Home
@@ -83,16 +80,21 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/about" className="hover:underline">
+              <Link href="/about" className="mr-4 hover:underline md:mr-6 ">
                 About
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="mr-4 hover:underline md:mr-6 ">
+                Contact Us
               </Link>
             </li>
           </ul>
         </div>
 
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-          © 2023{" "}
+        <hr className="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
+        <span className="block text-sm text-gray-500 sm:text-center">
+          © 2022{" "}
           <a href="https://flowbite.com/" className="hover:underline">
             CoolGards™
           </a>

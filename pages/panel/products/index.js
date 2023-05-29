@@ -113,7 +113,7 @@ export default function Index() {
 
   const search = () => {
     ax({
-      url: "/panel/products",
+      url: "/api/panel/products",
       params: queryRemover({ ...searchQuery, ...pagination }),
     })
       .then((res) => {
@@ -165,7 +165,7 @@ export default function Index() {
   };
   const submitDelete = () => {
     ax({
-      url: "/panel/products",
+      url: "/api/panel/products",
       method: "delete",
       data: selectedRow,
     })
@@ -181,7 +181,7 @@ export default function Index() {
 
   const submitAdd = () => {
     ax({
-      url: "/panel/products",
+      url: "/api/panel/products",
       method: "post",
       data: addQuery,
     })
@@ -198,7 +198,7 @@ export default function Index() {
 
   const submitEdit = () => {
     ax({
-      url: "/panel/products",
+      url: "/api/panel/products",
       method: "patch",
       data: addQuery,
     })

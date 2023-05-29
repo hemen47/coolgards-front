@@ -8,7 +8,7 @@ export default function Index() {
         <div className="flex justify-center">
             <h1 className="font-thin	text-gray-400	">Media Files</h1>
         </div>
-      <Uploader/>
+      <Uploader mediaMode/>
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function MainMenu() {
   };
 
   const handleLogout = () => {
-    ax.post("/users/logout")
+    ax.post("/api/users/logout")
       .then((res) => {
         setMessage(res.data.message);
         setUser("");

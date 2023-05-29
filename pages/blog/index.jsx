@@ -1,15 +1,12 @@
 import * as React from "react";
 import { useContext, useState } from "react";
-import { AlertContext, UserContext } from "../_app";
-import { useRouter } from "next/router";
+import { AlertContext } from "../_app";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import styles from "./blog.module.scss";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Blog({ data, error }) {
-  const router = useRouter();
-  const { setError, setMessage } = useContext(AlertContext);
+  const { setError } = useContext(AlertContext);
   const [hovered, setHovered] = useState("");
 
   if (error) {
@@ -21,7 +18,7 @@ export default function Blog({ data, error }) {
       <h1 className={styles.mainTitle}>Welcome to our Blog</h1>
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 550: 2, 750: 3 }}>
         <Masonry columnsCount={5} gutter="20px">
-          {data.data?.map((item) => {
+          {data?.data?.map((item) => {
             return (
               <Link
                 key={item._id}
@@ -54,7 +51,7 @@ export default function Blog({ data, error }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}posts`);
+    const res = await fetch(`${process.env.BASE_URL}/api/posts`);
     const data = await res.json();
     return { props: { data: data } };
   } catch (err) {

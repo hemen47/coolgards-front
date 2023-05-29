@@ -74,7 +74,7 @@ export default function Product({ data, error }) {
 export async function getServerSideProps(context) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}products/${context.params.slug}`
+      `${process.env.BASE_URL}/products/${context.params.slug}`
     );
     const data = await res.json();
     return { props: { data } };

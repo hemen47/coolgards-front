@@ -20,7 +20,7 @@ registerPlugin(
   FilePondPluginFileValidateType
 );
 
-export default function Uploader({ onSelect, onClose }) {
+export default function Uploader({ onSelect, onClose, mediaMode = false }) {
   const { setError, setMessage } = useContext(AlertContext);
   const [hovered, setHovered] = useState("");
   const [confirmModal, setConfirmModal] = useState(false);
@@ -36,7 +36,7 @@ export default function Uploader({ onSelect, onClose }) {
 
   const search = () => {
     ax({
-      url: "/media/all",
+      url: "/api/media/all",
       params: queryRemover({}),
     })
       .then((res) => {
@@ -48,9 +48,8 @@ export default function Uploader({ onSelect, onClose }) {
       });
   };
   const serverConfigs = {
-    url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+    url: `/api/media`,
     process: {
-      url: `./media`,
       method: "POST",
       withCredentials: true,
       onload: (res) => search(),
@@ -69,7 +68,7 @@ export default function Uploader({ onSelect, onClose }) {
   const handleDeleteImage = () => {
     if (selectedImage) {
       ax({
-        url: "/media",
+        url: "/api/media",
         method: "delete",
         data: selectedImage,
       })
@@ -103,13 +102,13 @@ export default function Uploader({ onSelect, onClose }) {
         <div className="flex justify-center">
           {selectedImage && (
             <>
-              <Button onClick={() => onSelect(selectedImage)}>Select</Button>
+            {!mediaMode && <Button onClick={() => onSelect(selectedImage)}>Select</Button>}
               <Button color="error" onClick={() => setConfirmModal(true)}>
                 Delete
               </Button>
             </>
           )}
-          <Button onClick={handleCloseUploader}>Cancel</Button>
+          {!mediaMode && <Button onClick={handleCloseUploader}>Cancel</Button>}
         </div>
 
         <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>

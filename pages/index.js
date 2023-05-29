@@ -18,13 +18,13 @@ export default function Home() {
       <div className={styles.hero}>
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
           <div className="mt-5 max-w-xl text-center mx-auto">
-            <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl dark:text-gray-200">
+            <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl">
               FACILITATE YOUR RECOVERY WITH <span className="text-logo">COOLGARDS</span>
             </h1>
           </div>
 
           <div className="mt-5 max-w-3xl text-center mx-auto">
-            <p className="text-lg text-gray-600 dark:text-gray-400">
+            <p className="text-lg text-gray-600">
               Coolgards is designed to help you in your recovery by the
               intermittent flow of cold water in a suitable envelope.
             </p>
@@ -32,7 +32,7 @@ export default function Home() {
 
           <div className="text-center">
             <Link
-                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 dark:focus:ring-offset-gray-800"
+                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
                 href="/store"
             >
               Visit Our Products
@@ -46,8 +46,8 @@ export default function Home() {
                 <path
                     d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
                 />
               </svg>
             </Link>
@@ -116,7 +116,7 @@ export default function Home() {
 
             <div className="text-center">
               <Link
-                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 dark:focus:ring-offset-gray-800"
+                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
                 href="/blog"
               >
                 Visit our Blog to learn more
@@ -171,7 +171,7 @@ export default function Home() {
           <div className="mt-5 sm:mt-10 lg:mt-0 lg:col-span-5">
             <div className="space-y-6 sm:space-y-8">
               <div className="space-y-2 md:space-y-4">
-                <h2 className="font-bold text-3xl lg:text-4xl text-gray-800 dark:text-gray-200">
+                <h2 className="font-bold text-3xl lg:text-4xl text-gray-8000">
                   Collaborative tools to design user experience
                 </h2>
                 <p className="text-gray-500">
@@ -182,7 +182,7 @@ export default function Home() {
               <ul role="list" className="space-y-2 sm:space-y-4">
                 <li className="flex space-x-3">
                   <svg
-                      className="flex-shrink-0 h-6 w-6 text-blue-600 dark:text-blue-500"
+                      className="flex-shrink-0 h-6 w-6 text-blue-6000"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
@@ -207,7 +207,7 @@ export default function Home() {
 
                 <li className="flex space-x-3">
                   <svg
-                      className="flex-shrink-0 h-6 w-6 text-blue-600 dark:text-blue-500"
+                      className="flex-shrink-0 h-6 w-6 text-blue-600"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
@@ -232,7 +232,7 @@ export default function Home() {
 
                 <li className="flex space-x-3">
                   <svg
-                      className="flex-shrink-0 h-6 w-6 text-blue-600 dark:text-blue-500"
+                      className="flex-shrink-0 h-6 w-6 text-blue-600"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"

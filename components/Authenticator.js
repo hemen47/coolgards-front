@@ -9,7 +9,7 @@ export default function Authenticator() {
     useEffect(() => {
         if (localStorage.getItem('authenticated')) {
             if (!user) {
-                ax.get('/users/me').then((res) => {
+                ax.get('/api/users/me').then((res) => {
                     setUser(res.data)
                 }).catch((e) => {
                     setError(e.response?.data?.message || e.message)

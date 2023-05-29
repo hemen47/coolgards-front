@@ -55,7 +55,7 @@ export default function Store({ data, error }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}products`);
+    const res = await fetch(`${process.env.BASE_URL}/products`);
     const data = await res.json();
     return { props: { data: data } };
   } catch (err) {

@@ -20,11 +20,6 @@ function MyApp({ Component, pageProps }) {
   const [cart, setCart] = useState([]);
   const [error, setError] = useState("");
   const [message, setMessage] = useState(null);
-
-  useEffect(()=> {
-    console.log("cart", cart)
-  },[cart])
-
   useEffect(() => {
     if(localStorage.getItem("cart")) {
       setCart(JSON.parse(window.localStorage.getItem("cart")));
