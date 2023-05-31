@@ -103,18 +103,18 @@ export default function MainMenu() {
           }>home</MenuItem>
         </Link>
 
-        <Link href="/blog" onClick={() => setShowHam(false)}>
+        <Link href="/news" onClick={() => setShowHam(false)}>
           <MenuItem sx={
-              router.pathname === "/blog"
+              router.pathname === "/news"
                   ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
                   : {borderRadius: "2rem"}
-          }>blog</MenuItem>
+          }>news</MenuItem>
         </Link>
 
-        <Link href="/store" onClick={() => setShowHam(false)}>
+        <Link href="/products" onClick={() => setShowHam(false)}>
           <MenuItem
             sx={
-              router.pathname === "/store"
+              router.pathname === "/products"
                 ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
                 : {borderRadius: "2rem"}
             }
@@ -129,6 +129,13 @@ export default function MainMenu() {
                   : {borderRadius: "2rem"}
           }>about</MenuItem>
         </Link>
+          <Link href="/contact" onClick={() => setShowHam(false)}>
+              <MenuItem sx={
+                  router.pathname === "/contact"
+                      ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
+                      : {borderRadius: "2rem"}
+              }>contact</MenuItem>
+          </Link>
       </div>
 
       <div className="flex justify-center flex-1">

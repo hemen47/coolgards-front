@@ -70,12 +70,12 @@ export default function Footer() {
             </li>
 
             <li>
-              <Link href="/blog" className="mr-4 hover:underline md:mr-6">
-                Blog
+              <Link href="/news" className="mr-4 hover:underline md:mr-6">
+                News
               </Link>
             </li>
             <li>
-              <Link href="/store" className="mr-4 hover:underline md:mr-6 ">
+              <Link href="/products" className="mr-4 hover:underline md:mr-6 ">
                 Store
               </Link>
             </li>

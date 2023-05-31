@@ -42,14 +42,14 @@ export default function Post({ data, error }) {
           })}
         </div>
         <div>
-          <Link href="/blog">
+          <Link href="/news">
             <Button
                 fullWidth
                 variant="standard"
                 sx={{ margin: "1rem", fontSize: "1.5rem" }}
             >
               <ReplyOutlinedIcon sx={{ marginRight: "1rem" }} />
-              Go Back to Blog
+              Go Back to News
             </Button>
           </Link>
         </div>

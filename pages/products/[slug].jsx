@@ -1,7 +1,6 @@
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
-import { AlertContext, UserContext } from "../_app";
-import { useRouter } from "next/router";
+import { useContext} from "react";
+import { AlertContext } from "../_app";
 import styles from "./product.module.scss";
 import ImageGallery from 'react-image-gallery';
 import parse from "html-react-parser";
@@ -11,7 +10,6 @@ import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import AddButton from "../../components/AddButton";
 
 export default function Product({ data, error }) {
-  const router = useRouter();
   const { setError } = useContext(AlertContext);
 
   const sliderItemsGenerator = (urls) => {
@@ -55,7 +53,7 @@ export default function Product({ data, error }) {
           })}
         </div>
         <div>
-          <Link href="/store">
+          <Link href="/products">
             <Button
                 fullWidth
                 variant="standard"

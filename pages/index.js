@@ -16,50 +16,25 @@ export default function Home() {
     <main>
       {/*first hero start*/}
       <div className={styles.hero}>
-        <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
-          <div className="mt-5 max-w-xl text-center mx-auto">
-            <h1 className="block font-bold text-gray-800 text-4xl md:text-5xl lg:text-6xl">
-              FACILITATE YOUR RECOVERY WITH <span className="text-logo">COOLGARDS</span>
-            </h1>
-          </div>
-
-          <div className="mt-5 max-w-3xl text-center mx-auto">
-            <p className="text-lg text-gray-600">
-              Coolgards is designed to help you in your recovery by the
-              intermittent flow of cold water in a suitable envelope.
-            </p>
-          </div>
-
-          <div className="text-center">
-            <Link
-                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
-                href="/store"
-            >
-              Visit Our Products
-              <svg
-                  className="w-2.5 h-2.5"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-              >
-                <path
-                    d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                />
-              </svg>
-            </Link>
-          </div>
+        <div className={styles.heroText}>
+          <p>The <span className="text-logo">COOLGARDS</span></p>
+          <p>Cold + Compression</p>
+          <p>Therapy System</p>
+          <p className={styles.heroTextSmall}>ENGINEERED FOR THE COMEBACK</p>
         </div>
+      </div>
+      <div className={styles.heroDetails}>
+        <p>The equipment is used for postoperative and post-injury rehabilitation treatment, to alleviate inflammatory reaction, control swelling and relieve pain by applying pressure and providing cold compress treatment.
+        </p>
+        <p>The goal of creating this product was to develop a safe, effective, affordable, and easy-to-use medical device that could be deployed in almost any setting.
+        </p>
       </div>
       {/*first hero end*/}
 
       {/*slider start*/}
       <div className={styles.sliderContainer}>
         <div className={styles.details}>
-          <h2 className="m-8">
+          <h2 className="m-1">
             Pulse Cold Compression Therapy System Features:
           </h2>
           <ul>
@@ -117,9 +92,9 @@ export default function Home() {
             <div className="text-center">
               <Link
                 className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
-                href="/blog"
+                href="/news"
               >
-                Visit our Blog to learn more
+                Visit our News to learn more
                 <svg
                   className="w-2.5 h-2.5"
                   width="16"
@@ -175,89 +150,94 @@ export default function Home() {
                   Collaborative tools to design user experience
                 </h2>
                 <p className="text-gray-500">
-                  Intermittent compression has been proven to be more effective than static compression because it moves the blood more effectively, helping push the swelling out of the system. EVERCRYO is designed to combine the benefits of intermittent compression and cold therapy to enhance lymphatic function, encourage blood flow, and help stimulate tissue repair faster and better.
+                  Intermittent compression has been proven to be more effective
+                  than static compression because it moves the blood more
+                  effectively, helping push the swelling out of the system.
+                  EVERCRYO is designed to combine the benefits of intermittent
+                  compression and cold therapy to enhance lymphatic function,
+                  encourage blood flow, and help stimulate tissue repair faster
+                  and better.
                 </p>
               </div>
 
               <ul role="list" className="space-y-2 sm:space-y-4">
                 <li className="flex space-x-3">
                   <svg
-                      className="flex-shrink-0 h-6 w-6 text-blue-6000"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    className="flex-shrink-0 h-6 w-6 text-blue-6000"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                        d="M15.1965 7.85999C15.1965 3.71785 11.8387 0.359985 7.69653 0.359985C3.5544 0.359985 0.196533 3.71785 0.196533 7.85999C0.196533 12.0021 3.5544 15.36 7.69653 15.36C11.8387 15.36 15.1965 12.0021 15.1965 7.85999Z"
-                        fill="currentColor"
-                        fillOpacity="0.1"
+                      d="M15.1965 7.85999C15.1965 3.71785 11.8387 0.359985 7.69653 0.359985C3.5544 0.359985 0.196533 3.71785 0.196533 7.85999C0.196533 12.0021 3.5544 15.36 7.69653 15.36C11.8387 15.36 15.1965 12.0021 15.1965 7.85999Z"
+                      fill="currentColor"
+                      fillOpacity="0.1"
                     />
                     <path
-                        d="M10.9295 4.88618C11.1083 4.67577 11.4238 4.65019 11.6343 4.82904C11.8446 5.00788 11.8702 5.32343 11.6914 5.53383L7.44139 10.5338C7.25974 10.7475 6.93787 10.77 6.72825 10.5837L4.47825 8.5837C4.27186 8.40024 4.25327 8.0842 4.43673 7.87781C4.62019 7.67142 4.93622 7.65283 5.14261 7.83629L7.01053 9.49669L10.9295 4.88618Z"
-                        fill="currentColor"
+                      d="M10.9295 4.88618C11.1083 4.67577 11.4238 4.65019 11.6343 4.82904C11.8446 5.00788 11.8702 5.32343 11.6914 5.53383L7.44139 10.5338C7.25974 10.7475 6.93787 10.77 6.72825 10.5837L4.47825 8.5837C4.27186 8.40024 4.25327 8.0842 4.43673 7.87781C4.62019 7.67142 4.93622 7.65283 5.14261 7.83629L7.01053 9.49669L10.9295 4.88618Z"
+                      fill="currentColor"
                     />
                   </svg>
 
                   <span className="text-sm sm:text-base text-gray-500">
-                  Intermittent compression and cold therapy
-                </span>
+                    Intermittent compression and cold therapy
+                  </span>
                 </li>
 
                 <li className="flex space-x-3">
                   <svg
-                      className="flex-shrink-0 h-6 w-6 text-blue-600"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    className="flex-shrink-0 h-6 w-6 text-blue-600"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                        d="M15.1965 7.85999C15.1965 3.71785 11.8387 0.359985 7.69653 0.359985C3.5544 0.359985 0.196533 3.71785 0.196533 7.85999C0.196533 12.0021 3.5544 15.36 7.69653 15.36C11.8387 15.36 15.1965 12.0021 15.1965 7.85999Z"
-                        fill="currentColor"
-                        fillOpacity="0.1"
+                      d="M15.1965 7.85999C15.1965 3.71785 11.8387 0.359985 7.69653 0.359985C3.5544 0.359985 0.196533 3.71785 0.196533 7.85999C0.196533 12.0021 3.5544 15.36 7.69653 15.36C11.8387 15.36 15.1965 12.0021 15.1965 7.85999Z"
+                      fill="currentColor"
+                      fillOpacity="0.1"
                     />
                     <path
-                        d="M10.9295 4.88618C11.1083 4.67577 11.4238 4.65019 11.6343 4.82904C11.8446 5.00788 11.8702 5.32343 11.6914 5.53383L7.44139 10.5338C7.25974 10.7475 6.93787 10.77 6.72825 10.5837L4.47825 8.5837C4.27186 8.40024 4.25327 8.0842 4.43673 7.87781C4.62019 7.67142 4.93622 7.65283 5.14261 7.83629L7.01053 9.49669L10.9295 4.88618Z"
-                        fill="currentColor"
+                      d="M10.9295 4.88618C11.1083 4.67577 11.4238 4.65019 11.6343 4.82904C11.8446 5.00788 11.8702 5.32343 11.6914 5.53383L7.44139 10.5338C7.25974 10.7475 6.93787 10.77 6.72825 10.5837L4.47825 8.5837C4.27186 8.40024 4.25327 8.0842 4.43673 7.87781C4.62019 7.67142 4.93622 7.65283 5.14261 7.83629L7.01053 9.49669L10.9295 4.88618Z"
+                      fill="currentColor"
                     />
                   </svg>
 
                   <span className="text-sm sm:text-base text-gray-500">
-                  Simplicity in design & ease to operate
-                </span>
+                    Simplicity in design & ease to operate
+                  </span>
                 </li>
 
                 <li className="flex space-x-3">
                   <svg
-                      className="flex-shrink-0 h-6 w-6 text-blue-600"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+                    className="flex-shrink-0 h-6 w-6 text-blue-600"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                        d="M15.1965 7.85999C15.1965 3.71785 11.8387 0.359985 7.69653 0.359985C3.5544 0.359985 0.196533 3.71785 0.196533 7.85999C0.196533 12.0021 3.5544 15.36 7.69653 15.36C11.8387 15.36 15.1965 12.0021 15.1965 7.85999Z"
-                        fill="currentColor"
-                        fillOpacity="0.1"
+                      d="M15.1965 7.85999C15.1965 3.71785 11.8387 0.359985 7.69653 0.359985C3.5544 0.359985 0.196533 3.71785 0.196533 7.85999C0.196533 12.0021 3.5544 15.36 7.69653 15.36C11.8387 15.36 15.1965 12.0021 15.1965 7.85999Z"
+                      fill="currentColor"
+                      fillOpacity="0.1"
                     />
                     <path
-                        d="M10.9295 4.88618C11.1083 4.67577 11.4238 4.65019 11.6343 4.82904C11.8446 5.00788 11.8702 5.32343 11.6914 5.53383L7.44139 10.5338C7.25974 10.7475 6.93787 10.77 6.72825 10.5837L4.47825 8.5837C4.27186 8.40024 4.25327 8.0842 4.43673 7.87781C4.62019 7.67142 4.93622 7.65283 5.14261 7.83629L7.01053 9.49669L10.9295 4.88618Z"
-                        fill="currentColor"
+                      d="M10.9295 4.88618C11.1083 4.67577 11.4238 4.65019 11.6343 4.82904C11.8446 5.00788 11.8702 5.32343 11.6914 5.53383L7.44139 10.5338C7.25974 10.7475 6.93787 10.77 6.72825 10.5837L4.47825 8.5837C4.27186 8.40024 4.25327 8.0842 4.43673 7.87781C4.62019 7.67142 4.93622 7.65283 5.14261 7.83629L7.01053 9.49669L10.9295 4.88618Z"
+                      fill="currentColor"
                     />
                   </svg>
 
                   <span className="text-sm sm:text-base text-gray-500">
-                  Preset 9 menus of pressure and time
-                </span>
+                    Preset 9 menus of pressure and time
+                  </span>
                 </li>
               </ul>
             </div>
           </div>
-
         </div>
       </div>
       {/*features end*/}

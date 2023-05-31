@@ -2,10 +2,10 @@ import * as React from "react";
 import { useContext, useState } from "react";
 import { AlertContext } from "../_app";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import styles from "./blog.module.scss";
+import styles from "./news.module.scss";
 import Link from "next/link";
 
-export default function Blog({ data, error }) {
+export default function News({ data, error }) {
   const { setError } = useContext(AlertContext);
   const [hovered, setHovered] = useState("");
 
@@ -15,7 +15,7 @@ export default function Blog({ data, error }) {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.mainTitle}>Welcome to our Blog</h1>
+      <h1 className={styles.mainTitle}>News</h1>
       <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 550: 2, 750: 3 }}>
         <Masonry columnsCount={5} gutter="20px">
           {data?.data?.map((item) => {
@@ -23,7 +23,7 @@ export default function Blog({ data, error }) {
               <Link
                 key={item._id}
                 className={styles.card}
-                href={"/blog/" + item.slug}
+                href={"/news/" + item.slug}
                 onMouseOver={() => setHovered(item._id)}
                 onMouseLeave={() => setHovered("")}
               >
@@ -51,8 +51,10 @@ export default function Blog({ data, error }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${process.env.BASE_URL}/api/posts`);
+    const res = await fetch(`${process.env.BASE_URL}/posts`);
     const data = await res.json();
+    console.log('ssss', data)
+
     return { props: { data: data } };
   } catch (err) {
     return { props: { error: err.response?.data?.message || err.message } };

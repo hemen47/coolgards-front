@@ -1,7 +1,60 @@
 .hero {
-  background-image: url("/bg.svg");
+  margin-top:5rem;
+  background-image: url("/cover.jpg");
   background-position: top;
-  background-repeat: initial;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: contain;
+  padding-bottom: 65.625%;
+  display: block;
+  position: relative;
+}
+.heroText {
+  position: absolute;
+  color: #fff;
+  font-weight: 700;
+  top: 20%;
+  left: 20%;
+  font-size: 4vw;
+  line-height: 1.5rem;
+}
+.heroTextSmall {
+  font-size: 2vw;
+  line-height: .5rem;
+}
+.heroDetails {
+  background-image: url("/polygon.png");
+  background-position: top;
+  background-repeat: no-repeat;
+  width: 100%;
+  background-size: contain;
+  padding-bottom: 28.385%;
+  height: 0;
+  position: relative;
+  @media screen and (max-width: 745px) {
+    padding-bottom:0;
+    height: auto;
+  }
+  @media screen and (max-width: 1100px) and (min-width: 745px) {
+    padding-bottom:5%;
+    height: auto;
+  }
+
+
+  p {
+    margin-left: 20vw;
+    margin-right: 20vw;
+    padding-top: 5vw;
+    text-align: center;
+    font-size: 1.5rem;
+    @media screen and (max-width: 745px) {
+      font-size: 1.2rem;
+      margin-left: 2vw;
+      margin-right: 2vw;
+      padding-top: 2vw
+    }
+  }
+
 }
 
 .sliderContainer {
@@ -9,8 +62,8 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  margin: 2rem;
-  padding: 2rem;
+  margin: 2vw;
+  padding: 2vw;
 }
 
 .slider {
@@ -45,5 +98,5 @@
 
 .featureDetails {
   max-width: 450px;
-  margin: 2rem;
+  margin: 2vw;
 }

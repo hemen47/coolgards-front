@@ -1,12 +1,12 @@
 import * as React from "react";
 import { useContext, useState } from "react";
 import { AlertContext } from "../_app";
-import styles from "./store.module.scss";
+import styles from "./products.module.scss";
 import Link from "next/link";
 import Button from "@mui/material/Button";
 import AddButton from "../../components/AddButton";
 
-export default function Store({ data, error }) {
+export default function Products({ data, error }) {
   const { setError } = useContext(AlertContext);
   const [hovered, setHovered] = useState("");
 
@@ -37,7 +37,7 @@ export default function Store({ data, error }) {
                     <p className={styles.price}>{item.price} $</p>
                     <div className={styles.buttonContainer}>
                       <AddButton data={item}/>
-                      <Link href={"/store/" + item.slug}>
+                      <Link href={"/products/" + item.slug}>
                         <Button fullWidth variant="standard" sx={{ margin: ".5rem", fontSize: ".8rem", height: "50px" }}>
                           read more
                         </Button>

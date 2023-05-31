@@ -227,7 +227,7 @@ export default function Index() {
     <div className="ml-56 max-[600px]:ml-20 mr-8">
       <div className="pt-10">
         <div className="flex justify-center">
-          <h1 className="font-thin	text-gray-400	">Blog Posts</h1>
+          <h1 className="font-thin	text-gray-400	">News Posts</h1>
         </div>
         <div className="flex flex-wrap justify-evenly">
           <TextField
@@ -302,12 +302,12 @@ export default function Index() {
             Delete
           </Button>
 
-          <Link href="/blog" className="block">
+          <Link href="/news" className="block">
             <Button
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
             >
-              Go to Blog
+              Go to News
             </Button>
           </Link>
         </div>
@@ -390,7 +390,7 @@ export default function Index() {
             align="center"
             width="5%"
             render={({ row }) => (
-              <Link href={"/blog/" + row.slug} target="_blank">
+              <Link href={"/news/" + row.slug} target="_blank">
                 <InsertLinkOutlinedIcon className="cursor-pointer" />
               </Link>
             )}

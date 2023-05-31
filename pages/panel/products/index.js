@@ -322,7 +322,7 @@ export default function Index() {
             Delete
           </Button>
 
-          <Link href="/store" className="block">
+          <Link href="/products" className="block">
             <Button
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
@@ -416,7 +416,7 @@ export default function Index() {
             align="center"
             width="5%"
             render={({ row }) => (
-              <Link href={"/store/" + row.slug} target="_blank">
+              <Link href={"/products/" + row.slug} target="_blank">
                 <InsertLinkOutlinedIcon className="cursor-pointer" />
               </Link>
             )}

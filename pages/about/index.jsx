@@ -1,12 +1,11 @@
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AlertContext } from "../_app";
 import styles from "./about.module.scss";
 import Link from "next/link";
 
-export default function Store({ data, error }) {
+export default function Contact({ data, error }) {
   const { setError } = useContext(AlertContext);
-  const [hovered, setHovered] = useState("");
 
   if (error) {
     setError(error);
@@ -31,7 +30,7 @@ export default function Store({ data, error }) {
           <div className="text-center">
             <Link
                 className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
-                href="/store"
+                href="/contact"
             >
               please feel free to contact us!
               <svg

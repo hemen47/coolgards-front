@@ -7,6 +7,7 @@ import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import MonochromePhotosOutlinedIcon from '@mui/icons-material/MonochromePhotosOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 import {useRouter} from 'next/router';
 import {useContext} from "react";
 import {UserContext} from "../pages/_app";
@@ -31,7 +32,7 @@ export default function PanelSideBar() {
                   className='flex justify-start items-center'><DashboardOutlinedIcon sx={{marginRight: ".5rem"}}/>Home
             </Link><Link style={router.pathname === '/panel/users' ? {backgroundColor: "#032b5c"} : {}} href='/panel/users'
                   className='flex justify-start items-center'><PeopleAltOutlinedIcon sx={{marginRight: ".5rem"}}/>Users</Link>
-            <Link style={router.pathname === '/panel/blog' ? {backgroundColor: "#032b5c"} : {}} href='/panel/posts'
+            <Link style={router.pathname === '/panel/news' ? {backgroundColor: "#032b5c"} : {}} href='/panel/posts'
                   className='flex justify-start items-center'><AssignmentOutlinedIcon sx={{marginRight: ".5rem"}}/>Posts</Link>
             <Link style={router.pathname === '/panel/media' ? {backgroundColor: "#032b5c"} : {}} href='/panel/media'
                   className='flex justify-start items-center'><MonochromePhotosOutlinedIcon
@@ -39,6 +40,9 @@ export default function PanelSideBar() {
             <Link style={router.pathname === '/panel/products' ? {backgroundColor: "#032b5c"} : {}}
                   href='/panel/products' className='flex justify-start items-center'><ColorLensOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Products</Link>
+            <Link style={router.pathname === '/panel/messages' ? {backgroundColor: "#032b5c"} : {}}
+                  href='/panel/messages' className='flex justify-start items-center'><MailOutlinedIcon
+                sx={{marginRight: ".5rem"}}/>Messages</Link>
             <Link style={router.pathname === '/panel/orders' ? {backgroundColor: "#032b5c"} : {}}
                   href='/panel/orders' className='flex justify-start items-center'><LocalMallOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Orders</Link>
