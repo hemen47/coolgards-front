@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logo from "./logo.png";
+import logo from "../public/logo.png";
 import Link from "next/link";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";

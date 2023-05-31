@@ -14,6 +14,9 @@ export default function Post({ data, error }) {
   if (error) {
     setError(error);
   }
+  const generateReadableDate = (date) => {
+    // return formatDistance(new Date(date), new Date())
+  }
 
   return (
     <div className={styles.container}>
@@ -28,13 +31,13 @@ export default function Post({ data, error }) {
             <h1 className={styles.title}>{data?.data.title}</h1>
             <h2 className={styles.writer}>by {data?.data.writerName}</h2>
             <p className={styles.date}>
-              {formatDistance(new Date(data?.data.createdAt), new Date())} ago
+              {generateReadableDate(data?.data?.createdAt)} ago
             </p>
           </div>
         </div>
 
         <div className={styles.content}>
-          <div className="m-8">{parse(data?.data.content)}</div>
+          {/*<div className="m-8">{parse(data?.data.content)}</div>*/}
         </div>
         <div className={styles.tagContainer}>
           {data?.data.tags.map((tag) => {
@@ -61,9 +64,10 @@ export default function Post({ data, error }) {
 export async function getServerSideProps(context) {
   try {
     const res = await fetch(
-      `${process.env.BASE_URL}/api/posts/${context.params.slug}`
+      `${process.env.BASE_URL}/posts/${context.params.slug}`
     );
     const data = await res.json();
+
     return { props: { data } };
   } catch (err) {
     return { props: { error: err.response?.data?.message || err.message } };

@@ -32,8 +32,8 @@ export default function PanelSideBar() {
                   className='flex justify-start items-center'><DashboardOutlinedIcon sx={{marginRight: ".5rem"}}/>Home
             </Link><Link style={router.pathname === '/panel/users' ? {backgroundColor: "#032b5c"} : {}} href='/panel/users'
                   className='flex justify-start items-center'><PeopleAltOutlinedIcon sx={{marginRight: ".5rem"}}/>Users</Link>
-            <Link style={router.pathname === '/panel/news' ? {backgroundColor: "#032b5c"} : {}} href='/panel/posts'
-                  className='flex justify-start items-center'><AssignmentOutlinedIcon sx={{marginRight: ".5rem"}}/>Posts</Link>
+            <Link style={router.pathname === '/panel/news' ? {backgroundColor: "#032b5c"} : {}} href='/panel/news'
+                  className='flex justify-start items-center'><AssignmentOutlinedIcon sx={{marginRight: ".5rem"}}/>News</Link>
             <Link style={router.pathname === '/panel/media' ? {backgroundColor: "#032b5c"} : {}} href='/panel/media'
                   className='flex justify-start items-center'><MonochromePhotosOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Media</Link>

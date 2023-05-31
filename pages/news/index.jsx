@@ -53,7 +53,6 @@ export async function getServerSideProps() {
   try {
     const res = await fetch(`${process.env.BASE_URL}/posts`);
     const data = await res.json();
-    console.log('ssss', data)
 
     return { props: { data: data } };
   } catch (err) {

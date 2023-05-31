@@ -10,7 +10,6 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Settings from "@mui/icons-material/Settings";
 import Avatar from "@mui/material/Avatar";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import logo from "./logo.png";
 import Image from "next/image";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import styles from "./MainMenu.module.scss";
@@ -19,7 +18,7 @@ import { useRouter } from "next/router";
 export default function MainMenu() {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
-  const { cart, setCart } = useContext(CartContext);
+  const { cart } = useContext(CartContext);
   const { setError, setMessage } = useContext(AlertContext);
   const [showHam, setShowHam] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -119,7 +118,7 @@ export default function MainMenu() {
                 : {borderRadius: "2rem"}
             }
           >
-            store
+            products
           </MenuItem>
         </Link>
         <Link href="/about" onClick={() => setShowHam(false)}>
@@ -140,7 +139,7 @@ export default function MainMenu() {
 
       <div className="flex justify-center flex-1">
         <p className="mr-2 text-logo">CoolGards</p>
-        <Image src={logo} alt="coolgards logo" width={50} height={50} />
+        <Image src='/logo.png' alt="coolgards logo" width={50} height={50} />
       </div>
 
       <div className="flex justify-end mr-8 flex-1">

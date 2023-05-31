@@ -17,7 +17,7 @@ export default function Products({ data, error }) {
 
   return (
       <div className = {styles.mainContainer}>
-        <h1 className={styles.mainTitle}>Welcome to our Store</h1>
+        <h1 className={styles.mainTitle}>Our Products</h1>
         <div className={styles.container}>
           {data.data?.map((item) => {
             return (

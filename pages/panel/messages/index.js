@@ -63,7 +63,6 @@ export default function Messages() {
 
   const view = (row) => {
     setModal(true);
-    console.log("row", row);
   };
 
   const handleDelete = () => {

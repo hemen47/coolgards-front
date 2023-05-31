@@ -1,5 +1,4 @@
 import Image from "next/image";
-import logo from "./logo.png";
 import Link from "next/link";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
@@ -14,7 +13,7 @@ export default function Footer() {
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex-1 flex justify-start items-center">
-            <Image src={logo} alt="coolgards logo" width={50} height={50} />
+            <Image src='/logo.png' alt="coolgards logo" width={50} height={50} />
             <p className="mr-2 text-logo">CoolGards</p>
           </div>
 
@@ -76,7 +75,7 @@ export default function Footer() {
             </li>
             <li>
               <Link href="/products" className="mr-4 hover:underline md:mr-6 ">
-                Store
+                Products
               </Link>
             </li>
             <li>
