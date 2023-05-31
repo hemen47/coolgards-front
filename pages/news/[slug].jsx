@@ -15,7 +15,7 @@ export default function Post({ data, error }) {
     setError(error);
   }
   const generateReadableDate = (date) => {
-    // return formatDistance(new Date(date), new Date())
+    return formatDistance(new Date(date), new Date())
   }
 
   return (
@@ -31,13 +31,13 @@ export default function Post({ data, error }) {
             <h1 className={styles.title}>{data?.data.title}</h1>
             <h2 className={styles.writer}>by {data?.data.writerName}</h2>
             <p className={styles.date}>
-              {generateReadableDate(data?.data?.createdAt)} ago
+              {generateReadableDate(data?.data.createdAt)} ago
             </p>
           </div>
         </div>
 
         <div className={styles.content}>
-          {/*<div className="m-8">{parse(data?.data.content)}</div>*/}
+          <div className="m-8">{parse(data?.data.content)}</div>
         </div>
         <div className={styles.tagContainer}>
           {data?.data.tags.map((tag) => {
