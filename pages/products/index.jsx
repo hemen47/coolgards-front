@@ -8,7 +8,6 @@ import AddButton from "../../components/AddButton";
 
 export default function Products({ data, error }) {
   const { setError } = useContext(AlertContext);
-  const [hovered, setHovered] = useState("");
 
 
   if (error) {
@@ -23,9 +22,7 @@ export default function Products({ data, error }) {
             return (
                 <div
                     key={item._id}
-                    className={hovered === item._id ? styles.hoveredCard : styles.card}
-                    onMouseEnter={() => setHovered(item._id)}
-                    onMouseLeave={() => setHovered("")}
+                    className={styles.card}
                 >
                   <img
                       src={item?.imageUrls[0]}

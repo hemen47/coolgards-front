@@ -22,7 +22,6 @@ registerPlugin(
 
 export default function Uploader({ onSelect, onClose, mediaMode = false }) {
   const { setError, setMessage } = useContext(AlertContext);
-  const [hovered, setHovered] = useState("");
   const [confirmModal, setConfirmModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState({});
   const [files, setFiles] = useState([]);
@@ -102,13 +101,13 @@ export default function Uploader({ onSelect, onClose, mediaMode = false }) {
         <div className="flex justify-center">
           {selectedImage && (
             <>
-            {!mediaMode && <Button onClick={() => onSelect(selectedImage)}>Select</Button>}
-              <Button color="error" onClick={() => setConfirmModal(true)}>
+            {!mediaMode && <Button sx={{margin: '1rem'}} variant="contained" onClick={() => onSelect(selectedImage)}>Select</Button>}
+              <Button sx={{margin: '1rem'}} color="error" variant="contained" onClick={() => setConfirmModal(true)}>
                 Delete
               </Button>
             </>
           )}
-          {!mediaMode && <Button onClick={handleCloseUploader}>Cancel</Button>}
+          {!mediaMode && <Button sx={{margin: '1rem'}} onClick={handleCloseUploader}>Cancel</Button>}
         </div>
 
         <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>
@@ -146,11 +145,7 @@ export default function Uploader({ onSelect, onClose, mediaMode = false }) {
                     onSelect(selectedImage);
                   }}
                   id={pic._id}
-                  className={
-                    hovered === pic._id ? styles.hovered : styles.released
-                  }
-                  onMouseOver={() => setHovered(pic._id)}
-                  onMouseLeave={() => setHovered("")}
+                  className={styles.card}
                   alt={pic.name}
                   key={pic._id}
                   src={pic.path}

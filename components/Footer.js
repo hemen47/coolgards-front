@@ -85,7 +85,7 @@ export default function Footer() {
             </li>
             <li>
               <Link href="/contact" className="mr-4 hover:underline md:mr-6 ">
-                Contact Us
+                Contact
               </Link>
             </li>
           </ul>
