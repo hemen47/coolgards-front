@@ -55,6 +55,7 @@ export default function MainMenu() {
         {showHam ? <ListOutlinedIcon /> : <MenuOutlinedIcon />}
       </div>
       <div className={showHam ? styles.menu2 : styles.menu}>
+        <MenuItem sx={{ borderRadius: "2rem", marginRight: ".4rem" }}>
         <Link href="/" onClick={() => setShowHam(false)}>
           <div className="flex ml-4 justify-center flex-1 items-center">
             <Image
@@ -63,9 +64,10 @@ export default function MainMenu() {
               width={60}
               height={60}
             />
-            <p className="mr-2 text-logo text-[1.5rem]">CoolGards</p>
+            <p className="mr-2 text-logo text-[1.1rem]">CoolGards</p>
           </div>
         </Link>
+        </MenuItem>
 
         <Link href="/products" onClick={() => setShowHam(false)}>
           <MenuItem
