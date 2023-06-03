@@ -30,6 +30,13 @@ a {
   border-radius: 10px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
 }
+.glass2 {
+  background: rgba(239, 239, 239);
+  box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+  z-index: 100;
+  border-radius: 10px;
+  border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
 
 .modal {
   position: fixed;

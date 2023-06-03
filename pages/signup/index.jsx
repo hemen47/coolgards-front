@@ -5,14 +5,14 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import {ax} from "../../utils/axios";
 import {AlertContext, UserContext} from "../_app";
 import {useRouter} from "next/router";
-import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
 
 
-export default function Login() {
+export default function Signup() {
     const router = useRouter()
     const {setError, setMessage} = useContext(AlertContext)
 
@@ -21,12 +21,13 @@ export default function Login() {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const model = {
+            fullName: data.get('fullName'),
             email: data.get('email'),
             password: data.get('password'),
         };
-        ax.post("/api/users/login", model).then((res) => {
+        ax.post("/api/users/", model).then((res) => {
             setUser(res.data.user);
-            setMessage('welcome back ;)')
+            setMessage('welcome to coolgards ;)')
             localStorage.setItem('authenticated', res.data.user._id)
             router.push('/')
         }).catch(e => {
@@ -39,12 +40,22 @@ export default function Login() {
         <div className="flex justify-center mb-20 mt-20">
             <div className="mt-4 flex w-96 flex flex-col items-center glass p-4">
                 <Avatar sx={{m: 1, bgcolor: 'secondary.main'}}>
-                    <VpnKeyOutlinedIcon/>
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign in
+                    Sign Up
                 </Typography>
                 <form onSubmit={handleSubmit} className="mt-1">
+                    <TextField
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="name"
+                        label="Full Name"
+                        name="fullName"
+                        autoComplete="name"
+                        autoFocus
+                    />
                     <TextField
                         margin="normal"
                         required
@@ -53,7 +64,6 @@ export default function Login() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                     />
                     <TextField
                         margin="normal"
@@ -72,7 +82,7 @@ export default function Login() {
                         variant="contained"
                         sx={{mt: 3, mb: 2}}
                     >
-                        Sign In
+                        Register
                     </Button>
                     <Grid container>
                         <Grid item xs>
@@ -81,8 +91,8 @@ export default function Login() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
+                            <Link href="/login" variant="body2">
+                                {"Already have an account? Log in"}
                             </Link>
                         </Grid>
                     </Grid>

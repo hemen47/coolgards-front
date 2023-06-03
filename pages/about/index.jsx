@@ -27,6 +27,13 @@ export default function Contact({ data, error }) {
             </p>
           </div>
 
+          <div className="mt-8 max-w-3xl text-center mx-auto">
+            <p className="text-lg text-gray-600">
+              <h2> QUALITY POLICY</h2>
+              Our mission is to satisfy high customer demands by continuously development of our products. We will always strive for a leading position within the area of business we operate in. Any information that indicates non-conformance or dissatisfaction is analysed and used for improvement.
+            </p>
+          </div>
+
           <div className="text-center">
             <Link
                 className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"

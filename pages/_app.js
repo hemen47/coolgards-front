@@ -9,6 +9,7 @@ import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import Footer from "../components/Footer";
 import Head from "next/head";
+import Shipment from "../components/shipment";
 
 export const UserContext = createContext();
 export const AlertContext = createContext();
@@ -31,7 +32,7 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   const renderMainMenu = () => {
-    if (!router.pathname.includes("/panel") && router.pathname !== "/login")
+    if (!router.pathname.includes("/panel") && router.pathname !== "/login" && router.pathname !== "/signup")
       return <MainMenu />;
   };
   const renderPanelSideBar = () => {
@@ -60,6 +61,7 @@ function MyApp({ Component, pageProps }) {
               <meta name="description" content="Welcome to Coolgards" />
               <link rel="icon" href="/favicon.ico" />
             </Head>
+            <Shipment/>
             <Authenticator />
             <Snackbar
               open={!!error}

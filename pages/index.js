@@ -81,11 +81,7 @@ export default function Home() {
 
             <div className="max-w-3xl text-center mx-auto">
               <p className="text-lg text-gray-400">
-                The design of the pulse cold compression therapy system the
-                advantages of intermittent compression and ice compress therapy
-                to achieve the good effect of enhancing body function recovery
-                function, promoting blood circulation, and helping to stimulate
-                tissue for better and better repair.
+                Cold compression therapy works by constricting the blood vessels, which in turn reduces swelling and inflammation. Calms muscle spasms, minimises bruising and soothes nerve endings, encouraging quick and effective healing for a variety of muscle, tendon and ligament injuries.
               </p>
             </div>
 

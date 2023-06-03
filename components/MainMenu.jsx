@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import {AlertContext, CartContext, UserContext} from "../pages/_app";
+import { AlertContext, CartContext, UserContext } from "../pages/_app";
 import Link from "next/link";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,6 +15,12 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import styles from "./MainMenu.module.scss";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { useRouter } from "next/router";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import PersonIcon from "@mui/icons-material/Person";
+import { Divider } from "@mui/material";
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
+
 export default function MainMenu() {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
@@ -44,70 +50,21 @@ export default function MainMenu() {
   };
 
   return (
-    <nav className="flex glass fixed top-3 left-8 right-8 p-0 h-12 items-center justify-between ">
+    <nav className="flex glass2 fixed top-3 left-8 right-8 p-0 h-[4rem] items-center justify-between ">
       <div className={styles.ham} onClick={() => setShowHam(!showHam)}>
         {showHam ? <ListOutlinedIcon /> : <MenuOutlinedIcon />}
       </div>
       <div className={showHam ? styles.menu2 : styles.menu}>
-        {user ? (
-          <>
-            <MenuItem sx={{ borderRadius: "2rem" }} onClick={handleClick}>
-              {user?.fullName}
-            </MenuItem>
-            <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-              {user.roles.includes("admin") ? (
-                <Link onClick={handleClose} href="/panel">
-                  <MenuItem onClick={handleClose} sx={{ borderRadius: "2rem" }}>
-                    <ListItemIcon>
-                      <Settings fontSize="small" />
-                    </ListItemIcon>
-                    Dashboard
-                  </MenuItem>
-                </Link>
-              ) : (
-                ""
-              )}
-
-              <Link onClick={handleClose} href="/profile">
-                <MenuItem onClick={handleClose} sx={{ borderRadius: "2rem" }}>
-                  <Avatar
-                    sx={{ width: 24, height: 24, marginRight: ".5rem" }}
-                    fontSize="small"
-                  />
-                  Profile
-                </MenuItem>
-              </Link>
-
-              <MenuItem onClick={handleLogout} sx={{ borderRadius: "2rem" }}>
-                <ListItemIcon>
-                  <Logout fontSize="small" />
-                </ListItemIcon>
-                Logout
-              </MenuItem>
-            </Menu>
-          </>
-        ) : (
-          <>
-            <Link href="/login">
-              <MenuItem sx={{ borderRadius: "2rem" }}>login</MenuItem>
-            </Link>
-          </>
-        )}
-
         <Link href="/" onClick={() => setShowHam(false)}>
-          <MenuItem sx={
-              router.pathname === "/"
-                  ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
-                  : {borderRadius: "2rem"}
-          }>home</MenuItem>
-        </Link>
-
-        <Link href="/news" onClick={() => setShowHam(false)}>
-          <MenuItem sx={
-              router.pathname === "/news"
-                  ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
-                  : {borderRadius: "2rem"}
-          }>news</MenuItem>
+          <div className="flex ml-4 justify-center flex-1 items-center">
+            <Image
+              src="/logo.png"
+              alt="coolgards logo"
+              width={60}
+              height={60}
+            />
+            <p className="mr-2 text-logo text-[1.5rem]">CoolGards</p>
+          </div>
         </Link>
 
         <Link href="/products" onClick={() => setShowHam(false)}>
@@ -115,41 +72,129 @@ export default function MainMenu() {
             sx={
               router.pathname === "/products"
                 ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
-                : {borderRadius: "2rem"}
+                : { borderRadius: "2rem" }
             }
           >
-            products
+            Products
           </MenuItem>
         </Link>
-        <Link href="/about" onClick={() => setShowHam(false)}>
-          <MenuItem sx={
-              router.pathname === "/about"
-                  ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
-                  : {borderRadius: "2rem"}
-          }>about</MenuItem>
-        </Link>
-          <Link href="/contact" onClick={() => setShowHam(false)}>
-              <MenuItem sx={
-                  router.pathname === "/contact"
-                      ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
-                      : {borderRadius: "2rem"}
-              }>contact</MenuItem>
-          </Link>
-      </div>
 
-      <div className="flex justify-center flex-1">
-        <p className="mr-2 text-logo">CoolGards</p>
-        <Image src='/logo.png' alt="coolgards logo" width={50} height={50} />
+        <Link href="/news" onClick={() => setShowHam(false)}>
+          <MenuItem
+            sx={
+              router.pathname === "/news"
+                ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
+                : { borderRadius: "2rem" }
+            }
+          >
+            News
+          </MenuItem>
+        </Link>
+
+        <Link href="/about" onClick={() => setShowHam(false)}>
+          <MenuItem
+            sx={
+              router.pathname === "/about"
+                ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
+                : { borderRadius: "2rem" }
+            }
+          >
+            About
+          </MenuItem>
+        </Link>
+        <Link href="/contact" onClick={() => setShowHam(false)}>
+          <MenuItem
+            sx={
+              router.pathname === "/contact"
+                ? { backgroundColor: "#00a2ea", borderRadius: "2rem" }
+                : { borderRadius: "2rem" }
+            }
+          >
+            Contact Us
+          </MenuItem>
+        </Link>
       </div>
 
       <div className="flex justify-end mr-8 flex-1">
+        <MenuItem sx={{ borderRadius: "2rem" }}>
           <Link href="/cart">
-              <Badge badgeContent={cart?.length} color="primary">
-                  <ShoppingCartOutlinedIcon color="action" />
-              </Badge>
+            <Badge badgeContent={cart?.length} color="primary">
+              <ShoppingCartOutlinedIcon color="action" />
+            </Badge>
           </Link>
-
+        </MenuItem>
       </div>
+
+      {user ? (
+        <>
+          <MenuItem
+            sx={{ borderRadius: "2rem", marginRight: "2rem" }}
+            onClick={handleClick}
+          >
+            <PersonIcon />
+          </MenuItem>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <MenuItem> Hi, {user?.fullName}</MenuItem>
+            <Divider />
+            {user.roles.includes("admin") ? (
+              <Link onClick={handleClose} href="/panel">
+                <MenuItem onClick={handleClose} sx={{ borderRadius: "2rem" }}>
+                  <ListItemIcon>
+                    <Settings fontSize="small" />
+                  </ListItemIcon>
+                  Dashboard
+                </MenuItem>
+              </Link>
+            ) : (
+              ""
+            )}
+
+            <Link onClick={handleClose} href="/profile">
+              <MenuItem onClick={handleClose} sx={{ borderRadius: "2rem" }}>
+                <Avatar
+                  sx={{ width: 24, height: 24, marginRight: ".8rem" }}
+                  fontSize="small"
+                />
+                Profile
+              </MenuItem>
+            </Link>
+
+            <MenuItem onClick={handleLogout} sx={{ borderRadius: "2rem" }}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+        </>
+      ) : (
+        <>
+          <MenuItem
+            sx={{ borderRadius: "2rem", marginRight: "2rem" }}
+            onClick={handleClick}
+          >
+            <PersonOutlineOutlinedIcon />
+          </MenuItem>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+            <Link href="/login">
+              <MenuItem sx={{ borderRadius: "2rem" }}>
+                <ListItemIcon>
+                  <VpnKeyOutlinedIcon fontSize="small" />
+                </ListItemIcon>
+                Login
+              </MenuItem>
+            </Link>
+            <Link href="/signup">
+              <MenuItem sx={{ borderRadius: "2rem" }}>
+                <ListItemIcon>
+                  <LockOpenOutlinedIcon fontSize="small" />
+                </ListItemIcon>
+                Sign Up
+              </MenuItem>
+            </Link>
+          </Menu>
+        </>
+      )}
     </nav>
   );
 }
