@@ -53,7 +53,6 @@ export default function AddButton({ data }) {
   return (
     <Button
       onClick={addToCart}
-      fullWidth
       variant="contained"
       sx={{ margin: ".5rem", height: "50px" }}
     >
