@@ -29,7 +29,6 @@ export default function Post({ data, error }) {
           />
           <div className={styles.titleContainer}>
             <h1 className={styles.title}>{data?.data.title}</h1>
-            <h2 className={styles.writer}>by {data?.data.writerName}</h2>
             <p className={styles.date}>
               {generateReadableDate(data?.data.createdAt)} ago
             </p>
