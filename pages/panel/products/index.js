@@ -327,7 +327,7 @@ export default function Index() {
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
             >
-              Go to Store
+              Go to Products
             </Button>
           </Link>
         </div>
