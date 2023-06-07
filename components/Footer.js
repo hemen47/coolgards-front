@@ -78,6 +78,11 @@ export default function Footer() {
                 Privacy Policy
               </Link>
             </li>
+            <li>
+              <Link href="/refund" className="mr-4 hover:underline md:mr-6 ">
+                Refund Policy
+              </Link>
+            </li>
           </ul>
         </div>
 

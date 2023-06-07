@@ -24,16 +24,13 @@ export default function Panel() {
     })
       .then((res) => {
         setData(res.data);
-        console.log("res", res.data);
       })
       .catch((e) => {
         setError(e.response?.data?.message || e.message);
       });
   };
   useEffect(() => {
-    return () => {
-      getData();
-    };
+    getData();
   }, []);
 
   return (
