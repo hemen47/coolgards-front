@@ -400,7 +400,7 @@ export default function Index() {
             )}
           />
           <GridColumn
-            render={({ row }) => <p>{row.price} $</p>}
+            render={({ row }) => <p>€{row.price}</p>}
             title="Price"
             align="center"
             width="10%"
@@ -471,7 +471,7 @@ export default function Index() {
                 onChange={handleChangeAdd}
                 InputProps={{
                   startAdornment: (
-                    <InputAdornment position="start">$</InputAdornment>
+                    <InputAdornment position="start">€</InputAdornment>
                   ),
                 }}
               />

@@ -112,33 +112,6 @@ export default function Home() {
       </div>
       {/*second hero end*/}
 
-      {/*feature start*/}
-      <div className={styles.featureSection}>
-        <div className={styles.featurePictures}>
-          <Image
-            width={120}
-            height={120}
-            className="rounded-xl"
-            src="/11.jpg"
-            alt="Image Description"
-          />
-          <Image
-            width={180}
-            height={180}
-            className="rounded-xl"
-            src="/12.jpg"
-            alt="Image Description"
-          />
-          <Image
-            width={250}
-            height={250}
-            className="rounded-xl"
-            src="/13.jpg"
-            alt="Image Description"
-          />
-        </div>
-      </div>
-      {/*features end*/}
     </main>
   );
 }

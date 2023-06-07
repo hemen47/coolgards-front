@@ -39,7 +39,7 @@ export default function Product({ data, error }) {
           </div>
           <div className={styles.headerDetails}>
             <h1 className={styles.title}>{data?.data?.title}</h1>
-            <p className={styles.price}>{data?.data?.price} $</p>
+            <p className={styles.price}>€{data?.data?.price}</p>
             <AddButton data={data?.data} />
           </div>
         </div>

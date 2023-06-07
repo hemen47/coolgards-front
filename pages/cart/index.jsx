@@ -76,10 +76,10 @@ export default function Cart() {
                   </svg>
                 </div>
                 <span className="text-center w-1/5 font-semibold text-sm">
-                {item?.price} $
+                € {item?.price}
               </span>
                 <span className="text-center w-1/5 font-semibold text-sm">
-                {item?.price * item?.quantity} $
+                € {item?.price * item?.quantity}
               </span>
               </div>
 
@@ -108,14 +108,14 @@ export default function Cart() {
             </h1>
             <div className="flex justify-between mt-10 mb-5">
               <span className="font-semibold text-sm uppercase">Items {cart?.length}</span>
-              <span className="font-semibold text-sm">590$</span>
+              <span className="font-semibold text-sm">€590</span>
             </div>
             <div>
               <label className="font-medium inline-block mb-3 text-sm uppercase">
                 Shipping
               </label>
               <select className="block p-2 text-gray-600 w-full text-sm">
-                <option>Standard shipping - $10.00</option>
+                <option>Standard shipping - €10.00</option>
               </select>
             </div>
             <div className="py-10">
@@ -138,7 +138,7 @@ export default function Cart() {
             <div className="border-t mt-8">
               <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                 <span>Total cost</span>
-                <span>$600</span>
+                <span>€600</span>
               </div>
               <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
                 Checkout

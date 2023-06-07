@@ -31,7 +31,7 @@ export default function Products({ data, error }) {
                   />
                   <div className={styles.details}>
                     <h1 className={styles.title}>{item.title}</h1>
-                    <p className={styles.price}>{item.price} $</p>
+                    <p className={styles.price}>€{item.price}</p>
                     <div className={styles.buttonContainer}>
                       <AddButton data={item}/>
                       <Link href={"/products/" + item.slug}>
