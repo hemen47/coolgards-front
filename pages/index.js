@@ -5,12 +5,12 @@ import Image from "next/image";
 
 export default function Home() {
   const images = [
-    { original: "/1.png" },
-    { original: "/2.png" },
-    { original: "/3.png" },
-    { original: "/4.png" },
-    { original: "/5.png" },
-    { original: "/6.png" },
+    { original: "/1.jpg" },
+    { original: "/2.jpg" },
+    { original: "/3.jpg" },
+    { original: "/4.jpg" },
+    { original: "/5.jpg" },
+    { original: "/6.jpg" },
   ];
   return (
     <main>
