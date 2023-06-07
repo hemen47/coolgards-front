@@ -11,6 +11,7 @@ export default function Home() {
     { original: "/4.jpg" },
     { original: "/5.jpg" },
     { original: "/6.jpg" },
+    { original: "/7.jpg" },
   ];
   return (
     <main>
