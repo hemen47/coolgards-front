@@ -29,6 +29,7 @@ export default function Home() {
         </p>
         <p>The goal of creating this product was to develop a safe, effective, affordable, and easy-to-use medical device that could be deployed in almost any setting.
         </p>
+
       </div>
       {/*first hero end*/}
 
@@ -52,6 +53,28 @@ export default function Home() {
             <li>Gives you a quiet environment during the treatment</li>
             <li>Covers ankle, shoulder, leg, back, elbow, hand and knee</li>
           </ul>
+          <div className="flex justify-center">
+            <Link
+                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
+                href="/catalog.pdf"
+            >
+              Download Our Catalog
+              <svg
+                  className="w-2.5 h-2.5"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+              >
+                <path
+                    d="M5.27921 2L10.9257 7.64645C11.1209 7.84171 11.1209 8.15829 10.9257 8.35355L5.27921 14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                />
+              </svg>
+            </Link>
+          </div>
         </div>
 
         <div className={styles.slider}>

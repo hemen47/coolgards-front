@@ -13,7 +13,7 @@
   margin-top: 2rem;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center ;
   align-items: flex-start;
 }
 
@@ -25,14 +25,15 @@
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px -1px,
     rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
-  width: 320px;
+  width: 300px;
   transition: all 0.3s ease-in-out;
   transform: scale(1);
   display: flex;
   flex-direction: column;
   padding: 1rem;
-  margin: 1.5rem;
+  margin: 1rem;
   align-items: center;
+  align-self: stretch;
   &:hover {
     transform: scale(1.01);
     box-shadow: 2px 5px 14px -1px rgba(0, 0, 0, 0.41);
