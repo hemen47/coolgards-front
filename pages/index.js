@@ -18,7 +18,15 @@ export default function Home() {
       {/*first hero start*/}
       <div className={styles.hero}>
         <div className={styles.heroText}>
-          <p><span className="text-logo">COOLGARDS</span></p>
+          <div className="flex justify-center items-center ">
+            <Image
+                className="w-[15vw] h-auto"
+                src="/logo-big.png"
+                alt="coolgards big logo"
+                width={200}
+                height = {181}
+            />
+            <p className="text-logo">COOLGARDS</p></div>
           <p>Cold + Compression</p>
           <p>Therapy System</p>
           <p className={styles.heroTextSmall}>ENGINEERED FOR THE COMEBACK</p>
@@ -26,7 +34,7 @@ export default function Home() {
       </div>
       <div className={styles.heroDetails}>
         <p>The equipment is used for postoperative and post-injury rehabilitation treatment, to alleviate inflammatory reaction, control swelling and relieve pain by applying pressure and providing cold compress treatment.
-          <br/><br/>he goal of creating this product was to develop a safe, effective, affordable, and easy-to-use medical device that could be deployed in almost any setting.
+          <br/><br/>The goal of creating this product was to develop a safe, effective, affordable, and easy-to-use medical device that could be deployed in almost any setting.
         </p>
 
       </div>

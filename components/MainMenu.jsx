@@ -50,24 +50,25 @@ export default function MainMenu() {
   };
 
   return (
-    <nav className="flex glass2 fixed top-3 left-8 right-8 p-0 h-[4rem] items-center justify-between ">
+    <nav className="flex glass2 fixed top-3 left-8 max-sm:left-2 right-8 max-sm:right-2 p-0 h-[4rem] items-center justify-between ">
       <div className={styles.ham} onClick={() => setShowHam(!showHam)}>
         {showHam ? <ListOutlinedIcon /> : <MenuOutlinedIcon />}
       </div>
-      <div className={showHam ? styles.menu2 : styles.menu}>
-        <MenuItem sx={{ borderRadius: "2rem", marginRight: ".4rem" }}>
+      <MenuItem sx={{ borderRadius: "2rem", marginRight: ".4rem" }}>
         <Link href="/" onClick={() => setShowHam(false)}>
-          <div className="flex ml-4 justify-center flex-1 items-center">
+          <div className="flex ml-4 max-sm:ml-0 justify-center flex-1 items-center">
             <Image
-              src="/logo.png"
-              alt="coolgards logo"
-              width={60}
-              height={60}
+                src="/logo.png"
+                alt="coolgards logo"
+                width={60}
+                height={60}
             />
-            <p className="mr-2 text-logo text-[1.1rem]">CoolGards</p>
+            <p className="mr-2 max-sm:mr-0 text-logo text-[1.1rem] max-sm:text-[.9rem]  ">CoolGards</p>
           </div>
         </Link>
-        </MenuItem>
+      </MenuItem>
+      <div className={showHam ? styles.menu2 : styles.menu}>
+
 
         <Link href="/products" onClick={() => setShowHam(false)}>
           <MenuItem
@@ -130,7 +131,7 @@ export default function MainMenu() {
       {user ? (
         <>
           <MenuItem
-            sx={{ borderRadius: "2rem", marginRight: "2rem" }}
+            sx={{ borderRadius: "2rem" }}
             onClick={handleClick}
           >
             <PersonIcon />
