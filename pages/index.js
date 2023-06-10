@@ -18,7 +18,7 @@ export default function Home() {
       {/*first hero start*/}
       <div className={styles.hero}>
         <div className={styles.heroText}>
-          <p>The <span className="text-logo">COOLGARDS</span></p>
+          <p><span className="text-logo">COOLGARDS</span></p>
           <p>Cold + Compression</p>
           <p>Therapy System</p>
           <p className={styles.heroTextSmall}>ENGINEERED FOR THE COMEBACK</p>
@@ -26,8 +26,7 @@ export default function Home() {
       </div>
       <div className={styles.heroDetails}>
         <p>The equipment is used for postoperative and post-injury rehabilitation treatment, to alleviate inflammatory reaction, control swelling and relieve pain by applying pressure and providing cold compress treatment.
-        </p>
-        <p>The goal of creating this product was to develop a safe, effective, affordable, and easy-to-use medical device that could be deployed in almost any setting.
+          <br/><br/>he goal of creating this product was to develop a safe, effective, affordable, and easy-to-use medical device that could be deployed in almost any setting.
         </p>
 
       </div>
@@ -36,22 +35,20 @@ export default function Home() {
       {/*slider start*/}
       <div className={styles.sliderContainer}>
         <div className={styles.details}>
-          <h2 className="m-1">
-            Pulse Cold Compression Therapy System Features:
+          <h2 className="m-1 font-normal">
+            Features of the CoolGards’s cold and compression system:
           </h2>
           <ul>
             <li>
-              Intermittent cold compression accelerates the healing process
+              Intermittent cold compression accelerates the healing process and reduces pain and swelling;
             </li>
-            <li>Cold Compression Therapy System reduces pain and swelling</li>
+            <li>Preset flexible treatment options to achieve the best care for you;</li>
 
             <li>
-              Preset flexible treatment options to achieve the best care for you
+              Perfect for athletic training rooms, clinics, and home use;
             </li>
-            <li>Portable design, to use the device anywhere and anytime</li>
-            <li>Perfect for athletic training rooms, clinics and home use</li>
-            <li>Gives you a quiet environment during the treatment</li>
-            <li>Covers ankle, shoulder, leg, back, elbow, hand and knee</li>
+            <li>Gives you a quiet environment during the treatment;</li>
+            <li>Covers the ankle, shoulder, leg, and knee.</li>
           </ul>
           <div className="flex justify-center">
             <Link
