@@ -76,3 +76,8 @@
   margin: .5rem;
   cursor: pointer;
 }
+.content img {
+  @media screen and (max-width: 800px) {
+    max-width: 80vw;
+  }
+}

@@ -95,3 +95,19 @@
   box-shadow: rgba(0, 0, 0, 0.2) 0 2px 1px -1px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 1px 3px 0px;
   border-radius: 1rem;
 }
+
+.fdaSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem;
+}
+.fdaSection img {
+  margin: 1rem;
+}
+
+.fdaSection p {
+  color: #1a1a1a;
+  font-size: 1.1rem;
+  font-weight: 100;
+}

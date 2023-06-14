@@ -55,7 +55,11 @@
     max-width: 400px;
   }
 }
-
+.content img {
+  @media screen and (max-width: 800px) {
+    max-width: 80vw;
+  }
+}
 .tagContainer {
   display: flex;
   flex-wrap: wrap;

@@ -141,6 +141,26 @@ export default function Home() {
       </div>
       {/*second hero end*/}
 
+      <div className={styles.fdaSection}>
+        <p className="w-80">All CoolGards devices are fully compliant with CE and FDA regulatory approval.</p>
+       <div className="flex">
+         <Image
+             src="/ce.webp"
+             alt="ce logo"
+             width={112}
+             height = {80}
+         />
+         <Image
+             src="/fda.webp"
+             alt="fda logo"
+             width={82}
+             height = {89}
+         />
+       </div>
+
+
+      </div>
+
     </main>
   );
 }
