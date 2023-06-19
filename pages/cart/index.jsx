@@ -2,11 +2,23 @@ import * as React from "react";
 import { useContext, useEffect, useState } from "react";
 import {AlertContext, CartContext} from "../_app";
 import styles from "./cart.module.scss";
-import Image from "next/image";
 import Link from "next/link";
+import {ax} from "../../utils/axios";
 
 export default function Cart() {
+  const { setError } = useContext(AlertContext);
   const { cart, setCart } = useContext(CartContext);
+
+  useEffect(() => {
+    if (cart.length !== 0) {
+      ax.post('/api/cart', cart).then((res) => {
+      }).catch((e) => {
+        setError(e.response?.data?.message || e.message)
+      })
+    }
+
+
+  }, [])
 
   return (
     <div className={styles.container}>
@@ -88,8 +100,8 @@ export default function Cart() {
 
             {/*end*/}
 
-            <a
-              href="#"
+            <Link
+              href="/products"
               className="flex font-semibold text-indigo-600 text-sm mt-10"
             >
               <svg
@@ -99,7 +111,7 @@ export default function Cart() {
                 <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
               </svg>
               Continue Shopping
-            </a>
+            </Link>
           </div>
 
           <div id="summary" className="w-1/4 px-8 py-10">
@@ -149,14 +161,4 @@ export default function Cart() {
       </div>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  // try {
-  //   const res = await fetch(`${process.env.BASE_URL}/products`);
-  //   const data = await res.json();
-  //   return { props: { data: data } };
-  // } catch (err) {
-  //   return { props: { error: err.response?.data?.message || err.message } };
-  // }
 }

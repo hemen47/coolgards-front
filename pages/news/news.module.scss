@@ -60,9 +60,17 @@
   }
 }
 
-.read {
+.readMore {
   position: absolute;
   bottom: 17px;
-  right: 32px;
-  font-size: .8rem;
+  right: 40px;
+  font-weight: 200;
+  font-size: 1.2rem;
+  transition: transform .2s ease-out;
+}
+.readMoreHover {
+  @extend .readMore;
+  transform: scale(1.2);
+  font-weight: 400;
+  transition: transform .2s ease-out;
 }

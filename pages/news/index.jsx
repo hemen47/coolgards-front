@@ -36,7 +36,7 @@ export default function News({ data, error }) {
                 />
                 <div className={styles.titleContainer}>
                   <p className={styles.title}>{item.title}</p>
-                  <p className={hovered === item._id ? styles.read : "hidden"}>
+                  <p className={hovered === item._id ? styles.readMoreHover : styles.readMore}>
                     read more...
                   </p>
                 </div>
