@@ -1,162 +1,239 @@
 import * as React from "react";
 import { useContext, useEffect, useState } from "react";
-import {AlertContext, CartContext} from "../_app";
+import { AlertContext, CartContext, UserContext } from "../_app";
 import styles from "./cart.module.scss";
 import Link from "next/link";
-import {ax} from "../../utils/axios";
+import { ax } from "../../utils/axios";
+import { useRouter } from "next/router";
+import Button from "@mui/material/Button";
+import MenuItem from "@mui/material/MenuItem";
+import { Select } from "@mui/material";
+import AddButton from "../../components/AddButton";
+import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
+import dropin from "braintree-web-drop-in";
 
 export default function Cart() {
-  const { setError } = useContext(AlertContext);
+  const router = useRouter();
+  const { setMessage, setError } = useContext(AlertContext);
   const { cart, setCart } = useContext(CartContext);
+  const { user, setUser } = useContext(UserContext);
+  const [shippingValue, setShippingValue] = useState(10);
+  const [clientToken, setClientToken] = useState(null);
+  const [braintreeInstance, setBraintreeInstance] = useState(undefined);
+
+  const calculateTotalPrice = (crt, shp = 0) => {
+    let total = 0;
+    for (let item of crt) {
+      total += item.price * item.quantity;
+    }
+    return total + shp;
+  };
 
   useEffect(() => {
     if (cart.length !== 0) {
-      ax.post('/api/cart', cart).then((res) => {
-      }).catch((e) => {
-        setError(e.response?.data?.message || e.message)
-      })
+      ax.post("/api/cart", cart)
+        .then((res) => {})
+        .catch((e) => {
+          setError(e.response?.data?.message || e.message);
+        });
     }
+  }, []);
+
+  const onPaymentCompleted = (nonce) => {
+    ax.post("/api/checkout", nonce)
+        .then((res) => {})
+        .catch((e) => {
+          setError(e.response?.data?.message || e.message);
+        });
+  }
+
+  const getToken = () => {
+    ax.get("/api/client-token")
+      .then((res) => {
+        console.log("res", res);
+        const initializeBraintree = () =>
+          dropin.create(
+            {
+              authorization: res.data.clientToken,
+              container: "#dropin-container",
+            },
+            function (error, instance) {
+              if (error) console.error(error);
+              else setBraintreeInstance(instance);
+            }
+          );
+
+        if (braintreeInstance) {
+          braintreeInstance.teardown().then(() => {
+            initializeBraintree();
+          });
+        } else {
+          initializeBraintree();
+        }
+        setClientToken(res.data.clientToken);
+      })
+      .catch((e) => {
+        setError(e.response?.data?.message || e.message || e);
+      });
+  };
+
+  const checkOut = () => {
+    if (!localStorage.getItem("authenticated")) {
+      setMessage("please Login first to continue");
+      router.push("/login");
+    }
+    // if (!user.address) {
+    //   setMessage('please add your address');
+    //   router.push('/profile');
+    // }
+    getToken();
+  };
 
 
-  }, [])
 
   return (
     <div className={styles.container}>
-      <div className="container mx-auto mt-10">
-        <div className="flex shadow-md my-10">
-          <div className="w-3/4 bg-white px-10 py-10">
-            <div className="flex justify-between border-b pb-8">
-              <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-              <h2 className="font-semibold text-2xl">3 Items</h2>
-            </div>
-            <div className="flex mt-10 mb-5">
-              <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">
-                Product Details
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Quantity
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Price
-              </h3>
-              <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">
-                Total
-              </h3>
-            </div>
+      <div className={styles.cartContainer} style={{ display: `${!clientToken ? {} : "none"}` }}>
+        <div className="bg-white">
+          <div className="flex justify-between border-b mx-10">
+            <h1 className="font-semibold text-2xl">Shopping Cart</h1>
+            <h2 className="font-semibold text-2xl">{cart.length} Items</h2>
+          </div>
+          <div className={styles.titlesContainer}>
+            <h3 className="font-semibold text-gray-600 text-xs uppercase w-[22rem] ml-10">
+              Product Details
+            </h3>
+            <h3 className="font-semibold text-center text-gray-600 text-xs uppercase align-middle w-[5rem] text-center">
+              Quantity
+            </h3>
+            <h3 className="font-semibold text-center text-gray-600 text-xs uppercase align-middle w-[5rem] text-center">
+              Price
+            </h3>
+            <h3 className="font-semibold text-center text-gray-600 text-xs uppercase align-middle w-[5rem] text-center">
+              Total
+            </h3>
+          </div>
 
-            {/*start*/}
-            {cart.map(item =>{
-
-              return <div key={item?._id} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
-                <div className="flex w-2/5">
-                  <div className="w-20">
+          {/*start*/}
+          {cart.map((item) => {
+            return (
+              <div
+                key={item?._id}
+                className="flex shadowCard flex-wrap items-center hover:bg-gray-100 p-6"
+              >
+                <Link
+                  className="flex items-center w-[20rem]"
+                  href={"/products/" + item.slug}
+                >
+                  <div>
                     <img
-                        className="h-24"
-                        src={item?.imageUrls[0]}
-                        alt={item?.title}
+                      className="h-24"
+                      src={item?.imageUrls[0]}
+                      alt={item?.title}
                     />
                   </div>
                   <div className="flex flex-col justify-between ml-4 flex-grow">
-                    <span className="font-bold text-sm">{item?.title}</span>
-                    <Link
-                        href="#"
-                        className="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                    >
-                      Remove
-                    </Link>
+                    <p className="font-bold m-3 text-sm">{item?.title}</p>
                   </div>
+                </Link>
+                <div className="flex items-center justify-center">
+                  <AddButton data={item} />
+                  <p className="text-center w-15 font-semibold text-sm">
+                    € {item?.price}
+                  </p>
+                  <p className="text-center  w-15  font-semibold text-sm">
+                    € {item?.price * item?.quantity}
+                  </p>
                 </div>
-                <div className="flex justify-center w-1/5">
-                  <svg
-                      className="fill-current text-gray-600 w-3"
-                      viewBox="0 0 448 512"
-                  >
-                    <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                  </svg>
-
-                  <input
-                      className="mx-2 border text-center w-8"
-                      type="text"
-                      value={item?.quantity}
-                  />
-
-                  <svg
-                      className="fill-current text-gray-600 w-3"
-                      viewBox="0 0 448 512"
-                  >
-                    <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                  </svg>
-                </div>
-                <span className="text-center w-1/5 font-semibold text-sm">
-                € {item?.price}
-              </span>
-                <span className="text-center w-1/5 font-semibold text-sm">
-                € {item?.price * item?.quantity}
-              </span>
               </div>
+            );
+          })}
 
+          {/*end*/}
 
-            })}
-
-            {/*end*/}
-
-            <Link
-              href="/products"
-              className="flex font-semibold text-indigo-600 text-sm mt-10"
+          <Link href="/products">
+            <Button
+              variant="standard"
+              sx={{ margin: "1rem", fontSize: "1rem" }}
             >
-              <svg
-                className="fill-current mr-2 text-indigo-600 w-4"
-                viewBox="0 0 448 512"
-              >
-                <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
-              </svg>
+              <ReplyOutlinedIcon sx={{ marginRight: "1rem" }} />
               Continue Shopping
-            </Link>
+            </Button>
+          </Link>
+        </div>
+
+        <div className="shadowCard w-[20rem] px-8 py-2">
+          <h1 className="font-semibold text-2xl border-b pb-8">
+            Order Summary
+          </h1>
+          <div className="flex justify-between mt-10 mb-5">
+            <span className="font-semibold text-sm uppercase">
+              Items {cart?.length}
+            </span>
+            <span className="font-semibold text-sm">
+              € {calculateTotalPrice(cart)}
+            </span>
+          </div>
+          <div className={styles.shippingContainer}>
+            <label className="font-medium inline-block mb-3 text-sm uppercase">
+              Shipping
+            </label>
+            <Select
+              sx={{ margin: "1rem" }}
+              label="Shipping"
+              variant="standard"
+              name="shipping"
+              value={shippingValue}
+              onChange={(e) => setShippingValue(e.target.value)}
+            >
+              <MenuItem value={10}>Standard shipping - €10.00</MenuItem>
+              <MenuItem value={99}>Express shipping - €99.00</MenuItem>
+            </Select>
           </div>
 
-          <div id="summary" className="w-1/4 px-8 py-10">
-            <h1 className="font-semibold text-2xl border-b pb-8">
-              Order Summary
-            </h1>
-            <div className="flex justify-between mt-10 mb-5">
-              <span className="font-semibold text-sm uppercase">Items {cart?.length}</span>
-              <span className="font-semibold text-sm">€590</span>
+          <div className="border-t my-10">
+            <div className="flex font-semibold justify-between py-6 text-sm uppercase">
+              <span>Total cost</span>
+              <span>€ {calculateTotalPrice(cart, shippingValue)}</span>
             </div>
-            <div>
-              <label className="font-medium inline-block mb-3 text-sm uppercase">
-                Shipping
-              </label>
-              <select className="block p-2 text-gray-600 w-full text-sm">
-                <option>Standard shipping - €10.00</option>
-              </select>
-            </div>
-            <div className="py-10">
-              <label
-                htmlFor="promo"
-                className="font-semibold inline-block mb-3 text-sm uppercase"
-              >
-                Promo Code
-              </label>
-              <input
-                type="text"
-                id="promo"
-                placeholder="Enter your code"
-                className="p-2 text-sm w-full"
-              />
-            </div>
-            <button className="bg-red-500 hover:bg-red-600 px-5 py-2 text-sm text-white uppercase">
-              Apply
-            </button>
-            <div className="border-t mt-8">
-              <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-                <span>Total cost</span>
-                <span>€600</span>
-              </div>
-              <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                Checkout
-              </button>
-            </div>
+            <Button variant="contained" fullWidth onClick={checkOut}>
+              Checkout
+            </Button>
           </div>
+        </div>
+      </div>
+
+      <div
+        style={{ display: `${clientToken ? "block" : "none"}` }}
+        className={styles.gateWayContainer}
+      >
+        <div id="dropin-container" />
+        <div className="flex justify-center">
+          <Button
+            className={"braintreePayButton"}
+            type="primary"
+            disabled={!braintreeInstance}
+            onClick={() => {
+              if (braintreeInstance) {
+                braintreeInstance.requestPaymentMethod((error, payload) => {
+                  if (error) {
+                    console.error(error);
+                  } else {
+                    console.log('payload received', payload);
+                    setMessage(
+                      `Payment completed`
+                    );
+                    onPaymentCompleted({
+                      ...payload,
+                      amount : calculateTotalPrice(cart, shippingValue),
+                    });
+                  }
+                });
+              }
+            }}
+          >
+            {"Pay"}
+          </Button>
         </div>
       </div>
     </div>

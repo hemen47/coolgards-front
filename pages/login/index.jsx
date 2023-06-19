@@ -27,7 +27,7 @@ export default function Login() {
         ax.post("/api/users/login", model).then((res) => {
             setUser(res.data.user);
             setMessage('welcome back ;)')
-            localStorage.setItem('authenticated', res.data.user._id)
+            localStorage.setItem('authenticated', true)
             router.push('/')
         }).catch(e => {
             setError(e.response?.data?.message || e.message)

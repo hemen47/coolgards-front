@@ -14,7 +14,7 @@
     "@mui/icons-material": "^5.10.16",
     "@mui/material": "^5.10.16",
     "axios": "^1.2.0",
-    "braintree-web-drop-in-react": "^1.2.1",
+    "braintree-web-drop-in": "^1.38.1",
     "date-fns": "^2.30.0",
     "eslint": "8.29.0",
     "eslint-config-next": "13.0.6",

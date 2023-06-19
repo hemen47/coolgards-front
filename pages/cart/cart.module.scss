@@ -1,3 +1,27 @@
 .container {
-  margin: 6rem;
+  margin-top: 6rem;
+
+}
+.cartContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.shippingContainer {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.titlesContainer {
+  display: flex;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  @media screen and (max-width: 600px) {
+    display: none;
+  }
+}
+
+.gateWayContainer {
+  margin: 5rem;
 }

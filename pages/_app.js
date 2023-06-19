@@ -1,4 +1,4 @@
-import "./globals.css";
+import "./globals.scss";
 import "react-image-gallery/styles/scss/image-gallery.scss";
 import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
