@@ -187,7 +187,7 @@ export default function Cart() {
               onChange={(e) => setShippingValue(e.target.value)}
             >
               <MenuItem value={10}>Standard shipping - €10.00</MenuItem>
-              <MenuItem value={99}>Express shipping - €99.00</MenuItem>
+              <MenuItem value={20}>Express shipping - €20.00</MenuItem>
             </Select>
           </div>
 
