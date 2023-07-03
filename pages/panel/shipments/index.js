@@ -3,21 +3,16 @@ import { DataGrid, GridColumn } from "rc-easyui";
 import { ax } from "../../../utils/axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Select from "@mui/material/Select";
 import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
 import PersonRemoveOutlinedIcon from "@mui/icons-material/PersonRemoveOutlined";
 import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { queryRemover } from "../../../utils/queryRemover";
-import MenuItem from "@mui/material/MenuItem";
-import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
-import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import { AlertContext } from "../../_app";
 import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
-import Link from "next/link";
 
-export default function Index({shipments}) {
+export default function Index() {
   const { setError, setMessage } = useContext(AlertContext);
   const [selectedRow, setSelectedRow] = useState(null);
   const [modal, setModal] = useState(false);
@@ -25,22 +20,16 @@ export default function Index({shipments}) {
   const [mode, setMode] = useState(0);
 
   const searchQueryInitialState = {
-    fullName: "",
-    email: "",
-    roles: "",
+    country: "",
+    shipmentPrice: "",
+    vat: "",
   };
   const [searchQuery, setSearchQuery] = useState(searchQueryInitialState);
 
   const addQueryInitialState = {
-    fullName: "",
-    email: "",
-    roles: "",
-    password: "",
     country: "",
-    city: "",
-    address: "",
-    postalCode: "",
-    mobilePhone: "",
+    shipmentPrice: "",
+    vat: "",
   };
   const [addQuery, setAddQuery] = useState(addQueryInitialState);
 
@@ -48,7 +37,7 @@ export default function Index({shipments}) {
     page: 1,
     size: 10,
   });
-  const [users, setUsers] = useState({
+  const [shipments, setShipments] = useState({
     data: [],
     total: "",
   });
@@ -56,14 +45,13 @@ export default function Index({shipments}) {
     search();
   }, [pagination.page, pagination.size]);
 
-
   const search = () => {
     ax({
-      url: "/api/panel/users",
+      url: "/api/panel/shipments",
       params: queryRemover({ ...searchQuery, ...pagination }),
     })
       .then((res) => {
-        setUsers(res.data);
+        setShipments(res.data);
         setSelectedRow(res.data.data[0]);
       })
       .catch((e) => {
@@ -80,7 +68,7 @@ export default function Index({shipments}) {
   };
   const add = () => {
     setMode(0);
-    setAddQuery({ ...addQuery, roles: ["customer"] });
+    setAddQuery({ ...addQuery });
     setModal(true);
   };
   const edit = () => {
@@ -98,7 +86,7 @@ export default function Index({shipments}) {
   };
   const submitDelete = () => {
     ax({
-      url: "/api/panel/users",
+      url: "/api/panel/shipments",
       method: "delete",
       data: selectedRow,
     })
@@ -114,7 +102,7 @@ export default function Index({shipments}) {
 
   const submitAdd = () => {
     ax({
-      url: "/api/panel/users",
+      url: "/api/panel/shipments",
       method: "post",
       data: addQuery,
     })
@@ -130,7 +118,7 @@ export default function Index({shipments}) {
 
   const submitEdit = () => {
     ax({
-      url: "/api/panel/users",
+      url: "/api/panel/shipments",
       method: "patch",
       data: addQuery,
     })
@@ -153,39 +141,36 @@ export default function Index({shipments}) {
     <div className="ml-56 max-[600px]:ml-20 mr-8">
       <div className="pt-10">
         <div className="flex justify-center">
-          <h1 className="font-thin	text-gray-400	">Users</h1>
+          <h1 className="font-thin	text-gray-400	">Media Files</h1>
         </div>
         <div className="flex flex-wrap justify-evenly">
           <TextField
-            value={searchQuery.email}
-            label="Email"
+            value={searchQuery.country}
+            label="Country"
             variant="standard"
-            name="email"
+            name="country"
             onChange={handleChangeSearch}
             sx={{ width: 300 }}
           />
           <TextField
-            value={searchQuery.fullName}
-            label="Full Name"
+            value={searchQuery.shipmentPrice}
+            label="Shipment Price"
             variant="standard"
-            name="fullName"
+            name="shipmentPrice"
             onChange={handleChangeSearch}
             sx={{ width: 300 }}
           />
 
-          <Select
-            sx={{ marginRight: "17rem" }}
-            variant="standard"
-            value={searchQuery.roles}
-            label="Role"
-            name="roles"
-            onChange={handleChangeSearch}
-            displayEmpty
-          >
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="customer">Customer</MenuItem>
-            <MenuItem value="admin">Admin</MenuItem>
-          </Select>
+          <TextField
+              value={searchQuery.vat}
+              label="Vat"
+              variant="standard"
+              name="vat"
+              onChange={handleChangeSearch}
+              sx={{ width: 300 }}
+          />
+
+
         </div>
 
         <div className="flex flex-wrap justify-evenly w-100 my-4">
@@ -223,8 +208,8 @@ export default function Index({shipments}) {
 
         <DataGrid
           columnResizing
-          data={users?.data}
-          total={users?.total}
+          data={shipments?.data}
+          total={shipments?.total}
           pageNumber={pagination.page}
           pageSize={pagination.size}
           idField="_id"
@@ -252,48 +237,16 @@ export default function Index({shipments}) {
           selection={selectedRow}
           onSelectionChange={(row) => setSelectedRow(row)}
         >
-          <GridColumn field="_id" title="Id" align="center" width="20%" />
-          <GridColumn
-            field="fullName"
-            title="Full Name"
-            align="center"
-            width="30%"
-          />
-          <GridColumn field="email" title="Email" align="center" width="20%" />
-          <GridColumn
-            field="mobilePhone"
-            title="Mobile Phone"
-            align="center"
-            width="10%"
-          />
-          <GridColumn field="roles" title="Roles" align="center" width="10%" />
+          <GridColumn field="_id" title="Id" align="center" width="25%" />
           <GridColumn
             field="country"
             title="Country"
             align="center"
-            width="10%"
+            width="25%"
           />
-          <GridColumn field="city" title="City" align="center" width="10%" />
-          <GridColumn
-            title="Orders"
-            align="center"
-            width="5%"
-            render={({ row }) => (
-              <Link href={"/panel/orders" + row._id} target="_blank">
-                <LocalMallOutlinedIcon className="cursor-pointer" />
-              </Link>
-            )}
-          />
-          <GridColumn
-            title="profile"
-            align="center"
-            width="5%"
-            render={({ row }) => (
-              <Link href={"/profile/" + row._id} target="_blank">
-                <InsertLinkOutlinedIcon className="cursor-pointer" />
-              </Link>
-            )}
-          />
+          <GridColumn field="shipmentPrice" title="Shipment Price" align="center" width="25%" />
+          <GridColumn field="vat" title="Vat" align="center" width="25%" />
+
         </DataGrid>
 
         {/*Add Modal*/}
@@ -301,94 +254,33 @@ export default function Index({shipments}) {
           <div className="modal">
             <div className="flex justify-center items-start flex-wrap">
               <TextField
-                required
-                value={addQuery.email}
-                label="Email"
-                variant="standard"
-                name="email"
-                onChange={handleChangeAdd}
-                sx={{ width: 300, margin: 2 }}
-              />
-              <TextField
-                required
-                value={addQuery.fullName}
-                label="Full Name"
-                variant="standard"
-                name="fullName"
-                onChange={handleChangeAdd}
-                sx={{ width: 300, margin: 2 }}
-              />
-              <TextField
-                required
-                value={addQuery.password}
-                label="Password"
-                variant="standard"
-                name="password"
-                onChange={handleChangeAdd}
-                sx={{ width: 300, margin: 2 }}
-              />
-              <Select
-                variant="standard"
-                value={addQuery.roles}
-                sx={{ margin: "2rem", width: 300 }}
-                label="Role"
-                name="roles"
-                onChange={handleChangeAdd}
-                displayEmpty
-              >
-                <MenuItem value="customer">Customer</MenuItem>
-                <MenuItem value="admin">Admin</MenuItem>
-              </Select>
-
-              <Select
-                  variant="standard"
+                  required
                   value={addQuery.country}
-                  sx={{ margin: "2rem", width: 300 }}
                   label="Country"
+                  variant="standard"
                   name="country"
                   onChange={handleChangeAdd}
-              >
-                {shipments.map(item => (
-                  <MenuItem key={item._id} value={item.country}>{item.country}</MenuItem>
-                ))}
-              </Select>
-
-
+                  sx={{ width: 300, margin: 2 }}
+              />
               <TextField
-                value={addQuery.city}
-                label="City"
+                required
+                value={addQuery.shipmentPrice}
+                label="Shipment Price"
                 variant="standard"
-                name="city"
+                name="shipmentPrice"
+                onChange={handleChangeAdd}
+                sx={{ width: 300, margin: 2 }}
+              />
+              <TextField
+                required
+                value={addQuery.vat}
+                label="vat"
+                variant="standard"
+                name="vat"
                 onChange={handleChangeAdd}
                 sx={{ width: 300, margin: 2 }}
               />
 
-              <TextField
-                value={addQuery.address}
-                label="Address"
-                variant="standard"
-                name="address"
-                onChange={handleChangeAdd}
-                sx={{ width: 300, margin: 2 }}
-              />
-
-              <TextField
-                value={addQuery.postalCode}
-                label="Postal Code"
-                variant="standard"
-                name="postalCode"
-                onChange={handleChangeAdd}
-                sx={{ width: 300, margin: 2 }}
-              />
-
-              <TextField
-                value={addQuery.mobilePhone}
-                label="Mobile Phone"
-                variant="standard"
-                name="mobilePhone"
-                onChange={handleChangeAdd}
-                sx={{ width: 300, margin: 2 }}
-              />
             </div>
             <div className="flex justify-center items-start">
               <Button
@@ -403,7 +295,7 @@ export default function Index({shipments}) {
                   )
                 }
               >
-                {mode ? "Edit User" : "Add User"}
+                {mode ? "Edit Shipment" : "Add Shipment"}
               </Button>
               <Button
                 sx={{ margin: 2 }}
@@ -440,14 +332,4 @@ export default function Index({shipments}) {
       </div>
     </div>
   );
-}
-
-export async function getServerSideProps() {
-  try {
-    const res = await fetch(`${process.env.BASE_URL}/shipments`);
-    const jsonRes = await res.json();
-    return { props: { shipments: jsonRes.data } };
-  } catch (err) {
-    return { props: { error: err.response?.data?.message || err.message } };
-  }
 }

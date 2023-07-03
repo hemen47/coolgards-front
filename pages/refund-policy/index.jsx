@@ -1,9 +1,7 @@
 import * as React from "react";
-import { useContext } from "react";
-import { AlertContext } from "../_app";
 import styles from "./refund.module.scss";
 
-export default function Refund() {
+export default function RefundPolicy() {
 
   return (
     <div className={styles.container}>

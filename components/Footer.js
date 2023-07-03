@@ -6,7 +6,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import PrivacyPolicy from "../pages/privacy";
+import PrivacyPolicy from "../pages/privacy-policy";
 
 export default function Footer() {
   return (
@@ -59,28 +59,29 @@ export default function Footer() {
 
           <ul className="flex-1 flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 ">
             <li>
-              <Link href="/" className="mr-4 hover:underline md:mr-6 ">
-                Home
+              <Link href="/payment-policy" className="mr-4 hover:underline md:mr-6 ">
+                Payment Policy
               </Link>
             </li>
             <li>
-              <Link href="/products" className="mr-4 hover:underline md:mr-6 ">
-                Products
+              <Link href="/shipment-policy" className="mr-4 hover:underline md:mr-6 ">
+                Shipment Policy
+              </Link>
+            </li>
+
+            <li>
+              <Link href="/privacy-policy" className="mr-4 hover:underline md:mr-6 ">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/refund-policy" className="mr-4 hover:underline md:mr-6 ">
+                Refund Policy
               </Link>
             </li>
             <li>
               <Link href="/contact" className="mr-4 hover:underline md:mr-6 ">
                 Contact Us
-              </Link>
-            </li>
-            <li>
-              <Link href="/privacy" className="mr-4 hover:underline md:mr-6 ">
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link href="/refund" className="mr-4 hover:underline md:mr-6 ">
-                Refund Policy
               </Link>
             </li>
           </ul>

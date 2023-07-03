@@ -4,7 +4,7 @@ import { AlertContext } from "../_app";
 import styles from "./about.module.scss";
 import Link from "next/link";
 
-export default function Contact({ data, error }) {
+export default function About({ data, error }) {
   const { setError } = useContext(AlertContext);
 
   if (error) {
@@ -22,15 +22,15 @@ export default function Contact({ data, error }) {
           </div>
 
           <div className="mt-5 max-w-3xl text-center mx-auto">
-            <p className="text-lg text-gray-600">
-              The basis for the COOLGARD was founded in 2022 to provide customers with a full range of services for rehabilitation treatment, and to provide premium and more affordable products and services to people. Our products are aimed at both professional and amateur athletes, as well as health professionals such as physiotherapists or people wishing to maintain a healthy lifestyle.
+            <p className="text-lg text-gray-600 text-justify">
+              COOLGARD was established with the aim of providing customers a comprehensive range of services for rehabilitation treatment, along with offering premium and affordable products and services. Our target audience includes professional and amateur athletes, as well as health professionals such as physiotherapists, and individuals who seek to maintain a healthy lifestyle.
             </p>
           </div>
 
           <div className="mt-8 max-w-3xl text-center mx-auto">
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-gray-800 text-justify" >
               <h2> QUALITY POLICY</h2>
-              Our mission is to satisfy high customer demands by continuously development of our products. We will always strive for a leading position within the area of business we operate in. Any information that indicates non-conformance or dissatisfaction is analysed and used for improvement.
+              Our mission is to meet the high demands of our customers through continuous product development. We are dedicated to achieving a leading position in the industry we operate in. We carefully analyze any information related to non-conformance or customer dissatisfaction and utilize it as valuable input for improvement purposes.
             </p>
           </div>
 

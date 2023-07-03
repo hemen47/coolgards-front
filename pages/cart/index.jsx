@@ -12,40 +12,51 @@ import AddButton from "../../components/AddButton";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import dropin from "braintree-web-drop-in";
 
-export default function Cart() {
+export default function Cart({ shipments }) {
   const router = useRouter();
-  const { setMessage, setError } = useContext(AlertContext);
-  const { cart, setCart } = useContext(CartContext);
   const { user, setUser } = useContext(UserContext);
-  const [shippingValue, setShippingValue] = useState(10);
+
+  const { setMessage, setError } = useContext(AlertContext);
+  const { cart } = useContext(CartContext);
+  const [refreshedCart, setRefreshedCart] = useState([]);
+  const [shipmentPlan, setShipmentPlan] = useState(shipments[0]._id);
+  const [orderInfo, setOrderInfo] = useState({
+    totalItems: "",
+    totalItemsPrice: "",
+    totalPrice: ""
+  });
   const [clientToken, setClientToken] = useState(null);
   const [braintreeInstance, setBraintreeInstance] = useState(undefined);
 
-  const calculateTotalPrice = (crt, shp = 0) => {
-    let total = 0;
-    for (let item of crt) {
-      total += item.price * item.quantity;
+
+  const refreshCart = () => {
+    const model = {
+      cart,
+      shipmentPlan
     }
-    return total + shp;
+    ax.post("/api/cart", model)
+      .then((res) => {
+        setRefreshedCart(res.data.cart);
+        setOrderInfo(res.data.orderInfo);
+      })
+      .catch((e) => {
+        setError(e.response?.data?.message || e.message);
+      });
   };
 
+  // initial cart refresh
   useEffect(() => {
     if (cart.length !== 0) {
-      ax.post("/api/cart", cart)
-        .then((res) => {})
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
+      refreshCart();
     }
   }, []);
 
-  const onPaymentCompleted = (nonce) => {
-    ax.post("/api/checkout", nonce)
-        .then((res) => {})
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
-  }
+  // refresh cart on cart or shipment plan change
+  useEffect(() => {
+      refreshCart()
+  }, [cart, shipmentPlan]);
+
+
 
   const getToken = () => {
     ax.get("/api/client-token")
@@ -77,27 +88,27 @@ export default function Cart() {
       });
   };
 
-  const checkOut = () => {
-    if (!localStorage.getItem("authenticated")) {
+  const placeOrder = () => {
+    if (user) {
+      console.log('user', user)
       setMessage("please Login first to continue");
-      router.push("/login");
     }
     // if (!user.address) {
     //   setMessage('please add your address');
     //   router.push('/profile');
     // }
-    getToken();
   };
-
-
 
   return (
     <div className={styles.container}>
-      <div className={styles.cartContainer} style={{ display: `${!clientToken ? {} : "none"}` }}>
+      <div
+        className={styles.cartContainer}
+        style={{ display: `${!clientToken ? {} : "none"}` }}
+      >
         <div className="bg-white">
           <div className="flex justify-between border-b mx-10">
             <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 className="font-semibold text-2xl">{cart.length} Items</h2>
+            <h2 className="font-semibold text-2xl">{orderInfo.totalItems} Items</h2>
           </div>
           <div className={styles.titlesContainer}>
             <h3 className="font-semibold text-gray-600 text-xs uppercase w-[22rem] ml-10">
@@ -115,7 +126,7 @@ export default function Cart() {
           </div>
 
           {/*start*/}
-          {cart.map((item) => {
+          {refreshedCart.map((item) => {
             return (
               <div
                 key={item?._id}
@@ -142,7 +153,7 @@ export default function Cart() {
                     € {item?.price}
                   </p>
                   <p className="text-center  w-15  font-semibold text-sm">
-                    € {item?.price * item?.quantity}
+                    € {item.price * item.quantity}
                   </p>
                 </div>
               </div>
@@ -168,74 +179,65 @@ export default function Cart() {
           </h1>
           <div className="flex justify-between mt-10 mb-5">
             <span className="font-semibold text-sm uppercase">
-              Items {cart?.length}
+              Total Items <b className="ml-2">( {orderInfo?.totalItems})</b>
             </span>
             <span className="font-semibold text-sm">
-              € {calculateTotalPrice(cart)}
+              € {orderInfo.totalItemsPrice}
             </span>
           </div>
           <div className={styles.shippingContainer}>
-            <label className="font-medium inline-block mb-3 text-sm uppercase">
-              Shipping
+            <label className="font-medium inline-block text-sm uppercase">
+              Location
             </label>
             <Select
-              sx={{ margin: "1rem" }}
               label="Shipping"
               variant="standard"
               name="shipping"
-              value={shippingValue}
-              onChange={(e) => setShippingValue(e.target.value)}
+              value={shipmentPlan}
+              onChange={(e) => setShipmentPlan(e.target.value)}
             >
-              <MenuItem value={10}>Standard shipping - €10.00</MenuItem>
-              <MenuItem value={20}>Express shipping - €20.00</MenuItem>
+              {shipments?.map((shipment) => {
+                return (
+                  <MenuItem key={shipment._id} value={shipment._id}>
+                    {shipment.country} - € {shipment.shipmentPrice}
+                  </MenuItem>
+                );
+              })}
             </Select>
           </div>
-
-          <div className="border-t my-10">
-            <div className="flex font-semibold justify-between py-6 text-sm uppercase">
-              <span>Total cost</span>
-              <span>€ {calculateTotalPrice(cart, shippingValue)}</span>
-            </div>
-            <Button variant="contained" fullWidth onClick={checkOut}>
-              Checkout
-            </Button>
+          <div className="flex font-semibold justify-between mb-4  text-sm uppercase">
+              <span>Shipping <b>(€ {
+                shipments.filter (shipment => shipment._id === shipmentPlan)[0].shipmentPrice
+              })</b> </span>
+            <span>+ € {orderInfo.totalShipmentPrice}</span>
           </div>
-        </div>
-      </div>
-
-      <div
-        style={{ display: `${clientToken ? "block" : "none"}` }}
-        className={styles.gateWayContainer}
-      >
-        <div id="dropin-container" />
-        <div className="flex justify-center">
-          <Button
-            className={"braintreePayButton"}
-            type="primary"
-            disabled={!braintreeInstance}
-            onClick={() => {
-              if (braintreeInstance) {
-                braintreeInstance.requestPaymentMethod((error, payload) => {
-                  if (error) {
-                    console.error(error);
-                  } else {
-                    console.log('payload received', payload);
-                    setMessage(
-                      `Payment completed`
-                    );
-                    onPaymentCompleted({
-                      ...payload,
-                      amount : calculateTotalPrice(cart, shippingValue),
-                    });
-                  }
-                });
-              }
-            }}
-          >
-            {"Pay"}
+          <div className="flex font-semibold justify-between mb-4 text-sm uppercase">
+              <span>Vat <b>(% {
+                shipments.filter (shipment => shipment._id === shipmentPlan)[0].vat
+              })</b> </span>
+            <span>+ € {orderInfo.totalVatPrice}</span>
+          </div>
+          <div className="flex font-semibold justify-between mb-4  text-sm uppercase">
+            <span>Total cost</span>
+            <span>€ {orderInfo.totalPrice}</span>
+          </div>
+          <Button sx={{margin: '1.5rem 0rem'}} variant="contained" fullWidth onClick={placeOrder}>
+            Place Order & Checkout
           </Button>
         </div>
       </div>
+
+
     </div>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/shipments`);
+    const jsonRes = await res.json();
+    return { props: { shipments: jsonRes.data } };
+  } catch (err) {
+    return { props: { error: err.response?.data?.message || err.message } };
+  }
 }

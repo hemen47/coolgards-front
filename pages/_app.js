@@ -10,6 +10,7 @@ import Alert from "@mui/material/Alert";
 import Footer from "../components/Footer";
 import Head from "next/head";
 import Shipment from "../components/shipment";
+import Script from "next/script";
 
 export const UserContext = createContext();
 export const AlertContext = createContext();
@@ -21,18 +22,31 @@ function MyApp({ Component, pageProps }) {
   const [cart, setCart] = useState([]);
   const [error, setError] = useState("");
   const [message, setMessage] = useState(null);
+
+  // read cart from local storage for the first time
   useEffect(() => {
-    if(localStorage.getItem("cart")) {
+    if (localStorage.getItem("cart")) {
       setCart(JSON.parse(window.localStorage.getItem("cart")));
     }
   }, []);
+
+  // write cart to local storage on change
+  useEffect(() => {
+    if (cart.length > 0) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+  }, [cart]);
 
   useEffect(() => {
     import("preline");
   }, []);
 
   const renderMainMenu = () => {
-    if (!router.pathname.includes("/panel") && router.pathname !== "/login" && router.pathname !== "/signup")
+    if (
+      !router.pathname.includes("/panel") &&
+      router.pathname !== "/login" &&
+      router.pathname !== "/signup"
+    )
       return <MainMenu />;
   };
   const renderPanelSideBar = () => {
@@ -61,7 +75,7 @@ function MyApp({ Component, pageProps }) {
               <meta name="description" content="Welcome to Coolgards" />
               <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Shipment/>
+            <Shipment />
             <Authenticator />
             <Snackbar
               open={!!error}
@@ -99,6 +113,8 @@ function MyApp({ Component, pageProps }) {
               <Component {...pageProps} />
             )}
             {renderFooter()}
+            <Script src={`https://www.paypal.com/sdk/js?client-id=${process.env.CLIENT_ID}`} />
+
           </UserContext.Provider>
         </CartContext.Provider>
       </AlertContext.Provider>

@@ -33,7 +33,7 @@ export default function Messages() {
   const [searchQuery, setSearchQuery] = useState(searchQueryInitialState);
   const [pagination, setPagination] = useState({
     page: 1,
-    size: 5,
+    size: 10,
   });
   const [messages, setMessages] = useState({
     data: [],
@@ -253,7 +253,7 @@ export default function Messages() {
                   id="name"
                   label="Full Name"
                   name="name"
-                  autocomplete="name"
+                  autoComplete="name"
                   autoFocus
                   disabled
                   value={selectedRow?.name}

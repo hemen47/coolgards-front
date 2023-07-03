@@ -93,9 +93,7 @@ export default function AddButton({ data }) {
 
   const removeFromCart = () => {
     const newData = cart.filter((item) => item._id !== data._id)
-    console.log('newData', newData)
     setCart(() => newData);
-    localStorage.setItem("cart", JSON.stringify(newData));
   };
 
   const decreaseFromCart = () => {
@@ -109,12 +107,10 @@ export default function AddButton({ data }) {
     });
     if (repeated) {
       setCart(() => newData);
-      localStorage.setItem("cart", JSON.stringify(newData));
       setMessage("Product quantity decreased");
       repeated = false;
     } else {
       setCart((prev) => [...prev, data]);
-      localStorage.setItem("cart", JSON.stringify([...cart, data]));
       setMessage("Product was removed from the cart successfully");
     }
   };

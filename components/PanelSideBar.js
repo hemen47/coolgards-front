@@ -8,6 +8,7 @@ import MonochromePhotosOutlinedIcon from '@mui/icons-material/MonochromePhotosOu
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
+import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import {useRouter} from 'next/router';
 import {useContext} from "react";
 import {UserContext} from "../pages/_app";
@@ -43,6 +44,9 @@ export default function PanelSideBar() {
             <Link style={router.pathname === '/panel/messages' ? {backgroundColor: "#032b5c"} : {}}
                   href='/panel/messages' className='flex justify-start items-center'><MailOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Messages</Link>
+            <Link style={router.pathname === '/panel/messages' ? {backgroundColor: "#032b5c"} : {}}
+                  href='/panel/shipments' className='flex justify-start items-center'><LocalShippingOutlinedIcon
+                sx={{marginRight: ".5rem"}}/>Shipments</Link>
             <Link style={router.pathname === '/panel/orders' ? {backgroundColor: "#032b5c"} : {}}
                   href='/panel/orders' className='flex justify-start items-center'><LocalMallOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Orders</Link>

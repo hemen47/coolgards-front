@@ -101,7 +101,7 @@ export default function Index() {
 
   const [pagination, setPagination] = useState({
     page: 1,
-    size: 5,
+    size: 10,
   });
   const [products, setProducts] = useState({
     data: [],

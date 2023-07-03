@@ -3,10 +3,13 @@ import {AlertContext, UserContext} from "../pages/_app";
 import {ax} from "../utils/axios";
 
 
+
 export default function Authenticator() {
+
     const {setUser} = useContext(UserContext)
     const {setError} = useContext(AlertContext)
-    useEffect(() => {
+
+    const getCurrentUser = () => {
         if (localStorage.getItem('authenticated')) {
             if (!user) {
                 ax.get('/api/users/me').then((res) => {
@@ -17,6 +20,10 @@ export default function Authenticator() {
                 })
             }
         }
+    }
+
+    useEffect(() => {
+        getCurrentUser()
     }, [])
     const {user} = useContext(UserContext)
 }

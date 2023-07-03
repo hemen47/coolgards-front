@@ -56,7 +56,7 @@ export default function Contact({ data, error }) {
             id="name"
             label="Full Name"
             name="name"
-            autocomplete="name"
+            autoComplete="name"
             autoFocus
           />
                 <TextField
