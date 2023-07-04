@@ -1,12 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import PinterestIcon from "@mui/icons-material/Pinterest";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import PrivacyPolicy from "../pages/privacy-policy";
 
 export default function Footer() {
   return (

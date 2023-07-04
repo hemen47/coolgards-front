@@ -113,7 +113,7 @@ function MyApp({ Component, pageProps }) {
               <Component {...pageProps} />
             )}
             {renderFooter()}
-            <Script src={`https://www.paypal.com/sdk/js?client-id=${process.env.CLIENT_ID}`} />
+            <Script src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_CLIENT_ID}`} />
 
           </UserContext.Provider>
         </CartContext.Provider>
