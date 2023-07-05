@@ -44,7 +44,7 @@ export default function PanelSideBar() {
             <Link style={router.pathname === '/panel/messages' ? {backgroundColor: "#032b5c"} : {}}
                   href='/panel/messages' className='flex justify-start items-center'><MailOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Messages</Link>
-            <Link style={router.pathname === '/panel/messages' ? {backgroundColor: "#032b5c"} : {}}
+            <Link style={router.pathname === '/panel/shipments' ? {backgroundColor: "#032b5c"} : {}}
                   href='/panel/shipments' className='flex justify-start items-center'><LocalShippingOutlinedIcon
                 sx={{marginRight: ".5rem"}}/>Shipments</Link>
             <Link style={router.pathname === '/panel/orders' ? {backgroundColor: "#032b5c"} : {}}

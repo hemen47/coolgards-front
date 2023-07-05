@@ -279,21 +279,12 @@ export default function Index({shipments}) {
             align="center"
             width="5%"
             render={({ row }) => (
-              <Link href={"/panel/orders" + row._id} target="_blank">
+              <Link href={"/panel/orders/" + row._id} target="_blank">
                 <LocalMallOutlinedIcon className="cursor-pointer" />
               </Link>
             )}
           />
-          <GridColumn
-            title="profile"
-            align="center"
-            width="5%"
-            render={({ row }) => (
-              <Link href={"/profile/" + row._id} target="_blank">
-                <InsertLinkOutlinedIcon className="cursor-pointer" />
-              </Link>
-            )}
-          />
+
         </DataGrid>
 
         {/*Add Modal*/}

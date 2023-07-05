@@ -1,43 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { DataGrid, GridColumn } from "rc-easyui";
 import { ax } from "../../../utils/axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import Select from "@mui/material/Select";
 import { queryRemover } from "../../../utils/queryRemover";
+import MenuItem from "@mui/material/MenuItem";
 import { AlertContext } from "../../_app";
 import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
+import InputTags from "../../../components/InputTags";
+import { InputAdornment } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+
 
 export default function Index() {
   const { setError, setMessage } = useContext(AlertContext);
   const [selectedRow, setSelectedRow] = useState(null);
   const [modal, setModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
-  const [mode, setMode] = useState(0);
+
 
   const searchQueryInitialState = {
-    country: "",
-    shipmentPrice: "",
-    vat: "",
+    userId: "",
+    status: "",
+    totalItems: "",
+    totalItemsPrice: "",
+    totalShipmentPrice: "",
+    totalVatPrice: "",
+    totalPrice: "",
   };
   const [searchQuery, setSearchQuery] = useState(searchQueryInitialState);
-
-  const addQueryInitialState = {
-    country: "",
-    shipmentPrice: "",
-    vat: "",
-  };
-  const [addQuery, setAddQuery] = useState(addQueryInitialState);
+  const [query, setQuery] = useState(searchQueryInitialState);
 
   const [pagination, setPagination] = useState({
     page: 1,
     size: 10,
   });
-  const [shipments, setShipments] = useState({
+  const [orders, setOrders] = useState({
     data: [],
     total: "",
   });
@@ -47,11 +49,11 @@ export default function Index() {
 
   const search = () => {
     ax({
-      url: "/api/panel/shipments",
+      url: "/api/panel/orders",
       params: queryRemover({ ...searchQuery, ...pagination }),
     })
       .then((res) => {
-        setShipments(res.data);
+        setOrders(res.data);
         setSelectedRow(res.data.data[0]);
       })
       .catch((e) => {
@@ -62,18 +64,12 @@ export default function Index() {
   const handleChangeSearch = (e) => {
     setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value });
   };
+  const handleChange = (e) => {
+    setQuery({ ...query, [e.target.name]: e.target.value });
+  };
 
-  const handleChangeAdd = (e) => {
-    setAddQuery({ ...addQuery, [e.target.name]: e.target.value });
-  };
-  const add = () => {
-    setMode(0);
-    setAddQuery({ ...addQuery });
-    setModal(true);
-  };
   const edit = () => {
-    setMode(1);
-    setAddQuery(selectedRow);
+    setQuery(selectedRow);
     setModal(true);
   };
 
@@ -84,9 +80,10 @@ export default function Index() {
   const handleCloseModal = () => {
     setModal(false);
   };
+
   const submitDelete = () => {
     ax({
-      url: "/api/panel/shipments",
+      url: "/api/panel/orders",
       method: "delete",
       data: selectedRow,
     })
@@ -100,31 +97,15 @@ export default function Index() {
       });
   };
 
-  const submitAdd = () => {
-    ax({
-      url: "/api/panel/shipments",
-      method: "post",
-      data: addQuery,
-    })
-      .then((res) => {
-        search();
-        setMessage(res.data.message);
-        cancelAdd();
-      })
-      .catch((e) => {
-        setError(e.response?.data?.message || e.message);
-      });
-  };
-
   const submitEdit = () => {
     ax({
-      url: "/api/panel/shipments",
+      url: "/api/panel/orders",
       method: "patch",
-      data: addQuery,
+      data: query,
     })
       .then((res) => {
         search();
-        cancelAdd();
+        cancel();
         setMessage(res.data.message);
       })
       .catch((e) => {
@@ -132,48 +113,70 @@ export default function Index() {
       });
   };
 
-  const cancelAdd = () => {
-    setAddQuery(addQueryInitialState);
+  const handleSubmitOrder = () => {
+      submitEdit();
+  };
+
+  const cancel = () => {
+    setQuery(searchQueryInitialState);
     setModal(false);
+  };
+
+  const handleEditorChange = (content, delta, source, editor) => {
+    setQuery((prev) => ({ ...prev, content: content }));
   };
 
   return (
     <div className="ml-56 max-[600px]:ml-20 mr-8">
       <div className="pt-10">
         <div className="flex justify-center">
-          <h1 className="font-thin	text-gray-400	">Media Files</h1>
+          <h1 className="font-thin	text-gray-400	">Orders</h1>
         </div>
         <div className="flex flex-wrap justify-evenly">
           <TextField
-            value={searchQuery.country}
-            label="Country"
+            value={searchQuery.userId}
+            label="User Id"
             variant="standard"
-            name="country"
+            name="title"
             onChange={handleChangeSearch}
             sx={{ width: 300 }}
           />
           <TextField
-            value={searchQuery.shipmentPrice}
-            label="Shipment Price"
+            sx={{ width: 300, marginTop: ".8rem" }}
+            value={searchQuery.totalPrice}
+            label="Total Price"
             variant="standard"
-            name="shipmentPrice"
+            name="totalPrice"
             onChange={handleChangeSearch}
-            sx={{ width: 300 }}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">€</InputAdornment>
+              ),
+            }}
           />
-
-          <TextField
-              value={searchQuery.vat}
-              label="Vat"
-              variant="standard"
-              name="vat"
-              onChange={handleChangeSearch}
-              sx={{ width: 300 }}
-          />
-
-
         </div>
 
-        <div className="flex flex-wrap justify-evenly w-100 my-4">
+        <div className="mt-5 flex flex-wrap justify-evenly">
+          <Select
+            defaultValue=""
+            sx={{ marginRight: "5rem", marginBottom: "1rem" }}
+            variant="standard"
+            value={searchQuery.status}
+            label="Status"
+            name="status"
+            onChange={handleChangeSearch}
+            displayEmpty
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="canceled">canceled </MenuItem>
+            <MenuItem value="pendingPayment">pending payment</MenuItem>
+            <MenuItem value="processing">processing</MenuItem>
+            <MenuItem value="completed">completed</MenuItem>
+            <MenuItem value="refunded">refunded</MenuItem>
+          </Select>
+        </div>
+
+        <div className="flex flex-wrap justify-evenly w-144 my-4">
           <Button
             onClick={search}
             variant="contained"
@@ -181,13 +184,7 @@ export default function Index() {
           >
             Search
           </Button>
-          <Button
-            onClick={add}
-            variant="contained"
-            startIcon={<AddOutlinedIcon />}
-          >
-            Add
-          </Button>
+
           <Button
             onClick={edit}
             variant="contained"
@@ -208,8 +205,8 @@ export default function Index() {
 
         <DataGrid
           columnResizing
-          data={shipments?.data}
-          total={shipments?.total}
+          data={orders?.data}
+          total={orders?.total}
           pageNumber={pagination.page}
           pageSize={pagination.size}
           idField="_id"
@@ -237,71 +234,126 @@ export default function Index() {
           selection={selectedRow}
           onSelectionChange={(row) => setSelectedRow(row)}
         >
-          <GridColumn field="_id" title="Id" align="center" width="25%" />
+          <GridColumn field="_id" title="order id" align="center" width="10%" />
+          <GridColumn field="userId" title="user id" align="center" width="10%" />
+          <GridColumn field="status" title="status" align="center" width="10%" />
+
           <GridColumn
-            field="country"
-            title="Country"
+            field="cart"
+            title="cart items"
             align="center"
-            width="25%"
+            width="30%"
+            render={({ row }) => (
+              <>
+                {row.tags.map((item) => {
+                  return (
+                    <p
+                      className="p-2 m-1 inline-block text-slate-50 bg-slate-400 rounded-3xl"
+                      key={iten_id}
+                    >
+                      {item.title} ({item.quantity})
+                    </p>
+                  );
+                })}
+              </>
+            )}
           />
-          <GridColumn field="shipmentPrice" title="Shipment Price" align="center" width="25%" />
-          <GridColumn field="vat" title="Vat" align="center" width="25%" />
+          <GridColumn
+            fielt="totalItems"
+            title="total items"
+            align="center"
+            width="5%"
+          />
+          <GridColumn
+              fielt="totalItemsPrice"
+              title="items price"
+              align="center"
+              width="5%"
+          />
+          <GridColumn
+              fielt="totalShipmentPrice"
+              title="shipment"
+              align="center"
+              width="5%"
+          />
+          <GridColumn
+              fielt="totalVatPrice"
+              title="vat"
+              align="center"
+              width="5%"
+          />
+          <GridColumn
+              fielt="totalPrice"
+              title="total price"
+              align="center"
+              width="10%"
+          />
 
         </DataGrid>
 
-        {/*Add Modal*/}
-        <Modal open={modal} onClose={handleCloseModal}>
+        {/*Edit Modal*/}
+        <Modal open={modal} onClose={handleCloseModal} keepMounted>
           <div className="modal">
             <div className="flex justify-center items-start flex-wrap">
               <TextField
-                  required
-                  value={addQuery.country}
-                  label="Country"
-                  variant="standard"
-                  name="country"
-                  onChange={handleChangeAdd}
-                  sx={{ width: 300, margin: 2 }}
-              />
-              <TextField
-                required
-                value={addQuery.shipmentPrice}
-                label="Shipment Price"
+                value={query.title}
+                label="title"
                 variant="standard"
-                name="shipmentPrice"
-                onChange={handleChangeAdd}
+                name="title"
+                onChange={(e) => handleChange(e)}
                 sx={{ width: 300, margin: 2 }}
               />
               <TextField
-                required
-                value={addQuery.vat}
-                label="vat"
+                value={query.slug}
+                label="slug"
                 variant="standard"
-                name="vat"
-                onChange={handleChangeAdd}
+                name="slug"
+                onChange={handleChange}
                 sx={{ width: 300, margin: 2 }}
               />
 
+              <Select
+                sx={{ margin: "2rem" }}
+                defaultValue=""
+                label="Status"
+                name="status"
+                variant="standard"
+                value={query.status}
+                onChange={handleChange}
+              >
+                <MenuItem value="available">available</MenuItem>
+                <MenuItem value="sold">sold</MenuItem>
+              </Select>
+
+              <InputTags
+                onChange={(e) => setQuery({ ...query, tags: e })}
+                value={query.tags}
+              />
+
+              <TextField
+                sx={{ width: 300, marginTop: ".8rem" }}
+                value={query.price}
+                label="Price"
+                variant="standard"
+                name="price"
+                onChange={handleChange}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">€</InputAdornment>
+                  ),
+                }}
+              />
             </div>
             <div className="flex justify-center items-start">
               <Button
                 sx={{ margin: 2 }}
-                onClick={mode ? submitEdit : submitAdd}
+                onClick={() => handleSubmitOrder()}
                 variant="contained"
-                startIcon={
-                  mode ? (
-                    <ModeEditOutlineOutlinedIcon />
-                  ) : (
-                    <AddOutlinedIcon />
-                  )
-                }
+                startIcon={<ModeEditOutlineOutlinedIcon />}
               >
-                {mode ? "Edit Shipment" : "Add Shipment"}
+                Edit Order
               </Button>
-              <Button
-                sx={{ margin: 2 }}
-                onClick={cancelAdd}
-                variant="contained"
-              >
+              <Button sx={{ margin: 2 }} onClick={cancel} variant="contained">
                 Cancel
               </Button>
             </div>

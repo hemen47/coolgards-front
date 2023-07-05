@@ -4,10 +4,6 @@ import { ax } from "../../../utils/axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
-import PersonAddOutlinedIcon from "@mui/icons-material/PersonAddOutlined";
-import PersonRemoveOutlinedIcon from "@mui/icons-material/PersonRemoveOutlined";
-import PersonSearchOutlinedIcon from "@mui/icons-material/PersonSearchOutlined";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import { queryRemover } from "../../../utils/queryRemover";
 import Uploader from "../../../components/Uploader";
 import MenuItem from "@mui/material/MenuItem";
@@ -26,6 +22,10 @@ import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 import InputTags from "../../../components/InputTags";
 import { InputAdornment } from "@mui/material";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 const ReactQuill = dynamic(
   async () => {
@@ -284,7 +284,7 @@ export default function Index() {
             onChange={handleChangeSearch}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">$</InputAdornment>
+                <InputAdornment position="start">€</InputAdornment>
               ),
             }}
           />
@@ -294,14 +294,14 @@ export default function Index() {
           <Button
             onClick={search}
             variant="contained"
-            startIcon={<PersonSearchOutlinedIcon />}
+            startIcon={<SearchOutlinedIcon />}
           >
             Search
           </Button>
           <Button
             onClick={add}
             variant="contained"
-            startIcon={<PersonAddOutlinedIcon />}
+            startIcon={<AddOutlinedIcon />}
           >
             Add
           </Button>
@@ -309,7 +309,7 @@ export default function Index() {
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
-            startIcon={<ManageAccountsOutlinedIcon />}
+            startIcon={<ModeEditOutlineOutlinedIcon />}
           >
             Edit
           </Button>
@@ -317,7 +317,7 @@ export default function Index() {
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
-            startIcon={<PersonRemoveOutlinedIcon />}
+            startIcon={<DeleteOutlineOutlinedIcon />}
           >
             Delete
           </Button>
@@ -518,9 +518,9 @@ export default function Index() {
                 variant="contained"
                 startIcon={
                   mode ? (
-                    <ManageAccountsOutlinedIcon />
+                    <ModeEditOutlineOutlinedIcon />
                   ) : (
-                    <PersonAddOutlinedIcon />
+                    <AddOutlinedIcon />
                   )
                 }
               >

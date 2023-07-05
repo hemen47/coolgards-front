@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useContext, useEffect, useState } from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import { AlertContext, CartContext, UserContext } from "../_app";
 import styles from "./cart.module.scss";
 import Link from "next/link";
@@ -11,29 +11,48 @@ import { Select } from "@mui/material";
 import AddButton from "../../components/AddButton";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
 import dropin from "braintree-web-drop-in";
+import TextField from "@mui/material/TextField";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
 
 export default function Cart({ shipments }) {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
+  const [mode, setMode] = useState(0);
+
+  const [query, setQuery] = useState(user);
 
   const { setMessage, setError } = useContext(AlertContext);
   const { cart } = useContext(CartContext);
   const [refreshedCart, setRefreshedCart] = useState([]);
   const [shipmentPlan, setShipmentPlan] = useState(shipments[0]._id);
+
+  useEffect(() => {
+    if (user) {
+      const userShipmentPlan = shipments.filter(item => item.country === user.country)
+      setShipmentPlan(userShipmentPlan[0]._id)
+    }
+  }, [user, shipments]);
+
   const [orderInfo, setOrderInfo] = useState({
     totalItems: "",
     totalItemsPrice: "",
-    totalPrice: ""
+    totalPrice: "",
   });
   const [clientToken, setClientToken] = useState(null);
   const [braintreeInstance, setBraintreeInstance] = useState(undefined);
+  const userFormElement = useRef()
+
+  const handleChange = (e) => {
+    setQuery({ ...query, [e.target.name]: e.target.value });
+  };
 
 
   const refreshCart = () => {
     const model = {
       cart,
-      shipmentPlan
-    }
+      shipmentPlan,
+    };
     ax.post("/api/cart", model)
       .then((res) => {
         setRefreshedCart(res.data.cart);
@@ -53,54 +72,188 @@ export default function Cart({ shipments }) {
 
   // refresh cart on cart or shipment plan change
   useEffect(() => {
-      refreshCart()
+    refreshCart();
   }, [cart, shipmentPlan]);
 
-
-
-  const getToken = () => {
-    ax.get("/api/client-token")
+  const getCurrentUser = () => {
+    ax.get("/api/users/me")
       .then((res) => {
-        console.log("res", res);
-        const initializeBraintree = () =>
-          dropin.create(
-            {
-              authorization: res.data.clientToken,
-              container: "#dropin-container",
-            },
-            function (error, instance) {
-              if (error) console.error(error);
-              else setBraintreeInstance(instance);
-            }
-          );
-
-        if (braintreeInstance) {
-          braintreeInstance.teardown().then(() => {
-            initializeBraintree();
-          });
-        } else {
-          initializeBraintree();
-        }
-        setClientToken(res.data.clientToken);
+        setUser(res.data);
+        setQuery(res.data);
       })
       .catch((e) => {
-        setError(e.response?.data?.message || e.message || e);
+        setError(e.response?.data?.message || e.message);
+        localStorage.removeItem("authenticated");
       });
   };
 
-  const placeOrder = () => {
-    if (user) {
-      console.log('user', user)
-      setMessage("please Login first to continue");
+
+
+  useEffect(() => {
+    if (mode === 1 || mode === 2) {
+      userFormElement.current?.scrollIntoView({
+        behavior: "smooth"
+      });
     }
-    // if (!user.address) {
-    //   setMessage('please add your address');
-    //   router.push('/profile');
-    // }
+  }, [mode]);
+
+  const submitEdit = async () => {
+    const { orders, roles, ...rest } = query;
+    if (!query.fullName) {
+      return setError ('Please enter your full name');
+    }
+    if (!query.city) {
+      return setError ('Please enter your city name');
+    }
+    if (!query.address) {
+      return setError ('Please enter your address');
+    }
+    if (!query.postalCode) {
+      return setError ('Please enter your postal code');
+    }
+    ax({
+      url: "/api/users/me",
+      method: "patch",
+      data: rest,
+    })
+        .then((res) => {
+          setMessage(res.data.message);
+          getCurrentUser();
+        })
+        .catch((e) => {
+          setError(e.response?.data?.message || e.message);
+        });
   };
 
+
+
+
+  const placeOrder = () => {
+    if (user) {
+      // edit more = 1
+      setQuery(user)
+      setMode(1)
+    }
+
+  };
+
+  const handleSubmit = () => {
+    if (mode === 1) {
+
+    }
+  };
+
+  const renderUserForm = () => {
+    if (mode === 0) {
+      return ''
+    }
+    if (mode === 1 || mode === 2) {
+      return (    <div className={styles.userContainer} ref={userFormElement}>
+            <div className="flex justify-center items-start flex-wrap"   >
+              <TextField
+                  required
+                  value={query.email}
+                  label="Email"
+                  variant="standard"
+                  name="email"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+                  disabled={mode === 1}
+              />
+              <TextField
+                  required
+                  value={query.fullName}
+                  label="Full Name"
+                  variant="standard"
+                  name="fullName"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+              />
+              {mode ===2 && <TextField
+                  required
+                  value={query.password}
+                  label="Password"
+                  variant="standard"
+                  name="password"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+              />}
+
+
+              <Select
+                  variant="standard"
+                  value={shipments.filter(
+                      (shipment) => shipment._id === shipmentPlan
+                  )[0]?.country
+                  }
+                  sx={{ margin: "2rem", width: 300 }}
+                  label="Country"
+                  name="country"
+                  disabled
+                  required
+              >
+                {shipments.map((item) => (
+                    <MenuItem key={item._id} value={item.country}>
+                      {item.country}
+                    </MenuItem>
+                ))}
+              </Select>
+
+              <TextField
+                  required
+                  value={query.city}
+                  label="City"
+                  variant="standard"
+                  name="city"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+              />
+
+              <TextField
+                  required
+                  value={query.address}
+                  label="Address"
+                  variant="standard"
+                  name="address"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+              />
+
+              <TextField
+                  value={query.postalCode}
+                  label="Postal Code"
+                  variant="standard"
+                  name="postalCode"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+              />
+
+              <TextField
+                  value={query.mobilePhone}
+                  label="Mobile Phone"
+                  variant="standard"
+                  name="mobilePhone"
+                  onChange={handleChange}
+                  sx={{ width: 300, margin: 2 }}
+              />
+            </div>
+            <div className="flex w-[100%] justify-center items-start">
+              <Button
+                  sx={{ margin: 2 }}
+                  onClick={handleSubmit}
+                  variant="contained"
+                  startIcon={<ShoppingCartCheckoutIcon />}
+              >
+                CheckOut
+              </Button>
+            </div>
+          </div>
+      )
+    }
+  }
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container}  >
       <div
         className={styles.cartContainer}
         style={{ display: `${!clientToken ? {} : "none"}` }}
@@ -108,7 +261,9 @@ export default function Cart({ shipments }) {
         <div className="bg-white">
           <div className="flex justify-between border-b mx-10">
             <h1 className="font-semibold text-2xl">Shopping Cart</h1>
-            <h2 className="font-semibold text-2xl">{orderInfo.totalItems} Items</h2>
+            <h2 className="font-semibold text-2xl">
+              {orderInfo.totalItems} Items
+            </h2>
           </div>
           <div className={styles.titlesContainer}>
             <h3 className="font-semibold text-gray-600 text-xs uppercase w-[22rem] ml-10">
@@ -199,35 +354,61 @@ export default function Cart({ shipments }) {
               {shipments?.map((shipment) => {
                 return (
                   <MenuItem key={shipment._id} value={shipment._id}>
-                    {shipment.country} - € {shipment.shipmentPrice}
+                    {shipment?.country} - € {shipment?.shipmentPrice}
                   </MenuItem>
                 );
               })}
             </Select>
           </div>
           <div className="flex font-semibold justify-between mb-4  text-sm uppercase">
-              <span>Shipping <b>(€ {
-                shipments.filter (shipment => shipment._id === shipmentPlan)[0].shipmentPrice
-              })</b> </span>
+            <span>
+              Shipping{" "}
+              <b>
+                (€{" "}
+                {
+                  shipments.filter(
+                    (shipment) => shipment._id === shipmentPlan
+                  )[0]?.shipmentPrice
+                }
+                )
+              </b>{" "}
+            </span>
             <span>+ € {orderInfo.totalShipmentPrice}</span>
           </div>
           <div className="flex font-semibold justify-between mb-4 text-sm uppercase">
-              <span>Vat <b>(% {
-                shipments.filter (shipment => shipment._id === shipmentPlan)[0].vat
-              })</b> </span>
+            <span>
+              Vat{" "}
+              <b>
+                (%{" "}
+                {
+                  shipments.filter(
+                    (shipment) => shipment._id === shipmentPlan
+                  )[0]?.vat
+                }
+                )
+              </b>{" "}
+            </span>
             <span>+ € {orderInfo.totalVatPrice}</span>
           </div>
           <div className="flex font-semibold justify-between mb-4  text-sm uppercase">
             <span>Total cost</span>
             <span>€ {orderInfo.totalPrice}</span>
           </div>
-          <Button sx={{margin: '1.5rem 0rem'}} variant="contained" fullWidth onClick={placeOrder}>
-            Place Order & Checkout
+          <Button
+            sx={{ margin: "1.5rem 0rem" }}
+            variant="contained"
+            fullWidth
+            startIcon={<EventNoteOutlinedIcon />}
+            onClick={placeOrder}
+          >
+            Place Order
           </Button>
         </div>
       </div>
 
+      {/*customer details*/}
 
+      {renderUserForm()}
     </div>
   );
 }
