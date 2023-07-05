@@ -26,9 +26,9 @@ export default function Signup() {
             password: data.get('password'),
         };
         ax.post("/api/users/", model).then((res) => {
-            setUser(res.data.user);
+            setUser(res.data.data);
             setMessage('welcome to coolgards ;)')
-            localStorage.setItem('authenticated', res.data.user._id)
+            localStorage.setItem('authenticated', true)
             router.push('/')
         }).catch(e => {
             setError(e.response?.data?.message || e.message)

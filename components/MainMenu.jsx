@@ -39,12 +39,14 @@ export default function MainMenu() {
   const handleLogout = () => {
     ax.post("/api/users/logout")
       .then((res) => {
+        router.push('/')
         setMessage(res.data.message);
+        document.cookie = 'COOKIE_NAME=cookieToken; Max-Age=0; path=/; domain=' + location.host;
+        localStorage.removeItem("authenticated");
         setUser("");
       })
       .catch((e) => {
         setError(e.response?.data?.message || e.message);
-        localStorage.removeItem("authenticated");
       });
     setAnchorEl(null);
   };

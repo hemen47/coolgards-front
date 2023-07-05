@@ -25,10 +25,15 @@ export default function Login() {
             password: data.get('password'),
         };
         ax.post("/api/users/login", model).then((res) => {
-            setUser(res.data.user);
+            setUser(res.data.data);
             setMessage('welcome back ;)')
             localStorage.setItem('authenticated', true)
-            router.push('/')
+            if (router.query.hasOwnProperty('redirect'))
+            {
+                router.push(router.query.redirect)
+            } else {
+                router.push('/')
+            }
         }).catch(e => {
             setError(e.response?.data?.message || e.message)
         })

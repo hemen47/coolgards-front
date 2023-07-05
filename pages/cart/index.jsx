@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useContext, useEffect, useRef, useState} from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AlertContext, CartContext, UserContext } from "../_app";
 import styles from "./cart.module.scss";
 import Link from "next/link";
@@ -10,15 +10,15 @@ import MenuItem from "@mui/material/MenuItem";
 import { Select } from "@mui/material";
 import AddButton from "../../components/AddButton";
 import ReplyOutlinedIcon from "@mui/icons-material/ReplyOutlined";
-import dropin from "braintree-web-drop-in";
 import TextField from "@mui/material/TextField";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import EventNoteOutlinedIcon from '@mui/icons-material/EventNoteOutlined';
+import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";
 
 export default function Cart({ shipments }) {
   const router = useRouter();
   const { user, setUser } = useContext(UserContext);
   const [mode, setMode] = useState(0);
+  const [disableButton, setDisableButton] = useState(false);
 
   const [query, setQuery] = useState(user);
 
@@ -29,8 +29,11 @@ export default function Cart({ shipments }) {
 
   useEffect(() => {
     if (user) {
-      const userShipmentPlan = shipments.filter(item => item.country === user.country)
-      setShipmentPlan(userShipmentPlan[0]._id)
+      setQuery(user)
+      const userShipmentPlan = shipments.filter(
+        (item) => item.country === user.country
+      );
+      setShipmentPlan(userShipmentPlan[0]._id);
     }
   }, [user, shipments]);
 
@@ -39,14 +42,11 @@ export default function Cart({ shipments }) {
     totalItemsPrice: "",
     totalPrice: "",
   });
-  const [clientToken, setClientToken] = useState(null);
-  const [braintreeInstance, setBraintreeInstance] = useState(undefined);
-  const userFormElement = useRef()
+  const userFormElement = useRef();
 
   const handleChange = (e) => {
     setQuery({ ...query, [e.target.name]: e.target.value });
   };
-
 
   const refreshCart = () => {
     const model = {
@@ -78,8 +78,8 @@ export default function Cart({ shipments }) {
   const getCurrentUser = () => {
     ax.get("/api/users/me")
       .then((res) => {
-        setUser(res.data);
-        setQuery(res.data);
+        setUser(res.data.data);
+        setQuery(res.data.data);
       })
       .catch((e) => {
         setError(e.response?.data?.message || e.message);
@@ -87,12 +87,10 @@ export default function Cart({ shipments }) {
       });
   };
 
-
-
   useEffect(() => {
     if (mode === 1 || mode === 2) {
       userFormElement.current?.scrollIntoView({
-        behavior: "smooth"
+        behavior: "smooth",
       });
     }
   }, [mode]);
@@ -100,182 +98,235 @@ export default function Cart({ shipments }) {
   const submitEdit = async () => {
     const { roles, ...rest } = query;
     if (!query.fullName) {
-      return setError ('Please enter your full name');
+      return setError("Please enter your full name");
     }
     if (!query.city) {
-      return setError ('Please enter your city name');
+      return setError("Please enter your city name");
     }
     if (!query.address) {
-      return setError ('Please enter your address');
+      return setError("Please enter your address");
     }
     if (!query.postalCode) {
-      return setError ('Please enter your postal code');
+      return setError("Please enter your postal code");
     }
     ax({
       url: "/api/users/me",
       method: "patch",
       data: rest,
     })
-        .then((res) => {
-          setMessage(res.data.message);
-          getCurrentUser();
-        })
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
+      .then((res) => {
+        setMessage(res.data.message);
+        getCurrentUser();
+      })
+      .catch((e) => {
+        setError(e.response?.data?.message || e.message);
+      });
   };
 
- const makeOrder = async () => {
-   const { roles, ...rest } = user;
-   const model = {
-     cart: refreshedCart,
-     shipmentPlan,
-     userInfo: rest
-   }
+  const makeOrder = async () => {
+    const model = {
+      cart: refreshedCart,
+      shipmentPlan,
+      userInfo: mode === 1 ? user : query,
+    };
 
     ax({
       url: "/api/orders",
       method: "post",
       data: model,
     })
-        .then((res) => {
-          setMessage(res.data.message);
-          console.log('orders response', res.data )
-        })
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
+      .then((res) => {
+        setMessage(res.data.message);
+        console.log("orders response", res.data);
+        setDisableButton(true);
+      })
+      .catch((e) => {
+        setError(e.response?.data?.message || e.message);
+      });
+  };
+
+  const makeAnonymousOrder = async () => {
+    if (!query.email) {
+      return setError("Please enter your email address");
+    }
+
+    if (!query.fullName) {
+      return setError("Please enter your full name");
+    }
+
+    if (!query.password) {
+      return setError("Please enter your password");
+    }
+    if (query.password.length < 7) {
+      return setError("Please choose a stronger password (at least seven characters)");
+    }
+
+    if (!query.city) {
+      return setError("Please enter your city name");
+    }
+    if (!query.address) {
+      return setError("Please enter your address");
+    }
+    if (!query.postalCode) {
+      return setError("Please enter your postal code");
+    }
+    makeOrder();
   };
 
   const placeOrder = () => {
     if (user) {
-      setQuery(user)
-      setMode(1)
+      setQuery(user);
+      setMode(1);
+    } else {
+      setMode(2);
     }
-
   };
 
   const handleSubmit = async () => {
     if (mode === 1) {
-      submitEdit().then(() => makeOrder()).catch(e => setError(e.messaage))
-
+      submitEdit()
+        .then(() => makeOrder())
+        .catch((e) => setError(e.messaage));
+    }
+    if (mode === 2) {
+      makeAnonymousOrder();
     }
   };
 
   const renderUserForm = () => {
     if (mode === 0) {
-      return ''
+      return "";
     }
     if (mode === 1 || mode === 2) {
-      return (    <div className={styles.userContainer} ref={userFormElement}>
-            <div className="flex justify-center items-start flex-wrap"   >
+      return (
+        <div className={styles.userContainer} ref={userFormElement}>
+          <div className="flex justify-center items-start flex-wrap">
+            {mode === 2 && (
+              <div className="flex justify-center w-[100%] items-center flex-col">
+                <p className="font-bold">
+                  if you already have an account please{" "}
+                  <Link
+                    style={{ color: "rgba(40,126,255,0.99)" }}
+                    href={{
+                      pathname: "/login",
+                      query: {redirect: "/cart"},
+                    }}
+                  >
+                    Log in!
+                  </Link>
+                </p>
+                <p>otherwise please fill this form to create an account</p>
+              </div>
+            )}
+            <TextField
+              required
+              value={query?.email}
+              label="Email"
+              variant="standard"
+              name="email"
+              onChange={handleChange}
+              sx={{ width: 300, margin: 2 }}
+              disabled={mode === 1}
+            />
+            <TextField
+              required
+              value={query?.fullName}
+              label="Full Name"
+              variant="standard"
+              name="fullName"
+              onChange={handleChange}
+              sx={{ width: 300, margin: 2 }}
+            />
+            {mode === 2 && (
               <TextField
-                  required
-                  value={query.email}
-                  label="Email"
-                  variant="standard"
-                  name="email"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-                  disabled={mode === 1}
+                required
+                value={query?.password}
+                label="Password"
+                variant="standard"
+                name="password"
+                onChange={handleChange}
+                sx={{ width: 300, margin: 2 }}
               />
-              <TextField
-                  required
-                  value={query.fullName}
-                  label="Full Name"
-                  variant="standard"
-                  name="fullName"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-              />
-              {mode ===2 && <TextField
-                  required
-                  value={query.password}
-                  label="Password"
-                  variant="standard"
-                  name="password"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-              />}
+            )}
 
+            <Select
+              variant="standard"
+              value={
+                shipments.filter((shipment) => shipment._id === shipmentPlan)[0]
+                  ?.country
+              }
+              sx={{ margin: "2rem", width: 300 }}
+              label="Country"
+              name="country"
+              disabled
+              required
+            >
+              {shipments.map((item) => (
+                <MenuItem key={item._id} value={item.country}>
+                  {item.country}
+                </MenuItem>
+              ))}
+            </Select>
 
-              <Select
-                  variant="standard"
-                  value={shipments.filter(
-                      (shipment) => shipment._id === shipmentPlan
-                  )[0]?.country
-                  }
-                  sx={{ margin: "2rem", width: 300 }}
-                  label="Country"
-                  name="country"
-                  disabled
-                  required
-              >
-                {shipments.map((item) => (
-                    <MenuItem key={item._id} value={item.country}>
-                      {item.country}
-                    </MenuItem>
-                ))}
-              </Select>
+            <TextField
+              required
+              value={query?.city}
+              label="City"
+              variant="standard"
+              name="city"
+              onChange={handleChange}
+              sx={{ width: 300, margin: 2 }}
+            />
 
-              <TextField
-                  required
-                  value={query.city}
-                  label="City"
-                  variant="standard"
-                  name="city"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-              />
+            <TextField
+              required
+              value={query?.address}
+              label="Address"
+              variant="standard"
+              name="address"
+              onChange={handleChange}
+              sx={{ width: 300, margin: 2 }}
+            />
 
-              <TextField
-                  required
-                  value={query.address}
-                  label="Address"
-                  variant="standard"
-                  name="address"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-              />
+            <TextField
+              value={query?.postalCode}
+              label="Postal Code"
+              variant="standard"
+              name="postalCode"
+              onChange={handleChange}
+              sx={{ width: 300, margin: 2 }}
+            />
 
-              <TextField
-                  value={query.postalCode}
-                  label="Postal Code"
-                  variant="standard"
-                  name="postalCode"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-              />
-
-              <TextField
-                  value={query.mobilePhone}
-                  label="Mobile Phone"
-                  variant="standard"
-                  name="mobilePhone"
-                  onChange={handleChange}
-                  sx={{ width: 300, margin: 2 }}
-              />
-            </div>
-            <div className="flex w-[100%] justify-center items-start">
-              <Button
-                  sx={{ margin: 2 }}
-                  onClick={handleSubmit}
-                  variant="contained"
-                  startIcon={<ShoppingCartCheckoutIcon />}
-              >
-                CheckOut
-              </Button>
-            </div>
+            <TextField
+              value={query?.mobilePhone}
+              label="Mobile Phone"
+              variant="standard"
+              name="mobilePhone"
+              onChange={handleChange}
+              sx={{ width: 300, margin: 2 }}
+            />
           </div>
-      )
+          <div className="flex w-[100%] justify-center items-start">
+            <Button
+              sx={{ margin: 2 }}
+              onClick={handleSubmit}
+              variant="contained"
+              startIcon={<ShoppingCartCheckoutIcon />}
+              // TODO: uncomment this
+              // disabled={disableButton}
+            >
+              CheckOut
+            </Button>
+          </div>
+        </div>
+      );
     }
-  }
+  };
 
   return (
-    <div className={styles.container}  >
+    <div className={styles.container}>
       <div
         className={styles.cartContainer}
-        style={{ display: `${!clientToken ? {} : "none"}` }}
       >
         <div className="bg-white">
           <div className="flex justify-between border-b mx-10">

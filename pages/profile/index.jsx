@@ -42,8 +42,8 @@ export default function Profile({ shipments }) {
 
   const getCurrentUser = () => {
         ax.get('/api/users/me').then((res) => {
-          setUser(res.data);
-          setEditQuery(res.data);
+          setUser(res.data.data);
+          setEditQuery(res.data.data);
         }).catch((e) => {
           setError(e.response?.data?.message || e.message)
           localStorage.removeItem('authenticated')
