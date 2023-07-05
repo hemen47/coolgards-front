@@ -16,6 +16,8 @@ export default function Panel() {
     totalProductsCount: "",
     newMessagesCount: "",
     totalMessagesCount: "",
+    newOrdersCount: "",
+    totalOrdersCount: "",
   });
 
   const getData = () => {
@@ -94,6 +96,21 @@ export default function Panel() {
             </p>
             <p>
               <span className={styles.count}>{data.totalMessagesCount}</span> in
+              total
+            </p>
+          </div>
+        </Link>
+
+        <Link href="/panel/orders">
+          <div className={styles.card}>
+            <p>Orders</p>
+            <Divider />
+            <p>
+              <span className={styles.count}>{data.newOrdersCount}</span> in
+              last 24hr
+            </p>
+            <p>
+              <span className={styles.count}>{data.totalOrdersCount}</span> in
               total
             </p>
           </div>

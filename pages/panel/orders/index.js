@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { DataGrid, GridColumn } from "rc-easyui";
+import styles from "./orders.module.scss";
 import { ax } from "../../../utils/axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -9,22 +10,23 @@ import MenuItem from "@mui/material/MenuItem";
 import { AlertContext } from "../../_app";
 import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
-import InputTags from "../../../components/InputTags";
 import { InputAdornment } from "@mui/material";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import Link from "next/link";
+import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import Image from "next/image";
 
 export default function Index() {
   const { setError, setMessage } = useContext(AlertContext);
   const [selectedRow, setSelectedRow] = useState(null);
   const [modal, setModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
-
+  const [addressModal, setAddressModal] = useState(false);
 
   const searchQueryInitialState = {
-    userId: "",
+    userEmail: "",
     status: "",
     totalItems: "",
     totalItemsPrice: "",
@@ -77,10 +79,6 @@ export default function Index() {
     setConfirmModal(true);
   };
 
-  const handleCloseModal = () => {
-    setModal(false);
-  };
-
   const submitDelete = () => {
     ax({
       url: "/api/panel/orders",
@@ -114,16 +112,12 @@ export default function Index() {
   };
 
   const handleSubmitOrder = () => {
-      submitEdit();
+    submitEdit();
   };
 
   const cancel = () => {
     setQuery(searchQueryInitialState);
     setModal(false);
-  };
-
-  const handleEditorChange = (content, delta, source, editor) => {
-    setQuery((prev) => ({ ...prev, content: content }));
   };
 
   return (
@@ -134,10 +128,10 @@ export default function Index() {
         </div>
         <div className="flex flex-wrap justify-evenly">
           <TextField
-            value={searchQuery.userId}
-            label="User Id"
+            value={searchQuery.userEmail}
+            label="User Email"
             variant="standard"
-            name="title"
+            name="userEmail"
             onChange={handleChangeSearch}
             sx={{ width: 300 }}
           />
@@ -235,114 +229,115 @@ export default function Index() {
           onSelectionChange={(row) => setSelectedRow(row)}
         >
           <GridColumn field="_id" title="order id" align="center" width="10%" />
-          <GridColumn field="userId" title="user id" align="center" width="10%" />
-          <GridColumn field="status" title="status" align="center" width="10%" />
+          <GridColumn
+            field="userEmail"
+            title="user email"
+            align="center"
+            width="15%"
+          />
+          <GridColumn field="status" title="status" align="center" width="15%" />
 
           <GridColumn
             field="cart"
             title="cart items"
             align="center"
-            width="30%"
+            width="35%"
             render={({ row }) => (
               <>
-                {row.tags.map((item) => {
+                {row.cart.map((item) => {
                   return (
-                    <p
-                      className="p-2 m-1 inline-block text-slate-50 bg-slate-400 rounded-3xl"
-                      key={iten_id}
+                    <Link
+                      href={`/products/${item.slug}`}
+                      className="p-2 m-1 block text-slate-50 bg-slate-400 rounded-3xl"
+                      key={item._id}
                     >
                       {item.title} ({item.quantity})
-                    </p>
+                    </Link>
                   );
                 })}
               </>
             )}
           />
           <GridColumn
-            fielt="totalItems"
+            render={({ row }) => <p>{row.totalItems}</p>}
             title="total items"
             align="center"
             width="5%"
           />
           <GridColumn
-              fielt="totalItemsPrice"
-              title="items price"
-              align="center"
-              width="5%"
+            render={({ row }) => <p>€ {row.totalItemsPrice}</p>}
+            title="items price"
+            align="center"
+            width="5%"
           />
           <GridColumn
-              fielt="totalShipmentPrice"
-              title="shipment"
-              align="center"
-              width="5%"
+            render={({ row }) => <p>€ {row.totalShipmentPrice}</p>}
+            title="shipment"
+            align="center"
+            width="5%"
           />
           <GridColumn
-              fielt="totalVatPrice"
-              title="vat"
-              align="center"
-              width="5%"
+            render={({ row }) => <p>€ {row.totalVatPrice}</p>}
+            title="vat"
+            align="center"
+            width="5%"
           />
           <GridColumn
-              fielt="totalPrice"
-              title="total price"
-              align="center"
-              width="10%"
+            render={({ row }) => <p>€ {row.totalPrice}</p>}
+            title="total price"
+            align="center"
+            width="10%"
           />
-
+          <GridColumn
+            render={({ row }) => (
+              <LocationOnOutlinedIcon
+                sx={{ cursor: "pointer" }}
+                onClick={() => setAddressModal(true)}
+              />
+            )}
+            title="address"
+            align="center"
+            width="5%"
+          />
         </DataGrid>
 
         {/*Edit Modal*/}
-        <Modal open={modal} onClose={handleCloseModal} keepMounted>
+        <Modal open={modal} onClose={() => setModal(false)} keepMounted>
           <div className="modal">
             <div className="flex justify-center items-start flex-wrap">
               <TextField
-                value={query.title}
-                label="title"
+                value={query.userEmail}
+                name="userEmail"
+                label="User Email"
                 variant="standard"
-                name="title"
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 sx={{ width: 300, margin: 2 }}
               />
               <TextField
-                value={query.slug}
-                label="slug"
+                value={query.totalPrice}
+                label="Total Price"
                 variant="standard"
-                name="slug"
+                name="totalPrice"
                 onChange={handleChange}
                 sx={{ width: 300, margin: 2 }}
               />
 
               <Select
-                sx={{ margin: "2rem" }}
                 defaultValue=""
-                label="Status"
-                name="status"
+                sx={{ marginRight: "5rem", marginBottom: "1rem" }}
                 variant="standard"
                 value={query.status}
+                label="Status"
+                name="status"
                 onChange={handleChange}
+                displayEmpty
               >
-                <MenuItem value="available">available</MenuItem>
-                <MenuItem value="sold">sold</MenuItem>
+                <MenuItem value="canceled">canceled </MenuItem>
+                <MenuItem value="pendingPayment">pending payment</MenuItem>
+                <MenuItem value="processing">processing</MenuItem>
+                <MenuItem value="completed">completed</MenuItem>
+                <MenuItem value="refunded">refunded</MenuItem>
               </Select>
-
-              <InputTags
-                onChange={(e) => setQuery({ ...query, tags: e })}
-                value={query.tags}
-              />
-
-              <TextField
-                sx={{ width: 300, marginTop: ".8rem" }}
-                value={query.price}
-                label="Price"
-                variant="standard"
-                name="price"
-                onChange={handleChange}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">€</InputAdornment>
-                  ),
-                }}
-              />
             </div>
             <div className="flex justify-center items-start">
               <Button
@@ -381,6 +376,99 @@ export default function Index() {
             </div>
           </div>
         </Dialog>
+
+        {/*address Modal*/}
+        <Modal
+          open={addressModal}
+          onClose={() => setAddressModal(false)}
+          keepMounted
+        >
+          <div className="modal">
+            <div className={styles.profileContainer}>
+              <div className={styles.iconContainer}>
+                <span className={styles.line} />
+                <Image
+                  src="/avatar.png"
+                  width={80}
+                  height={80}
+                  alt="user avatar"
+                />
+                <span className={styles.line} />
+              </div>
+              <div className={styles.profileItem}>
+                <span className={styles.label}>Full Name</span>
+                <span className={styles.value}>
+                  {selectedRow?.address.fullName}
+                </span>
+              </div>
+
+              <div className={styles.profileItem}>
+                <span className={styles.label}>User Email</span>
+                <span className={styles.value}>{selectedRow?.userEmail}</span>
+              </div>
+
+              <div className={styles.profileItem}>
+                <span className={styles.label}>Mobile Phone</span>
+                <span className={styles.value}>
+                  {selectedRow?.address.mobilePhone}
+                </span>
+              </div>
+
+              <div className={styles.iconContainer}>
+                <span className={styles.line} />
+                <Image
+                  src="/address.png"
+                  width={80}
+                  height={80}
+                  alt="user address"
+                />
+                <span className={styles.line} />
+              </div>
+
+              <div className={styles.profileItem}>
+                <span className={styles.label}>Country</span>
+                <span className={styles.value}>
+                  {selectedRow?.address.country}
+                </span>
+              </div>
+
+              <div className={styles.profileItem}>
+                <span className={styles.label}>City</span>
+                <span className={styles.value}>
+                  {selectedRow?.address.city}
+                </span>
+              </div>
+
+              <div className={styles.profileItem}>
+                <span className={styles.label}>Postal Code</span>
+                <span className={styles.value}>
+                  {selectedRow?.address.postalCode}
+                </span>
+              </div>
+
+              <div className={styles.profileItem}>
+                <span className={styles.label}>Address</span>
+                <span className={styles.value}>
+                  {selectedRow?.address.address}
+                </span>
+              </div>
+
+              <div className="flex justify-center w-[100%]">
+                <Button
+                    sx={{ margin: 2 }}
+                    onClick={() => setAddressModal(false)}
+                    variant="contained"
+                >
+                  ok!
+                </Button>
+              </div>
+
+
+            </div>
+
+
+          </div>
+        </Modal>
       </div>
     </div>
   );

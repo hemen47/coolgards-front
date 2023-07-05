@@ -98,7 +98,7 @@ export default function Cart({ shipments }) {
   }, [mode]);
 
   const submitEdit = async () => {
-    const { orders, roles, ...rest } = query;
+    const { roles, ...rest } = query;
     if (!query.fullName) {
       return setError ('Please enter your full name');
     }
@@ -125,20 +125,39 @@ export default function Cart({ shipments }) {
         });
   };
 
+ const makeOrder = async () => {
+   const { roles, ...rest } = user;
+   const model = {
+     cart: refreshedCart,
+     shipmentPlan,
+     userInfo: rest
+   }
 
-
+    ax({
+      url: "/api/orders",
+      method: "post",
+      data: model,
+    })
+        .then((res) => {
+          setMessage(res.data.message);
+          console.log('orders response', res.data )
+        })
+        .catch((e) => {
+          setError(e.response?.data?.message || e.message);
+        });
+  };
 
   const placeOrder = () => {
     if (user) {
-      // edit more = 1
       setQuery(user)
       setMode(1)
     }
 
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (mode === 1) {
+      submitEdit().then(() => makeOrder()).catch(e => setError(e.messaage))
 
     }
   };
