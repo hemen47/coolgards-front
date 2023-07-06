@@ -116,14 +116,12 @@ export async function getServerSideProps(context) {
       `${process.env.BASE_URL}/reset/${context.params.code[0]}/${context.params.code[1]}`
     );
     if (!res.ok) {
-      console.log("res.message", res.statusText);
       return { props: { error: res.statusText } };
     } else {
       const data = await res.json();
       return { props: { data } };
     }
   } catch (err) {
-    console.log("sssssssss", err);
     return { props: { error: err.response?.data?.message || err.message } };
   }
 }

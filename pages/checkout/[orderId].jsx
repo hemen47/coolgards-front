@@ -11,7 +11,6 @@ import {
 export default function Checkout({ localOrderId, error }) {
   const { setError } = useContext(AlertContext);
   const [transactionComplete, setTransactionComplete] = useState(null)
-  console.log('localOrderId', localOrderId)
 
   if (error) {
     setError(error);
