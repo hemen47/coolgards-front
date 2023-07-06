@@ -23,7 +23,7 @@ export default function ShipmentPolicy() {
                     for deliveries is approximately 2 to 3 working days. Please
                     note that while we strive to meet these timelines, we have
                     limited control over the actual delivery process. To help
-                    you stay updated on your order's progress, a confirmation
+                    you stay updated on your order&apos;s progress, a confirmation
                     email containing tracking information will be automatically
                     sent within 24 hours.
                   </span>
@@ -34,7 +34,7 @@ export default function ShipmentPolicy() {
               <span style={{ fontSize: "11pt" }}>
                 <span style={{ fontFamily: "Calibri,sans-serif" }}>
                   <span style={{ fontSize: "14.0pt" }}>
-                    For international shipments, it's important to mention that
+                    For international shipments, it&apos;s important to mention that
                     customs fees, tariffs, and taxes may apply and vary
                     depending on the destination country. These charges are the
                     sole responsibility of the customer. We entrust the safe and

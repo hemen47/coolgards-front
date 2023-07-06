@@ -202,9 +202,9 @@ export default function PrivacyPolicy() {
       <span style={{ fontFamily: "Calibri,sans-serif" }}>
         <span style={{ fontSize: "14.0pt" }}>
           Cookies are small files that a site or its service provider transfers
-          to your computer's hard drive through your Web browser that enables
-          the site's or service provider's systems to recognize your browser and
-          capture and remember certain information.{" "}
+          to your computer&apos;s hard drive through your Web browser that enables
+          the site&apos;s or service provider&apos;s systems to recognize your browser and
+          capture and remember certain information.
         </span>
       </span>
     </span>
