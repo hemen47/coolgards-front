@@ -33,7 +33,9 @@ export default function Cart({ shipments }) {
       const userShipmentPlan = shipments.filter(
         (item) => item.country === user.country
       );
-      setShipmentPlan(userShipmentPlan[0]._id);
+      if (userShipmentPlan) {
+        setShipmentPlan(userShipmentPlan[0]._id);
+      }
     }
   }, [user, shipments]);
 
