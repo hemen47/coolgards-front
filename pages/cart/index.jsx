@@ -314,8 +314,7 @@ export default function Cart({ shipments }) {
               onClick={handleSubmit}
               variant="contained"
               startIcon={<ShoppingCartCheckoutIcon />}
-              // TODO: uncomment this
-              // disabled={disableButton}
+              disabled={disableButton}
             >
               CheckOut
             </Button>
