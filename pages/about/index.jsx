@@ -1,15 +1,8 @@
 import * as React from "react";
-import { useContext } from "react";
-import { AlertContext } from "../_app";
 import styles from "./about.module.scss";
 import Link from "next/link";
 
-export default function About({ data, error }) {
-  const { setError } = useContext(AlertContext);
-
-  if (error) {
-    setError(error);
-  }
+export default function About() {
 
   return (
     <div className={styles.container}>

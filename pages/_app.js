@@ -10,7 +10,6 @@ import Alert from "@mui/material/Alert";
 import Footer from "../components/Footer";
 import Head from "next/head";
 import Shipment from "../components/shipment";
-import Script from "next/script";
 
 export const UserContext = createContext();
 export const AlertContext = createContext();
@@ -67,57 +66,55 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <>
-      <AlertContext.Provider value={{ setMessage, setError }}>
-        <CartContext.Provider value={{ cart, setCart }}>
-          <UserContext.Provider value={{ user, setUser }}>
-            <Head>
-              <title>Coolgards</title>
-              <meta name="description" content="Welcome to Coolgards" />
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-            <Shipment />
-            <Authenticator />
-            <Snackbar
-              open={!!error}
-              autoHideDuration={6000}
-              onClose={handleCloseAlert}
-            >
-              <Alert
+        <AlertContext.Provider value={{ setMessage, setError }}>
+          <CartContext.Provider value={{ cart, setCart }}>
+            <UserContext.Provider value={{ user, setUser }}>
+              <Head>
+                <title>Coolgards</title>
+                <meta name="description" content="Welcome to Coolgards" />
+                <link rel="icon" href="/favicon.ico" />
+              </Head>
+              <Shipment />
+              <Authenticator />
+              <Snackbar
+                open={!!error}
+                autoHideDuration={6000}
                 onClose={handleCloseAlert}
-                variant="filled"
-                severity={"error"}
               >
-                {error}
-              </Alert>
-            </Snackbar>
-            <Snackbar
-              open={!!message}
-              autoHideDuration={6000}
-              onClose={handleCloseAlert}
-            >
-              <Alert
+                <Alert
+                  onClose={handleCloseAlert}
+                  variant="filled"
+                  severity={"error"}
+                >
+                  {error}
+                </Alert>
+              </Snackbar>
+              <Snackbar
+                open={!!message}
+                autoHideDuration={6000}
                 onClose={handleCloseAlert}
-                variant="filled"
-                severity={"success"}
               >
-                {message}
-              </Alert>
-            </Snackbar>
+                <Alert
+                  onClose={handleCloseAlert}
+                  variant="filled"
+                  severity={"success"}
+                >
+                  {message}
+                </Alert>
+              </Snackbar>
 
-            {renderMainMenu()}
-            {renderPanelSideBar()}
-            {router.pathname.includes("/panel") &&
-            !user.roles?.includes("admin") ? (
-              "Please Login As Admin"
-            ) : (
-              <Component {...pageProps} />
-            )}
-            {renderFooter()}
-            <Script src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_CLIENT_ID}`} />
-
-          </UserContext.Provider>
-        </CartContext.Provider>
-      </AlertContext.Provider>
+              {renderMainMenu()}
+              {renderPanelSideBar()}
+              {router.pathname.includes("/panel") &&
+              !user.roles?.includes("admin") ? (
+                "Please Login As Admin"
+              ) : (
+                <Component {...pageProps} />
+              )}
+              {renderFooter()}
+            </UserContext.Provider>
+          </CartContext.Provider>
+        </AlertContext.Provider>
     </>
   );
 }

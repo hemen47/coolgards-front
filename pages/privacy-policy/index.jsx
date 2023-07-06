@@ -8,105 +8,252 @@ export default function PrivacyPolicy() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.about}>
+      <div className={styles.titleContainer}>
         <div className="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-10">
           <div className="mt-5 max-w-xl text-center mx-auto">
             <h1 className="block text-gray-800 text-4xl md:text-5xl lg:text-6xl">
               <span className="text-logo">COOLGARDS</span> Privacy Policy
             </h1>
           </div>
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 1 - WHAT DO WE DO WITH YOUR INFORMATION?</h2>
-            <p className="text-lg text-gray-600">
-              When you purchase something from our store, as part of the buying and selling process, we collect the personal information you give us such as your name, address, phone number and email address.
-              When you browse our store, we also automatically receive your computer’s internet protocol (IP) address in order to provide us with information that helps us learn about your browser and operating system.
-              With your permission, we may send you emails about our store, new products and other updates.
-            </p>
-          </div>
 
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 2 - CONSENT</h2>
-            <p className="text-[2rem] text-gray-800">How do you get my consent?</p>
-            <p className="text-lg text-gray-600">
-              When you provide us with personal information to complete a transaction, verify your credit card, place an order, arrange for a delivery or return a purchase, we imply that you consent to our collecting it and using it for that specific reason only.
-              If we ask for your personal information for a secondary reason, like marketing, we will either ask you directly for your expressed consent, or provide you with an opportunity to say no.
-            </p>
-
-            <p className="text-[2rem] text-gray-800">How do I withdraw my consent?</p>
-            <p className="text-lg text-gray-600">
-              If after you opt-in, you change your mind, you may withdraw your consent for us to contact you, for the continued collection, use or disclosure of your information, at anytime, by contacting us at info@coolgards.com.
-            </p>
-          </div>
-
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 3 - DISCLOSURE</h2>
-            <p className="text-lg text-gray-600">
-              We may disclose your personal information if we are required by law to do so or if you violate our Terms of Service.
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 4 - THIRD-PARTY SERVICES</h2>
-            <p className="text-lg text-gray-600">
-              In general, the third-party providers used by us will only collect, use and disclose your information to the extent necessary to allow them to perform the services they provide to us.
-              However, certain third-party service providers, such as payment gateways and other payment transaction processors, have their own privacy policies in respect to the information we are required to provide to them for your purchase-related transactions.
-              For these providers, we recommend that you read their privacy policies so you can understand the manner in which your personal information will be handled by these providers.
-              In particular, remember that certain providers may be located in or have facilities that are located a different jurisdiction than either you or us. So if you elect to proceed with a transaction that involves the services of a third-party service provider, then your information may become subject to the laws of the jurisdiction(s) in which that service provider or its facilities are located.
-              As an example, if you are located in Canada and your transaction is processed by a payment gateway located in the United States, then your personal information used in completing that transaction may be subject to disclosure under United States legislation, including the Patriot Act.
-              Once you leave our store’s website or are redirected to a third-party website or application, you are no longer governed by this Privacy Policy or our website’s Terms of Service.
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 5 - SECURITY</h2>
-            <p className="text-lg text-gray-600">
-              To protect your personal information, we take reasonable precautions and follow industry best practices to make sure it is not inappropriately lost, misused, accessed, disclosed, altered or destroyed.
-              If you provide us with your credit card information, the information is encrypted using secure socket layer technology (SSL) and stored with a AES-256 encryption. Although no method of transmission over the Internet or electronic storage is 100% secure, we follow all PCI-DSS requirements and implement additional generally accepted industry standards.
-
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 6 - SECURITY</h2>
-            <p className="text-lg text-gray-600">
-              To protect your personal information, we take reasonable precautions and follow industry best practices to make sure it is not inappropriately lost, misused, accessed, disclosed, altered or destroyed.
-              If you provide us with your credit card information, the information is encrypted using secure socket layer technology (SSL) and stored with a AES-256 encryption. Although no method of transmission over the Internet or electronic storage is 100% secure, we follow all PCI-DSS requirements and implement additional generally accepted industry standards.
-
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 7 - COOKIES</h2>
-            <p className="text-lg text-gray-600">
-              Here is a list of cookies that we use. We’ve listed them here so you that you can choose if you want to opt-out of cookies or not.</p>
-            <p className="text-lg text-gray-600">
-              cart: saves the content of your cart for your next visit</p>
-          </div>
-
-
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 8 - AGE OF CONSENT</h2>
-            <p className="text-lg text-gray-600">
-              By using this site, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use this site.
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> SECTION 9 - CHANGES TO THIS PRIVACY POLICY</h2>
-            <p className="text-lg text-gray-600">
-              We reserve the right to modify this privacy policy at any time, so please review it frequently. Changes and clarifications will take effect immediately upon their posting on the website. If we make material changes to this policy, we will notify you here that it has been updated, so that you are aware of what information we collect, how we use it, and under what circumstances, if any, we use and/or disclose it.
-              If our store is acquired or merged with another company, your information may be transferred to the new owners so that we may continue to sell products to you.
-            </p>
-          </div>
-
-
-          <div className="mt-8 max-w-3xl text-center mx-auto ql-align-right">
-            <h2> QUESTIONS AND CONTACT INFORMATION</h2>
-            <p className="text-lg text-gray-600">
-              If you would like to: access, correct, amend or delete any personal information we have about you, register a complaint, or simply want more information contact our Privacy Compliance Officer at info@coolgards.com            </p>
-          </div>
+            <div className={styles.contentContainer}>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "20.0pt" }}>PRIVACY STATEMENT</span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>
+            WHAT DO WE DO WITH YOUR INFORMATION?
+          </span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          When you purchase something from our store, as part of the buying and
+          selling process, we collect the personal information you give us such
+          as your name, address, phone number and email address. With your
+          permission, we may send you emails about our store, new products and
+          other updates.
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>
+            YOUR INFORMATION IS *NOT* DISCLOSED TO OUTSIDE PARTIES
+          </span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          We do not sell your Personal Information to third parties for their
+          marketing or any other purposes. We may provide or make your Personal
+          Information available to:{" "}
+        </span>
+      </span>
+    </span>
+                </p>
+                <ul>
+                    <li>
+      <span style={{ fontSize: "11pt" }}>
+        <span style={{ fontFamily: "Calibri,sans-serif" }}>
+          <span style={{ fontSize: "14.0pt" }}>
+            Our employees, the staff in order to enable them to assist us to
+            interact with you via our Platforms for the marketing, ordering or
+            delivery of goods.{" "}
+          </span>
+        </span>
+      </span>
+                    </li>
+                    <li>
+      <span style={{ fontSize: "11pt" }}>
+        <span style={{ fontFamily: "Calibri,sans-serif" }}>
+          <span style={{ fontSize: "14.0pt" }}>
+            law enforcement, government officials, fraud detection agencies or
+            other third parties when the disclosure of Personal Information is
+            necessary or appropriate in connection with an investigation of
+            fraud, intellectual property infringements, or other activity that
+            is illegal or may expose us to legal liability or financial loss, to
+            report or support the investigation into suspected illegal activity.
+          </span>
+        </span>
+      </span>
+                    </li>
+                </ul>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>CONSENT</span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p style={{ textAlign: "justify" }}>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          When you provide us with personal information to complete a
+          transaction, verify your credit card, place an order, arrange for a
+          delivery, or return a purchase, we imply that you consent to our
+          collecting it and using it for that specific reason only..
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>
+            OPT-OUT FROM DIRECT MARKETING
+          </span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          You have the right to request us not to contact you for purposes of
+          direct marketing by any form of electronic communication, by
+          contacting us at info@coolgards.com.
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>DISCLOSURE</span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          We may disclose your personal information if we are required by law to
+          do so or if you violate our Terms of Service.
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>THIRD-PARTY SERVICES</span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          In general, the third-party providers used by us will only collect,
+          use and disclose your information to the extent necessary to allow
+          them to perform the services they provide to us. However, certain
+          third-party service providers, such as payment gateways and other
+          payment transaction processors, have their own privacy policies in
+          respect to the information we are required to provide to them for your
+          purchase-related transactions. Once you leave our store’s website or
+          are redirected to a third-party website or application, you are no
+          longer governed by this Privacy Policy or our website’s Terms of
+          Service.
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>COOKIES</span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          Cookies are small files that a site or its service provider transfers
+          to your computer's hard drive through your Web browser that enables
+          the site's or service provider's systems to recognize your browser and
+          capture and remember certain information.{" "}
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>
+            CHANGES TO THIS PRIVACY POLICY
+          </span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          We reserve the right to modify this privacy policy at any time, so
+          please review it frequently. Changes and clarifications will take
+          effect immediately upon their posting on the website.{" "}
+        </span>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <strong>
+          <span style={{ fontSize: "14.0pt" }}>
+            QUESTIONS AND CONTACT INFORMATION
+          </span>
+        </strong>
+      </span>
+    </span>
+                </p>
+                <p>
+    <span style={{ fontSize: "11pt" }}>
+      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span style={{ fontSize: "14.0pt" }}>
+          We welcome your questions, comments, and concerns about privacy.
+          Please contact at info@coolgards.com with all feedback pertaining to
+          privacy, or any other issue as well.
+        </span>
+      </span>
+    </span>
+                </p>
+            </div>
 
 
 

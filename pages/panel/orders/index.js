@@ -162,11 +162,8 @@ export default function Index() {
             displayEmpty
           >
             <MenuItem value="">All</MenuItem>
-            <MenuItem value="canceled">canceled </MenuItem>
-            <MenuItem value="pendingPayment">pending payment</MenuItem>
-            <MenuItem value="processing">processing</MenuItem>
-            <MenuItem value="completed">completed</MenuItem>
-            <MenuItem value="refunded">refunded</MenuItem>
+            <MenuItem value="CREATED">CREATED</MenuItem>
+            <MenuItem value="COMPLETED">COMPLETED</MenuItem>
           </Select>
         </div>
 
@@ -332,11 +329,8 @@ export default function Index() {
                 onChange={handleChange}
                 displayEmpty
               >
-                <MenuItem value="canceled">canceled </MenuItem>
-                <MenuItem value="pendingPayment">pending payment</MenuItem>
-                <MenuItem value="processing">processing</MenuItem>
-                <MenuItem value="completed">completed</MenuItem>
-                <MenuItem value="refunded">refunded</MenuItem>
+                <MenuItem value="CREATED">CREATED</MenuItem>
+                <MenuItem value="COMPLETED">COMPLETED</MenuItem>
               </Select>
             </div>
             <div className="flex justify-center items-start">

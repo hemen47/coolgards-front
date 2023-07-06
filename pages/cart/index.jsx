@@ -137,8 +137,8 @@ export default function Cart({ shipments }) {
     })
       .then((res) => {
         setMessage(res.data.message);
-        console.log("orders response", res.data);
         setDisableButton(true);
+        router.push('/checkout/'+ res.data.data._id)
       })
       .catch((e) => {
         setError(e.response?.data?.message || e.message);
