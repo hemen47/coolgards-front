@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
             <div className={styles.contentContainer}>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "20.0pt" }}>PRIVACY STATEMENT</span>
         </strong>
@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>
             WHAT DO WE DO WITH YOUR INFORMATION?
@@ -39,7 +39,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           When you purchase something from our store, as part of the buying and
           selling process, we collect the personal information you give us such
@@ -52,7 +52,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>
             YOUR INFORMATION IS *NOT* DISCLOSED TO OUTSIDE PARTIES
@@ -63,7 +63,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           We do not sell your Personal Information to third parties for their
           marketing or any other purposes. We may provide or make your Personal
@@ -75,7 +75,7 @@ export default function PrivacyPolicy() {
                 <ul>
                     <li>
       <span style={{ fontSize: "11pt" }}>
-        <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span >
           <span style={{ fontSize: "14.0pt" }}>
             Our employees, the staff in order to enable them to assist us to
             interact with you via our Platforms for the marketing, ordering or
@@ -86,7 +86,7 @@ export default function PrivacyPolicy() {
                     </li>
                     <li>
       <span style={{ fontSize: "11pt" }}>
-        <span style={{ fontFamily: "Calibri,sans-serif" }}>
+        <span >
           <span style={{ fontSize: "14.0pt" }}>
             law enforcement, government officials, fraud detection agencies or
             other third parties when the disclosure of Personal Information is
@@ -101,7 +101,7 @@ export default function PrivacyPolicy() {
                 </ul>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>CONSENT</span>
         </strong>
@@ -110,7 +110,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p style={{ textAlign: "justify" }}>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           When you provide us with personal information to complete a
           transaction, verify your credit card, place an order, arrange for a
@@ -122,7 +122,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>
             OPT-OUT FROM DIRECT MARKETING
@@ -133,7 +133,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           You have the right to request us not to contact you for purposes of
           direct marketing by any form of electronic communication, by
@@ -144,7 +144,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>DISCLOSURE</span>
         </strong>
@@ -153,7 +153,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           We may disclose your personal information if we are required by law to
           do so or if you violate our Terms of Service.
@@ -163,7 +163,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>THIRD-PARTY SERVICES</span>
         </strong>
@@ -172,7 +172,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           In general, the third-party providers used by us will only collect,
           use and disclose your information to the extent necessary to allow
@@ -190,7 +190,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>COOKIES</span>
         </strong>
@@ -199,7 +199,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           Cookies are small files that a site or its service provider transfers
           to your computer&apos;s hard drive through your Web browser that enables
@@ -211,7 +211,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>
             CHANGES TO THIS PRIVACY POLICY
@@ -222,7 +222,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           We reserve the right to modify this privacy policy at any time, so
           please review it frequently. Changes and clarifications will take
@@ -233,7 +233,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <strong>
           <span style={{ fontSize: "14.0pt" }}>
             QUESTIONS AND CONTACT INFORMATION
@@ -244,7 +244,7 @@ export default function PrivacyPolicy() {
                 </p>
                 <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           We welcome your questions, comments, and concerns about privacy.
           Please contact at info@coolgards.com with all feedback pertaining to

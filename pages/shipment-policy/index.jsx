@@ -14,7 +14,7 @@ export default function ShipmentPolicy() {
           <div className={styles.contentContainer}>
             <p style={{ textAlign: "justify" }}>
               <span style={{ fontSize: "11pt" }}>
-                <span style={{ fontFamily: "Calibri,sans-serif" }}>
+                <span>
                   <span style={{ fontSize: "14.0pt" }}>
                     We provide complimentary shipping services to customers
                     within Sweden, Denmark, Norway, Finland, and Iceland. All
@@ -32,7 +32,7 @@ export default function ShipmentPolicy() {
             </p>
             <p style={{ textAlign: "justify" }}>
               <span style={{ fontSize: "11pt" }}>
-                <span style={{ fontFamily: "Calibri,sans-serif" }}>
+                <span>
                   <span style={{ fontSize: "14.0pt" }}>
                     For international shipments, it&apos;s important to mention that
                     customs fees, tariffs, and taxes may apply and vary

@@ -15,7 +15,7 @@ export default function RefundPolicy() {
           <div className={styles.contentContainer}>
             <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           At our company, we are committed to providing you with the highest
           quality products and ensuring excellent value for your investment.
@@ -30,7 +30,7 @@ export default function RefundPolicy() {
             </p>
             <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           All our products benefit from the legal guarantee of conformity and
           the guarantee against hidden defects. In the event of non-compliance
@@ -43,7 +43,7 @@ export default function RefundPolicy() {
             </p>
             <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           The products must be returned to us in the state in which you received
           them with all the elements (accessories, packaging, instructions,
@@ -54,7 +54,7 @@ export default function RefundPolicy() {
             </p>
             <p>
     <span style={{ fontSize: "11pt" }}>
-      <span style={{ fontFamily: "Calibri,sans-serif" }}>
+      <span >
         <span style={{ fontSize: "14.0pt" }}>
           Note that the return costs are your responsibility whatever the
           reason.
