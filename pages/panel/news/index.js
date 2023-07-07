@@ -224,7 +224,7 @@ export default function Index() {
   };
 
   return (
-    <div className="ml-56 max-[600px]:ml-20 mr-8">
+    <div className="panelContainer">
       <div className="pt-10">
         <div className="flex justify-center">
           <h1 className="font-thin	text-gray-400	">News Posts</h1>
@@ -270,8 +270,9 @@ export default function Index() {
           </Select>
         </div>
 
-        <div className="flex flex-wrap justify-evenly w-144 my-4">
+        <div className="my-4">
           <Button
+              sx={{ margin: "1rem"}}
             onClick={search}
             variant="contained"
             startIcon={<PersonSearchOutlinedIcon />}
@@ -279,6 +280,7 @@ export default function Index() {
             Search
           </Button>
           <Button
+              sx={{ margin: "1rem"}}
             onClick={add}
             variant="contained"
             startIcon={<PersonAddOutlinedIcon />}
@@ -286,6 +288,7 @@ export default function Index() {
             Add
           </Button>
           <Button
+              sx={{ margin: "1rem"}}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -294,6 +297,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
+              sx={{ margin: "1rem"}}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -304,6 +308,7 @@ export default function Index() {
 
           <Link href="/news" className="block">
             <Button
+                sx={{ margin: "1rem"}}
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
             >

@@ -138,7 +138,7 @@ export default function Index() {
   };
 
   return (
-    <div className="ml-56 max-[600px]:ml-20 mr-8">
+    <div className="panelContainer">
       <div className="pt-10">
         <div className="flex justify-center">
           <h1 className="font-thin	text-gray-400	">Media Files</h1>
@@ -173,8 +173,9 @@ export default function Index() {
 
         </div>
 
-        <div className="flex flex-wrap justify-evenly w-100 my-4">
+        <div className="my-4">
           <Button
+              sx={{ margin: "1rem"}}
             onClick={search}
             variant="contained"
             startIcon={<SearchOutlinedIcon />}
@@ -182,6 +183,7 @@ export default function Index() {
             Search
           </Button>
           <Button
+              sx={{ margin: "1rem"}}
             onClick={add}
             variant="contained"
             startIcon={<AddOutlinedIcon />}
@@ -189,6 +191,7 @@ export default function Index() {
             Add
           </Button>
           <Button
+              sx={{ margin: "1rem"}}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -197,6 +200,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
+              sx={{ margin: "1rem"}}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}

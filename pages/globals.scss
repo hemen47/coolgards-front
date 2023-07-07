@@ -61,3 +61,12 @@ a {
   padding: 3rem;
   overflow: auto;
 }
+
+.panelContainer {
+  margin-left: 16rem;
+  margin-right: 2rem;
+  @media screen and (max-width: 1000px) {
+    margin-left: 3.5rem;
+    margin-right: 1rem;
+  }
+}
