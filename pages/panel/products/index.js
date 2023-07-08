@@ -292,7 +292,7 @@ export default function Index() {
 
         <div className="my-4">
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={search}
             variant="contained"
             startIcon={<SearchOutlinedIcon />}
@@ -300,7 +300,7 @@ export default function Index() {
             Search
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={add}
             variant="contained"
             startIcon={<AddOutlinedIcon />}
@@ -308,7 +308,7 @@ export default function Index() {
             Add
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -317,7 +317,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -326,9 +326,9 @@ export default function Index() {
             Delete
           </Button>
 
-          <Link href="/products" className="block">
+          <Link href="/products">
             <Button
-                sx={{ margin: "1rem"}}
+                sx={{ margin: ".5rem"}}
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
             >
@@ -337,7 +337,9 @@ export default function Index() {
           </Link>
         </div>
 
+                <div className="dataGridContainer">
         <DataGrid
+          style={{minWidth: "800px", overflow: "auto"}}
           columnResizing
           data={products?.data}
           total={products?.total}
@@ -427,7 +429,7 @@ export default function Index() {
             )}
           />
         </DataGrid>
-
+                </div>
         {/*Add Modal*/}
         <Modal open={modal} onClose={handleCloseModal} keepMounted>
           <div className="modal">

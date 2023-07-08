@@ -142,7 +142,7 @@ export default function Messages() {
 
         <div className="my-4">
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={search}
             variant="contained"
             startIcon={<PersonSearchOutlinedIcon />}
@@ -150,7 +150,7 @@ export default function Messages() {
             Search
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -160,7 +160,9 @@ export default function Messages() {
           </Button>
         </div>
 
+                <div className="dataGridContainer">
         <DataGrid
+          style={{minWidth: "800px", overflow: "auto"}}
           columnResizing
           data={messages?.data}
           total={messages?.total}
@@ -244,7 +246,7 @@ export default function Messages() {
             )}
           />
         </DataGrid>
-
+                </div>
         {/*view modal*/}
         <Modal open={modal} onClose={handleCloseModal} keepMounted>
           <div className="modal">

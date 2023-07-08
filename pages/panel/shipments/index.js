@@ -175,7 +175,7 @@ export default function Index() {
 
         <div className="my-4">
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={search}
             variant="contained"
             startIcon={<SearchOutlinedIcon />}
@@ -183,7 +183,7 @@ export default function Index() {
             Search
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={add}
             variant="contained"
             startIcon={<AddOutlinedIcon />}
@@ -191,7 +191,7 @@ export default function Index() {
             Add
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -200,7 +200,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
-              sx={{ margin: "1rem"}}
+              sx={{ margin: ".5rem"}}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -210,7 +210,9 @@ export default function Index() {
           </Button>
         </div>
 
+                <div className="dataGridContainer">
         <DataGrid
+          style={{minWidth: "800px", overflow: "auto"}}
           columnResizing
           data={shipments?.data}
           total={shipments?.total}
@@ -252,7 +254,7 @@ export default function Index() {
           <GridColumn field="vat" title="Vat" align="center" width="25%" />
 
         </DataGrid>
-
+                </div>
         {/*Add Modal*/}
         <Modal open={modal} onClose={handleCloseModal}>
           <div className="modal">
