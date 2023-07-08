@@ -17,7 +17,7 @@ import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
 import Link from "next/link";
 
-export default function Index({shipments}) {
+export default function Index({ shipments }) {
   const { setError, setMessage } = useContext(AlertContext);
   const [selectedRow, setSelectedRow] = useState(null);
   const [modal, setModal] = useState(false);
@@ -55,7 +55,6 @@ export default function Index({shipments}) {
   useEffect(() => {
     search();
   }, [pagination.page, pagination.size]);
-
 
   const search = () => {
     ax({
@@ -190,7 +189,7 @@ export default function Index({shipments}) {
 
         <div className="my-4">
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={search}
             variant="contained"
             startIcon={<PersonSearchOutlinedIcon />}
@@ -198,7 +197,7 @@ export default function Index({shipments}) {
             Search
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={add}
             variant="contained"
             startIcon={<PersonAddOutlinedIcon />}
@@ -206,7 +205,7 @@ export default function Index({shipments}) {
             Add
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -215,7 +214,7 @@ export default function Index({shipments}) {
             Edit
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -226,72 +225,75 @@ export default function Index({shipments}) {
         </div>
 
         <div className="dataGridContainer">
-        <DataGrid
-          style={{minWidth: "800px", overflow: "auto"}}
-          columnResizing
-          data={users?.data}
-          total={users?.total}
-          pageNumber={pagination.page}
-          pageSize={pagination.size}
-          idField="_id"
-          lazy
-          selectionMode="single"
-          pagination
-          onPageChange={(e) =>
-            setPagination({ page: e.pageNumber, size: e.pageSize })
-          }
-          pagePosition="bottom"
-          pageOptions={{
-            layout: [
-              "list",
-              "sep",
-              "first",
-              "prev",
-              "next",
-              "last",
-              "sep",
-              "sep",
-              "manual",
-              "info",
-            ],
-          }}
-          selection={selectedRow}
-          onSelectionChange={(row) => setSelectedRow(row)}
-        >
-          <GridColumn field="_id" title="Id" align="center" width="20%" />
-          <GridColumn
-            field="fullName"
-            title="Full Name"
-            align="center"
-            width="30%"
-          />
-          <GridColumn field="email" title="Email" align="center" width="20%" />
-          <GridColumn
-            field="mobilePhone"
-            title="Mobile Phone"
-            align="center"
-            width="10%"
-          />
-          <GridColumn field="roles" title="Roles" align="center" width="10%" />
-          <GridColumn
-            field="country"
-            title="Country"
-            align="center"
-            width="10%"
-          />
-          <GridColumn field="city" title="City" align="center" width="10%" />
-          <GridColumn
-            title="Orders"
-            align="center"
-            width="5%"
-            render={({ row }) => (
-              <Link href={"/panel/orders/" + row._id} target="_blank">
-                <LocalMallOutlinedIcon className="cursor-pointer" />
-              </Link>
-            )}
-          />
-
-        </DataGrid>
+          <DataGrid
+            style={{ minWidth: "800px", overflow: "auto" }}
+            columnResizing
+            data={users?.data}
+            total={users?.total}
+            pageNumber={pagination.page}
+            pageSize={pagination.size}
+            idField="_id"
+            lazy
+            selectionMode="single"
+            pagination
+            onPageChange={(e) =>
+              setPagination({ page: e.pageNumber, size: e.pageSize })
+            }
+            pagePosition="bottom"
+            pageOptions={{
+              layout: [
+                "list",
+                "sep",
+                "first",
+                "prev",
+                "next",
+                "last",
+                "sep",
+                "sep",
+                "manual",
+                "info",
+              ],
+            }}
+            selection={selectedRow}
+            onSelectionChange={(row) => setSelectedRow(row)}
+          >
+            <GridColumn field="_id" title="Id" align="center" />
+            <GridColumn
+              field="fullName"
+              title="Full Name"
+              align="center"
+            />
+            <GridColumn
+              field="email"
+              title="Email"
+              align="center"
+            />
+            <GridColumn
+              field="mobilePhone"
+              title="Mobile Phone"
+              align="center"
+            />
+            <GridColumn
+              field="roles"
+              title="Roles"
+              align="center"
+            />
+            <GridColumn
+              field="country"
+              title="Country"
+              align="center"
+            />
+            <GridColumn field="city" title="City" align="center"/>
+            <GridColumn
+              title="Orders"
+              align="center"
+              render={({ row }) => (
+                <Link href={"/panel/orders/" + row._id} target="_blank">
+                  <LocalMallOutlinedIcon className="cursor-pointer" />
+                </Link>
+              )}
+            />
+          </DataGrid>
         </div>
 
         {/*Add Modal*/}
@@ -339,18 +341,19 @@ export default function Index({shipments}) {
               </Select>
 
               <Select
-                  variant="standard"
-                  value={addQuery.country}
-                  sx={{ margin: "2rem", width: 300 }}
-                  label="Country"
-                  name="country"
-                  onChange={handleChangeAdd}
+                variant="standard"
+                value={addQuery.country}
+                sx={{ margin: "2rem", width: 300 }}
+                label="Country"
+                name="country"
+                onChange={handleChangeAdd}
               >
-                {shipments.map(item => (
-                  <MenuItem key={item._id} value={item.country}>{item.country}</MenuItem>
+                {shipments.map((item) => (
+                  <MenuItem key={item._id} value={item.country}>
+                    {item.country}
+                  </MenuItem>
                 ))}
               </Select>
-
 
               <TextField
                 value={addQuery.city}

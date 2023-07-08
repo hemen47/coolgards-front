@@ -121,7 +121,7 @@ export default function Index() {
   };
 
   return (
-    <div className="ml-56 ml-44 mr-20">
+    <div className="panelContainer">
       <div className="pt-10">
         <div className="flex justify-center">
           <h1 className="font-thin	text-gray-400	">Orders</h1>
@@ -169,7 +169,7 @@ export default function Index() {
 
         <div className="my-4">
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={search}
             variant="contained"
             startIcon={<SearchOutlinedIcon />}
@@ -178,7 +178,7 @@ export default function Index() {
           </Button>
 
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -187,7 +187,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -197,112 +197,117 @@ export default function Index() {
           </Button>
         </div>
 
-                <div className="dataGridContainer">
-        <DataGrid
-          style={{minWidth: "800px", overflow: "auto"}}
-          columnResizing
-          data={orders?.data}
-          total={orders?.total}
-          pageNumber={pagination.page}
-          pageSize={pagination.size}
-          idField="_id"
-          lazy
-          selectionMode="single"
-          pagination
-          onPageChange={(e) =>
-            setPagination({ page: e.pageNumber, size: e.pageSize })
-          }
-          pagePosition="bottom"
-          pageOptions={{
-            layout: [
-              "list",
-              "sep",
-              "first",
-              "prev",
-              "next",
-              "last",
-              "sep",
-              "sep",
-              "manual",
-              "info",
-            ],
-          }}
-          selection={selectedRow}
-          onSelectionChange={(row) => setSelectedRow(row)}
-        >
-          <GridColumn field="_id" title="order id" align="center" width="10%" />
-          <GridColumn
-            field="userEmail"
-            title="user email"
-            align="center"
-            width="15%"
-          />
-          <GridColumn field="status" title="status" align="center" width="15%" />
+        <div className="dataGridContainer">
+          <DataGrid
+            style={{ minWidth: "800px", overflow: "auto" }}
+            columnResizing
+            data={orders?.data}
+            total={orders?.total}
+            pageNumber={pagination.page}
+            pageSize={pagination.size}
+            idField="_id"
+            lazy
+            selectionMode="single"
+            pagination
+            onPageChange={(e) =>
+              setPagination({ page: e.pageNumber, size: e.pageSize })
+            }
+            pagePosition="bottom"
+            pageOptions={{
+              layout: [
+                "list",
+                "sep",
+                "first",
+                "prev",
+                "next",
+                "last",
+                "sep",
+                "sep",
+                "manual",
+                "info",
+              ],
+            }}
+            selection={selectedRow}
+            onSelectionChange={(row) => setSelectedRow(row)}
+          >
+            <GridColumn
+              field="_id"
+              title="order id"
+              align="center"
+            />
+            <GridColumn
+                field="paypalId"
+                title="paypal id"
+                align="center"
+            />
+            <GridColumn
+              field="userEmail"
+              title="user email"
+              align="center"
+            />
+            <GridColumn
+              field="status"
+              title="status"
+              align="center"
+            />
 
-          <GridColumn
-            field="cart"
-            title="cart items"
-            align="center"
-            width="35%"
-            render={({ row }) => (
-              <>
-                {row.cart.map((item) => {
-                  return (
-                    <Link
-                      href={`/products/${item.slug}`}
-                      className="p-2 m-1 block text-slate-50 bg-slate-400 rounded-3xl"
-                      key={item._id}
-                    >
-                      {item.title} ({item.quantity})
-                    </Link>
-                  );
-                })}
-              </>
-            )}
-          />
-          <GridColumn
-            render={({ row }) => <p>{row.totalItems}</p>}
-            title="total items"
-            align="center"
-            width="5%"
-          />
-          <GridColumn
-            render={({ row }) => <p>€ {row.totalItemsPrice}</p>}
-            title="items price"
-            align="center"
-            width="5%"
-          />
-          <GridColumn
-            render={({ row }) => <p>€ {row.totalShipmentPrice}</p>}
-            title="shipment"
-            align="center"
-            width="5%"
-          />
-          <GridColumn
-            render={({ row }) => <p>€ {row.totalVatPrice}</p>}
-            title="vat"
-            align="center"
-            width="5%"
-          />
-          <GridColumn
-            render={({ row }) => <p>€ {row.totalPrice}</p>}
-            title="total price"
-            align="center"
-            width="10%"
-          />
-          <GridColumn
-            render={({ row }) => (
-              <LocationOnOutlinedIcon
-                sx={{ cursor: "pointer" }}
-                onClick={() => setAddressModal(true)}
-              />
-            )}
-            title="address"
-            align="center"
-            width="5%"
-          />
-        </DataGrid>
-                </div>
+            <GridColumn
+              field="cart"
+              title="cart items"
+              align="center"
+              render={({ row }) => (
+                <>
+                  {row.cart.map((item) => {
+                    return (
+                      <Link
+                        href={`/products/${item.slug}`}
+                        className="p-2 m-1 block text-slate-50 bg-slate-400 rounded-3xl"
+                        key={item._id}
+                      >
+                        {item.title} ({item.quantity})
+                      </Link>
+                    );
+                  })}
+                </>
+              )}
+            />
+            <GridColumn
+              render={({ row }) => <p>{row.totalItems}</p>}
+              title="total items"
+              align="center"
+            />
+            <GridColumn
+              render={({ row }) => <p>€ {row.totalItemsPrice}</p>}
+              title="items price"
+              align="center"
+            />
+            <GridColumn
+              render={({ row }) => <p>€ {row.totalShipmentPrice}</p>}
+              title="shipment"
+              align="center"
+            />
+            <GridColumn
+              render={({ row }) => <p>€ {row.totalVatPrice}</p>}
+              title="vat"
+              align="center"
+            />
+            <GridColumn
+              render={({ row }) => <p>€ {row.totalPrice}</p>}
+              title="total price"
+              align="center"
+            />
+            <GridColumn
+              render={({ row }) => (
+                <LocationOnOutlinedIcon
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => setAddressModal(true)}
+                />
+              )}
+              title="address"
+              align="center"
+            />
+          </DataGrid>
+        </div>
         {/*Edit Modal*/}
         <Modal open={modal} onClose={() => setModal(false)} keepMounted>
           <div className="modal">
@@ -454,18 +459,14 @@ export default function Index() {
 
               <div className="flex justify-center w-[100%]">
                 <Button
-                    sx={{ margin: 2 }}
-                    onClick={() => setAddressModal(false)}
-                    variant="contained"
+                  sx={{ margin: 2 }}
+                  onClick={() => setAddressModal(false)}
+                  variant="contained"
                 >
                   ok!
                 </Button>
               </div>
-
-
             </div>
-
-
           </div>
         </Modal>
       </div>

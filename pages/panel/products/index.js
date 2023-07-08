@@ -22,10 +22,10 @@ import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 import InputTags from "../../../components/InputTags";
 import { InputAdornment } from "@mui/material";
 import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const ReactQuill = dynamic(
   async () => {
@@ -261,7 +261,7 @@ export default function Index() {
           />
 
           <Select
-            defaultValue = ""
+            defaultValue=""
             sx={{ marginRight: "5rem", marginBottom: "1rem" }}
             variant="standard"
             value={searchQuery.status}
@@ -292,7 +292,7 @@ export default function Index() {
 
         <div className="my-4">
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={search}
             variant="contained"
             startIcon={<SearchOutlinedIcon />}
@@ -300,7 +300,7 @@ export default function Index() {
             Search
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={add}
             variant="contained"
             startIcon={<AddOutlinedIcon />}
@@ -308,7 +308,7 @@ export default function Index() {
             Add
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -317,7 +317,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -328,7 +328,7 @@ export default function Index() {
 
           <Link href="/products">
             <Button
-                sx={{ margin: ".5rem"}}
+              sx={{ margin: ".5rem" }}
               variant="contained"
               startIcon={<ArrowForwardOutlinedIcon />}
             >
@@ -337,99 +337,93 @@ export default function Index() {
           </Link>
         </div>
 
-                <div className="dataGridContainer">
-        <DataGrid
-          style={{minWidth: "800px", overflow: "auto"}}
-          columnResizing
-          data={products?.data}
-          total={products?.total}
-          pageNumber={pagination.page}
-          pageSize={pagination.size}
-          idField="_id"
-          lazy
-          selectionMode="single"
-          pagination
-          onPageChange={(e) =>
-            setPagination({ page: e.pageNumber, size: e.pageSize })
-          }
-          pagePosition="bottom"
-          pageOptions={{
-            layout: [
-              "list",
-              "sep",
-              "first",
-              "prev",
-              "next",
-              "last",
-              "sep",
-              "sep",
-              "manual",
-              "info",
-            ],
-          }}
-          selection={selectedRow}
-          onSelectionChange={(row) => setSelectedRow(row)}
-        >
-          <GridColumn
-            render={(row) => {
-              return <p>{excerpts(row.row.title, { words: 3 })}</p>;
+        <div className="dataGridContainer">
+          <DataGrid
+            style={{ minWidth: "800px", overflow: "auto" }}
+            columnResizing
+            data={products?.data}
+            total={products?.total}
+            pageNumber={pagination.page}
+            pageSize={pagination.size}
+            idField="_id"
+            lazy
+            selectionMode="single"
+            pagination
+            onPageChange={(e) =>
+              setPagination({ page: e.pageNumber, size: e.pageSize })
+            }
+            pagePosition="bottom"
+            pageOptions={{
+              layout: [
+                "list",
+                "sep",
+                "first",
+                "prev",
+                "next",
+                "last",
+                "sep",
+                "sep",
+                "manual",
+                "info",
+              ],
             }}
-            title="title"
-            align="center"
-            width="30%"
-          />
-          <GridColumn
-            render={(row) => {
-              return <p>{excerpts(row.row.content, { words: 5 })}</p>;
-            }}
-            title="content"
-            align="center"
-            width="30%"
-          />
-          <GridColumn
-            field="tags"
-            title="tags"
-            align="center"
-            width="25%"
-            render={({ row }) => (
-              <>
-                {row.tags.map((tag) => {
-                  return (
-                    <p
-                      className="p-2 m-1 inline-block text-slate-50 bg-slate-400 rounded-3xl"
-                      key={tag}
-                    >
-                      {tag}
-                    </p>
-                  );
-                })}
-              </>
-            )}
-          />
-          <GridColumn
-            render={({ row }) => <p>€{row.price}</p>}
-            title="Price"
-            align="center"
-            width="10%"
-          />
-          <GridColumn
-            field="status"
-            title="status"
-            align="center"
-            width="10%"
-          />
-          <GridColumn
-            title="url"
-            align="center"
-            width="5%"
-            render={({ row }) => (
-              <Link href={"/products/" + row.slug} target="_blank">
-                <InsertLinkOutlinedIcon className="cursor-pointer" />
-              </Link>
-            )}
-          />
-        </DataGrid>
-                </div>
+            selection={selectedRow}
+            onSelectionChange={(row) => setSelectedRow(row)}
+          >
+            <GridColumn
+              render={(row) => {
+                return <p>{excerpts(row.row.title, { words: 3 })}</p>;
+              }}
+              title="title"
+              align="center"
+            />
+            <GridColumn
+              render={(row) => {
+                return <p>{excerpts(row.row.content, { words: 5 })}</p>;
+              }}
+              title="content"
+              align="center"
+            />
+            <GridColumn
+              field="tags"
+              title="tags"
+              align="center"
+              render={({ row }) => (
+                <>
+                  {row.tags.map((tag) => {
+                    return (
+                      <p
+                        className="p-2 m-1 inline-block text-slate-50 bg-slate-400 rounded-3xl"
+                        key={tag}
+                      >
+                        {tag}
+                      </p>
+                    );
+                  })}
+                </>
+              )}
+            />
+            <GridColumn
+              render={({ row }) => <p>€{row.price}</p>}
+              title="Price"
+              align="center"
+            />
+            <GridColumn
+              field="status"
+              title="status"
+              align="center"
+            />
+            <GridColumn
+              title="url"
+              align="center"
+              render={({ row }) => (
+                <Link href={"/products/" + row.slug} target="_blank">
+                  <InsertLinkOutlinedIcon className="cursor-pointer" />
+                </Link>
+              )}
+            />
+          </DataGrid>
+        </div>
         {/*Add Modal*/}
         <Modal open={modal} onClose={handleCloseModal} keepMounted>
           <div className="modal">
@@ -453,7 +447,7 @@ export default function Index() {
 
               <Select
                 sx={{ margin: "2rem" }}
-                defaultValue = ""
+                defaultValue=""
                 label="Status"
                 name="status"
                 variant="standard"
@@ -490,7 +484,8 @@ export default function Index() {
                       key={i}
                       selectedImageUrl={imageUrl}
                       onDelete={() =>
-                        setAddQuery((prevState) => ({...prevState,
+                        setAddQuery((prevState) => ({
+                          ...prevState,
                           imageUrls: prevState.imageUrls.filter((val, j) => {
                             return j !== i;
                           }),
@@ -524,11 +519,7 @@ export default function Index() {
                 onClick={() => handleSubmitProduct(mode)}
                 variant="contained"
                 startIcon={
-                  mode ? (
-                    <ModeEditOutlineOutlinedIcon />
-                  ) : (
-                    <AddOutlinedIcon />
-                  )
+                  mode ? <ModeEditOutlineOutlinedIcon /> : <AddOutlinedIcon />
                 }
               >
                 {mode ? "Edit Product" : "Add Product"}

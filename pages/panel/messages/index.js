@@ -197,19 +197,16 @@ export default function Messages() {
             field="name"
             title="Sender Nam"
             align="center"
-            width="10%"
           />
           <GridColumn
             field="phone"
             title="Sender Phone"
             align="center"
-            width="10%"
           />
           <GridColumn
             field="email"
             title="Sender Email"
             align="center"
-            width="10%"
           />
           <GridColumn
             render={(row) => {
@@ -217,7 +214,6 @@ export default function Messages() {
             }}
             title="subject"
             align="center"
-            width="30%"
           />
           <GridColumn
             render={(row) => {
@@ -225,19 +221,16 @@ export default function Messages() {
             }}
             title="content"
             align="center"
-            width="30%"
           />
 
           <GridColumn
             field="status"
             title="status"
             align="center"
-            width="10%"
           />
           <GridColumn
             title="url"
             align="center"
-            width="5%"
             render={({ row }) => (
               <RemoveRedEyeOutlinedIcon
                 onClick={() => view(row)}

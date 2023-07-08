@@ -7,10 +7,10 @@ import { queryRemover } from "../../../utils/queryRemover";
 import { AlertContext } from "../../_app";
 import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
-import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
-import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 export default function Index() {
   const { setError, setMessage } = useContext(AlertContext);
@@ -162,20 +162,18 @@ export default function Index() {
           />
 
           <TextField
-              value={searchQuery.vat}
-              label="Vat"
-              variant="standard"
-              name="vat"
-              onChange={handleChangeSearch}
-              sx={{ width: 300 }}
+            value={searchQuery.vat}
+            label="Vat"
+            variant="standard"
+            name="vat"
+            onChange={handleChangeSearch}
+            sx={{ width: 300 }}
           />
-
-
         </div>
 
         <div className="my-4">
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={search}
             variant="contained"
             startIcon={<SearchOutlinedIcon />}
@@ -183,7 +181,7 @@ export default function Index() {
             Search
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={add}
             variant="contained"
             startIcon={<AddOutlinedIcon />}
@@ -191,7 +189,7 @@ export default function Index() {
             Add
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={edit}
             variant="contained"
             disabled={!selectedRow}
@@ -200,7 +198,7 @@ export default function Index() {
             Edit
           </Button>
           <Button
-              sx={{ margin: ".5rem"}}
+            sx={{ margin: ".5rem" }}
             onClick={handleDelete}
             variant="contained"
             disabled={!selectedRow}
@@ -210,63 +208,65 @@ export default function Index() {
           </Button>
         </div>
 
-                <div className="dataGridContainer">
-        <DataGrid
-          style={{minWidth: "800px", overflow: "auto"}}
-          columnResizing
-          data={shipments?.data}
-          total={shipments?.total}
-          pageNumber={pagination.page}
-          pageSize={pagination.size}
-          idField="_id"
-          lazy
-          selectionMode="single"
-          pagination
-          onPageChange={(e) =>
-            setPagination({ page: e.pageNumber, size: e.pageSize })
-          }
-          pagePosition="bottom"
-          pageOptions={{
-            layout: [
-              "list",
-              "sep",
-              "first",
-              "prev",
-              "next",
-              "last",
-              "sep",
-              "sep",
-              "manual",
-              "info",
-            ],
-          }}
-          selection={selectedRow}
-          onSelectionChange={(row) => setSelectedRow(row)}
-        >
-          <GridColumn field="_id" title="Id" align="center" width="25%" />
-          <GridColumn
-            field="country"
-            title="Country"
-            align="center"
-            width="25%"
-          />
-          <GridColumn field="shipmentPrice" title="Shipment Price" align="center" width="25%" />
-          <GridColumn field="vat" title="Vat" align="center" width="25%" />
-
-        </DataGrid>
-                </div>
+        <div className="dataGridContainer">
+          <DataGrid
+            style={{ minWidth: "800px", overflow: "auto" }}
+            columnResizing
+            data={shipments?.data}
+            total={shipments?.total}
+            pageNumber={pagination.page}
+            pageSize={pagination.size}
+            idField="_id"
+            lazy
+            selectionMode="single"
+            pagination
+            onPageChange={(e) =>
+              setPagination({ page: e.pageNumber, size: e.pageSize })
+            }
+            pagePosition="bottom"
+            pageOptions={{
+              layout: [
+                "list",
+                "sep",
+                "first",
+                "prev",
+                "next",
+                "last",
+                "sep",
+                "sep",
+                "manual",
+                "info",
+              ],
+            }}
+            selection={selectedRow}
+            onSelectionChange={(row) => setSelectedRow(row)}
+          >
+            <GridColumn field="_id" title="Id" align="center" />
+            <GridColumn
+              field="country"
+              title="Country"
+              align="center"
+            />
+            <GridColumn
+              field="shipmentPrice"
+              title="Shipment Price"
+              align="center"
+            />
+            <GridColumn field="vat" title="Vat" align="center"/>
+          </DataGrid>
+        </div>
         {/*Add Modal*/}
         <Modal open={modal} onClose={handleCloseModal}>
           <div className="modal">
             <div className="flex justify-center items-start flex-wrap">
               <TextField
-                  required
-                  value={addQuery.country}
-                  label="Country"
-                  variant="standard"
-                  name="country"
-                  onChange={handleChangeAdd}
-                  sx={{ width: 300, margin: 2 }}
+                required
+                value={addQuery.country}
+                label="Country"
+                variant="standard"
+                name="country"
+                onChange={handleChangeAdd}
+                sx={{ width: 300, margin: 2 }}
               />
               <TextField
                 required
@@ -286,7 +286,6 @@ export default function Index() {
                 onChange={handleChangeAdd}
                 sx={{ width: 300, margin: 2 }}
               />
-
             </div>
             <div className="flex justify-center items-start">
               <Button
@@ -294,11 +293,7 @@ export default function Index() {
                 onClick={mode ? submitEdit : submitAdd}
                 variant="contained"
                 startIcon={
-                  mode ? (
-                    <ModeEditOutlineOutlinedIcon />
-                  ) : (
-                    <AddOutlinedIcon />
-                  )
+                  mode ? <ModeEditOutlineOutlinedIcon /> : <AddOutlinedIcon />
                 }
               >
                 {mode ? "Edit Shipment" : "Add Shipment"}

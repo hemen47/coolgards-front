@@ -356,7 +356,6 @@ export default function Index() {
             }}
             title="title"
             align="center"
-            width="30%"
           />
           <GridColumn
             render={(row) => {
@@ -364,13 +363,11 @@ export default function Index() {
             }}
             title="content"
             align="center"
-            width="30%"
           />
           <GridColumn
             field="tags"
             title="tags"
             align="center"
-            width="25%"
             render={({ row }) => (
               <>
                 {row.tags.map((tag) => {
@@ -390,12 +387,10 @@ export default function Index() {
             field="status"
             title="status"
             align="center"
-            width="10%"
           />
           <GridColumn
             title="url"
             align="center"
-            width="5%"
             render={({ row }) => (
               <Link href={"/news/" + row.slug} target="_blank">
                 <InsertLinkOutlinedIcon className="cursor-pointer" />
