@@ -10,6 +10,7 @@ import Alert from "@mui/material/Alert";
 import Footer from "../components/Footer";
 import Head from "next/head";
 import Shipment from "../components/shipment";
+import Script from "next/script";
 
 export const UserContext = createContext();
 export const AlertContext = createContext();
@@ -112,6 +113,17 @@ function MyApp({ Component, pageProps }) {
                 <Component {...pageProps} />
               )}
               {renderFooter()}
+
+              <Script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`} />
+              <Script id="google-analytics">
+                {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', ${env.NEXT_PUBLIC_GA_MEASUREMENT_ID});
+        `}
+              </Script>
             </UserContext.Provider>
           </CartContext.Provider>
         </AlertContext.Provider>
