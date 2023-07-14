@@ -121,7 +121,7 @@ function MyApp({ Component, pageProps }) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
  
-          gtag('config', ${env.NEXT_PUBLIC_GA_MEASUREMENT_ID});
+          gtag('config', ${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID});
         `}
               </Script>
             </UserContext.Provider>
