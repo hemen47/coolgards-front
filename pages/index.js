@@ -59,7 +59,7 @@ export default function Home() {
             <li>Covers the ankle, shoulder, leg, and knee.</li>
           </ul>
           <div className="flex justify-center">
-            <Link
+            <a
                 className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 shadow-lg shadow-transparent hover:shadow-blue-700/50 border border-transparent text-white text-sm font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6"
                 href="/catalog.pdf"
             >
@@ -78,7 +78,7 @@ export default function Home() {
                     strokeLinecap="round"
                 />
               </svg>
-            </Link>
+            </a>
           </div>
         </div>
 
