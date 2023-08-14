@@ -254,6 +254,7 @@ export default function Messages() {
                   autoFocus
                   disabled
                   value={selectedRow?.name}
+                  InputLabelProps={{ shrink: true }}
                   sx={{ width: 300, margin: 2 }}
                 />
                 <TextField
@@ -265,6 +266,7 @@ export default function Messages() {
                   autoComplete="email"
                   disabled
                   value={selectedRow?.email}
+                  InputLabelProps={{ shrink: true }}
                   sx={{ width: 300, margin: 2 }}
                 />
                 <TextField
@@ -275,6 +277,7 @@ export default function Messages() {
                   autoComplete="phone"
                   disabled
                   value={selectedRow?.phone}
+                  InputLabelProps={{ shrink: true }}
                   sx={{ width: 300, margin: 2 }}
                 />
 
@@ -287,6 +290,7 @@ export default function Messages() {
                   disabled
                   fullWidth
                   sx={{ margin: 2 }}
+                  InputLabelProps={{ shrink: true }}
                   value={selectedRow?.subject}
                 />
                 <TextField
@@ -300,12 +304,14 @@ export default function Messages() {
                   multiline
                   disabled
                   sx={{ margin: 2 }}
+                  InputLabelProps={{ shrink: true }}
                   value={selectedRow?.content}
                 />
                 <Button
                   onClick={handleCloseModal}
                   fullWidth
                   variant="contained"
+                  InputLabelProps={{ shrink: true }}
                   sx={{ margin: ".5rem", height: "50px" }}
                 >
                   close
