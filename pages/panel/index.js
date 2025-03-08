@@ -86,7 +86,7 @@ export default function Panel() {
           </div>
         </Link>
 
-        <Link href="/panel/news">
+        <Link href="/panel/messages">
           <div className={styles.card}>
             <p>Messages</p>
             <Divider />

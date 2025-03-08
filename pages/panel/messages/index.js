@@ -224,12 +224,12 @@ export default function Messages() {
           />
 
           <GridColumn
-            field="status"
-            title="status"
+            field="createdAt"
+            title="Received at"
             align="center"
           />
           <GridColumn
-            title="url"
+            title="read"
             align="center"
             render={({ row }) => (
               <RemoveRedEyeOutlinedIcon

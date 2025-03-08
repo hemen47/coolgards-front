@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { DataGrid, GridColumn } from "rc-easyui";
+import React, {useContext, useEffect, useState} from "react";
+import {DataGrid, GridColumn} from "rc-easyui";
 import styles from "./orders.module.scss";
-import { ax } from "../../../utils/axios";
+import {ax} from "../../../utils/axios";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Select from "@mui/material/Select";
-import { queryRemover } from "../../../utils/queryRemover";
+import {queryRemover} from "../../../utils/queryRemover";
 import MenuItem from "@mui/material/MenuItem";
-import { AlertContext } from "../../_app";
+import {AlertContext} from "../../_app";
 import Modal from "@mui/material/Modal";
 import Dialog from "@mui/material/Dialog";
-import { InputAdornment } from "@mui/material";
+import {InputAdornment} from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -305,6 +305,11 @@ export default function Index() {
               )}
               title="address"
               align="center"
+            />
+            <GridColumn
+                field="createdAt"
+                title="created at"
+                align="center"
             />
           </DataGrid>
         </div>
