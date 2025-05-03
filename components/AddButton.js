@@ -11,7 +11,7 @@ export default function AddButton({ data }) {
 
   const renderButton = () => {
     for (const item of cart) {
-      if (item._id === data._id) {
+      if (item?._id === data?._id) {
         return (
           <div className="flex items-center">
             {item.quantity <= 1? <IconButton

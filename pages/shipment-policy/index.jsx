@@ -17,7 +17,7 @@ export default function ShipmentPolicy() {
                 <span>
                   <span style={{ fontSize: "14.0pt" }}>
                     We provide complimentary shipping services to customers
-                    within Sweden, Denmark, Norway, Finland, and Iceland. All
+                    within Europe. All
                     orders are promptly processed within one business day,
                     excluding weekends and holidays. The estimated shipping time
                     for deliveries is approximately 2 to 3 working days. Please
