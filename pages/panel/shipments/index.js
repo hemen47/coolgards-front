@@ -1,19 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
-import { ax } from "../../../utils/axios";
-import TextField from "@mui/material/TextField";
-import { queryRemover } from "../../../utils/queryRemover";
-import { AlertContext } from "../../_app";
-import Modal from "@mui/material/Modal";
-import Dialog from "@mui/material/Dialog";
-import Button from "@mui/material/Button";
-import ModeEditOutlineOutlinedIcon from "@mui/icons-material/ModeEditOutlineOutlined";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { ax } from '../../../utils/axios';
+import TextField from '@mui/material/TextField';
+import { queryRemover } from '../../../utils/queryRemover';
+import { AlertContext } from '../../_app';
+import Modal from '@mui/material/Modal';
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { FiPackage } from 'react-icons/fi';
 
 export default function Shipments() {
   const { setError, setMessage } = useContext(AlertContext);
@@ -24,16 +25,16 @@ export default function Shipments() {
   const [loading, setLoading] = useState(false);
 
   const searchQueryInitialState = {
-    country: "",
-    shipmentPrice: "",
-    vat: "",
+    country: '',
+    shipmentPrice: '',
+    vat: '',
   };
   const [searchQuery, setSearchQuery] = useState(searchQueryInitialState);
 
   const addQueryInitialState = {
-    country: "",
-    shipmentPrice: "",
-    vat: "",
+    country: '',
+    shipmentPrice: '',
+    vat: '',
   };
   const [addQuery, setAddQuery] = useState(addQueryInitialState);
 
@@ -55,32 +56,32 @@ export default function Shipments() {
   const search = () => {
     setLoading(true);
     ax({
-      url: "/api/panel/shipments",
+      url: '/api/panel/shipments',
       params: queryRemover({ ...searchQuery, ...pagination }),
     })
-        .then((res) => {
-          setShipments(res.data);
-          if (res.data.data.length > 0) {
-            setSelectedRow(res.data.data[0]);
-          }
-          setLoading(false);
-        })
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-          setLoading(false);
-        });
+      .then(res => {
+        setShipments(res.data);
+        if (res.data.data.length > 0) {
+          setSelectedRow(res.data.data[0]);
+        }
+        setLoading(false);
+      })
+      .catch(e => {
+        setError(e.response?.data?.message || e.message);
+        setLoading(false);
+      });
   };
 
-  const handleChangeSearch = (e) => {
+  const handleChangeSearch = e => {
     setSearchQuery({ ...searchQuery, [e.target.name]: e.target.value });
     // Reset to first page when search changes
     setPagination(prev => ({
       ...prev,
-      page: 1
+      page: 1,
     }));
   };
 
-  const handleChangeAdd = (e) => {
+  const handleChangeAdd = e => {
     setAddQuery({ ...addQuery, [e.target.name]: e.target.value });
   };
 
@@ -108,50 +109,50 @@ export default function Shipments() {
 
   const submitDelete = () => {
     ax({
-      url: "/api/panel/shipments",
-      method: "delete",
+      url: '/api/panel/shipments',
+      method: 'delete',
       data: selectedRow,
     })
-        .then((res) => {
-          search();
-          setMessage(res.data.message);
-          setConfirmModal(false);
-        })
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
+      .then(res => {
+        search();
+        setMessage(res.data.message);
+        setConfirmModal(false);
+      })
+      .catch(e => {
+        setError(e.response?.data?.message || e.message);
+      });
   };
 
   const submitAdd = () => {
     ax({
-      url: "/api/panel/shipments",
-      method: "post",
+      url: '/api/panel/shipments',
+      method: 'post',
       data: addQuery,
     })
-        .then((res) => {
-          search();
-          setMessage(res.data.message);
-          cancelAdd();
-        })
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
+      .then(res => {
+        search();
+        setMessage(res.data.message);
+        cancelAdd();
+      })
+      .catch(e => {
+        setError(e.response?.data?.message || e.message);
+      });
   };
 
   const submitEdit = () => {
     ax({
-      url: "/api/panel/shipments",
-      method: "patch",
+      url: '/api/panel/shipments',
+      method: 'patch',
       data: addQuery,
     })
-        .then((res) => {
-          search();
-          cancelAdd();
-          setMessage(res.data.message);
-        })
-        .catch((e) => {
-          setError(e.response?.data?.message || e.message);
-        });
+      .then(res => {
+        search();
+        cancelAdd();
+        setMessage(res.data.message);
+      })
+      .catch(e => {
+        setError(e.response?.data?.message || e.message);
+      });
   };
 
   const cancelAdd = () => {
@@ -159,7 +160,7 @@ export default function Shipments() {
     setModal(false);
   };
 
-  const onSelectionChanged = (event) => {
+  const onSelectionChanged = event => {
     const selectedRows = event.api.getSelectedRows();
     if (selectedRows.length > 0) {
       setSelectedRow(selectedRows[0]);
@@ -167,76 +168,76 @@ export default function Shipments() {
   };
 
   // Custom pagination handlers
-  const handlePageChange = (newPage) => {
+  const handlePageChange = newPage => {
     setPagination(prev => ({
       ...prev,
-      page: newPage
+      page: newPage,
     }));
   };
 
-  const handlePageSizeChange = (e) => {
+  const handlePageSizeChange = e => {
     const newSize = parseInt(e.target.value);
     setPagination({
       page: 1, // Reset to first page when changing page size
-      size: newSize
+      size: newSize,
     });
   };
 
   // Action buttons renderer
-  const actionsCellRenderer = (params) => {
+  const actionsCellRenderer = params => {
     return (
-        <div className="flex justify-center">
-          <ModeEditOutlineOutlinedIcon
-              className="cursor-pointer text-blue-600 mx-1"
-              onClick={(e) => {
-                e.stopPropagation();
-                setMode(1);
-                setAddQuery(params.data);
-                setModal(true);
-              }}
-          />
-          <DeleteOutlineOutlinedIcon
-              className="cursor-pointer text-red-600 mx-1"
-              onClick={(e) => {
-                e.stopPropagation();
-                setSelectedRow(params.data);
-                setConfirmModal(true);
-              }}
-          />
-        </div>
+      <div className="flex justify-center">
+        <ModeEditOutlineOutlinedIcon
+          className="cursor-pointer text-blue-600 mx-1"
+          onClick={e => {
+            e.stopPropagation();
+            setMode(1);
+            setAddQuery(params.data);
+            setModal(true);
+          }}
+        />
+        <DeleteOutlineOutlinedIcon
+          className="cursor-pointer text-red-600 mx-1"
+          onClick={e => {
+            e.stopPropagation();
+            setSelectedRow(params.data);
+            setConfirmModal(true);
+          }}
+        />
+      </div>
     );
   };
 
   const columnDefs = [
     {
-      field: "country",
-      headerName: "Country",
+      field: 'country',
+      headerName: 'Country',
       sortable: true,
       filter: true,
       minWidth: 150,
-      flex: 1
+      flex: 1,
     },
     {
-      field: "shipmentPrice",
-      headerName: "Shipment Price",
+      field: 'shipmentPrice',
+      headerName: 'Shipment Price',
       sortable: true,
       filter: true,
-      minWidth: 150
+      minWidth: 150,
     },
     {
-      field: "vat",
-      headerName: "VAT",
+      field: 'vat',
+      headerName: 'VAT',
       sortable: true,
       filter: true,
-      minWidth: 120
+      minWidth: 120,
     },
     {
-      headerName: "Actions",
+      headerName: 'Actions',
       cellRenderer: actionsCellRenderer,
       width: 120,
       sortable: false,
-      filter: false
-    }
+      filter: false,
+    },
   ];
 
   // Calculate total pages
@@ -295,291 +296,298 @@ export default function Shipments() {
   };
 
   return (
-      <div className="ml-20 mr-4 p-2 h-screen lg:ml-64 lg:mr-8">
-        <div className="flex justify-center">
-          <h1 className="font-thin text-gray-400">Shipments</h1>
+    <div className="ml-20 mr-4 p-2 h-screen lg:ml-64 lg:mr-8">
+      <div className="flex items-center mb-10 mt-4">
+        <div className="h-12 w-0.5 bg-blue-500 mr-4"></div>
+        <FiPackage className="text-blue-500 mr-3" size={28} />
+        <h1 className="text-2xl font-light text-gray-800 tracking-wide">
+          Shipments Management
+          <span className="block h-[2px] w-12 bg-blue-500 mt-1"></span>
+        </h1>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+        <TextField
+          value={searchQuery.country}
+          label="Country"
+          variant="standard"
+          name="country"
+          onChange={handleChangeSearch}
+        />
+        <TextField
+          value={searchQuery.shipmentPrice}
+          label="Shipment Price"
+          variant="standard"
+          name="shipmentPrice"
+          onChange={handleChangeSearch}
+        />
+        <TextField
+          value={searchQuery.vat}
+          label="VAT"
+          variant="standard"
+          name="vat"
+          onChange={handleChangeSearch}
+        />
+      </div>
+
+      {/* Add button */}
+      <div className="flex justify-end mb-4">
+        <Button
+          onClick={add}
+          variant="contained"
+          startIcon={<AddOutlinedIcon />}
+          className="bg-blue-600 hover:bg-blue-700"
+        >
+          Add Shipment
+        </Button>
+      </div>
+
+      {/* Loading indicator */}
+      {loading && (
+        <div className="flex justify-center my-4">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        </div>
+      )}
+
+      <div className="ag-theme-material h-[500px] p-2 rounded-lg shadow-lg overflow-x-auto w-full">
+        <AgGridReact
+          rowData={shipments.data}
+          columnDefs={columnDefs}
+          pagination={false}
+          rowSelection="single"
+          onSelectionChanged={onSelectionChanged}
+          defaultColDef={{
+            resizable: true,
+          }}
+          domLayout="autoHeight"
+          suppressCellFocus={true}
+        />
+      </div>
+
+      {/* Custom Pagination */}
+      <div className="flex flex-col md:flex-row justify-between items-center mt-6 pb-12">
+        {/* Pagination info */}
+        <div className="text-sm text-gray-600 mb-4 md:mb-0">
+          Showing {shipments.data.length > 0 ? (pagination.page - 1) * pagination.size + 1 : 0}
+          to {Math.min(pagination.page * pagination.size, shipments.total)}
+          of {shipments.total} shipments
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-          <TextField
-              value={searchQuery.country}
-              label="Country"
-              variant="standard"
-              name="country"
-              onChange={handleChangeSearch}
-          />
-          <TextField
-              value={searchQuery.shipmentPrice}
-              label="Shipment Price"
-              variant="standard"
-              name="shipmentPrice"
-              onChange={handleChangeSearch}
-          />
-          <TextField
-              value={searchQuery.vat}
-              label="VAT"
-              variant="standard"
-              name="vat"
-              onChange={handleChangeSearch}
-          />
-        </div>
-
-        {/* Add button */}
-        <div className="flex justify-end mb-4">
-          <Button
-              onClick={add}
-              variant="contained"
-              startIcon={<AddOutlinedIcon />}
-              className="bg-blue-600 hover:bg-blue-700"
+        {/* Page size selector */}
+        <div className="flex items-center mb-4 md:mb-0">
+          <span className="text-sm text-gray-600 mr-2">Show:</span>
+          <select
+            value={pagination.size}
+            onChange={handlePageSizeChange}
+            className="bg-white border border-gray-300 text-gray-700 py-1 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
           >
-            Add Shipment
-          </Button>
+            {[5, 10, 20, 50, 100].map(size => (
+              <option key={size} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
         </div>
 
-        {/* Loading indicator */}
-        {loading && (
-            <div className="flex justify-center my-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-            </div>
-        )}
-
-        <div className="ag-theme-material h-[500px] p-2 rounded-lg shadow-lg overflow-x-auto w-full">
-          <AgGridReact
-              rowData={shipments.data}
-              columnDefs={columnDefs}
-              pagination={false}
-              rowSelection="single"
-              onSelectionChanged={onSelectionChanged}
-              defaultColDef={{
-                resizable: true,
-              }}
-              domLayout="autoHeight"
-              suppressCellFocus={true}
-          />
-        </div>
-
-        {/* Custom Pagination */}
-        <div className="flex flex-col md:flex-row justify-between items-center mt-6 pb-12">
-          {/* Pagination info */}
-          <div className="text-sm text-gray-600 mb-4 md:mb-0">
-            Showing {shipments.data.length > 0 ? (pagination.page - 1) * pagination.size + 1 : 0}
-            to {Math.min(pagination.page * pagination.size, shipments.total)}
-            of {shipments.total} shipments
-          </div>
-
-          {/* Page size selector */}
-          <div className="flex items-center mb-4 md:mb-0">
-            <span className="text-sm text-gray-600 mr-2">Show:</span>
-            <select
-                value={pagination.size}
-                onChange={handlePageSizeChange}
-                className="bg-white border border-gray-300 text-gray-700 py-1 px-3 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm"
-            >
-              {[5, 10, 20, 50, 100].map(size => (
-                  <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
-          </div>
+        {/* Page numbers */}
+        <div className="flex items-center space-x-1">
+          {/* Previous button */}
+          <button
+            onClick={() => handlePageChange(pagination.page - 1)}
+            disabled={pagination.page === 1}
+            className="flex cursor-pointer items-center justify-center px-3 py-1.5 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Previous page"
+          >
+            <ChevronLeftIcon fontSize="small" />
+          </button>
 
           {/* Page numbers */}
-          <div className="flex items-center space-x-1">
-            {/* Previous button */}
-            <button
-                onClick={() => handlePageChange(pagination.page - 1)}
-                disabled={pagination.page === 1}
-                className="flex cursor-pointer items-center justify-center px-3 py-1.5 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Previous page"
-            >
-              <ChevronLeftIcon fontSize="small" />
-            </button>
+          {getPageNumbers().map((pageNum, index) => (
+            <React.Fragment key={index}>
+              {pageNum === '...' ? (
+                <span className="px-3 py-1.5 text-gray-500">...</span>
+              ) : (
+                <button
+                  onClick={() => handlePageChange(pageNum)}
+                  className={`px-3 py-1.5 rounded-md cursor-pointer ${
+                    pageNum === pagination.page
+                      ? 'bg-blue-600 text-white font-medium'
+                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              )}
+            </React.Fragment>
+          ))}
 
-            {/* Page numbers */}
-            {getPageNumbers().map((pageNum, index) => (
-                <React.Fragment key={index}>
-                  {pageNum === '...' ? (
-                      <span className="px-3 py-1.5 text-gray-500">...</span>
-                  ) : (
-                      <button
-                          onClick={() => handlePageChange(pageNum)}
-                          className={`px-3 py-1.5 rounded-md cursor-pointer ${
-                              pageNum === pagination.page
-                                  ? 'bg-blue-600 text-white font-medium'
-                                  : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                          }`}
-                      >
-                        {pageNum}
-                      </button>
-                  )}
-                </React.Fragment>
-            ))}
+          {/* Next button */}
+          <button
+            onClick={() => handlePageChange(pagination.page + 1)}
+            disabled={pagination.page >= totalPages}
+            className="flex cursor-pointer items-center justify-center px-3 py-1.5 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Next page"
+          >
+            <ChevronRightIcon fontSize="small" />
+          </button>
+        </div>
+      </div>
 
-            {/* Next button */}
+      {/* Add/Edit Modal */}
+      <Modal
+        open={modal}
+        onClose={handleCloseModal}
+        keepMounted
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backdropFilter: 'blur(5px)',
+        }}
+      >
+        <div
+          className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-11/12 max-w-3xl transform transition-all"
+          style={{
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            animation: 'fadeIn 0.3s ease-out',
+          }}
+        >
+          {/* Header */}
+          <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-t-xl p-6 relative">
+            <h3 className="text-xl font-semibold text-white">
+              {mode ? 'Edit Shipment' : 'Add New Shipment'}
+            </h3>
             <button
-                onClick={() => handlePageChange(pagination.page + 1)}
-                disabled={pagination.page >= totalPages}
-                className="flex cursor-pointer items-center justify-center px-3 py-1.5 rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
-                aria-label="Next page"
+              onClick={handleCloseModal}
+              className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors rounded-full p-1 hover:bg-white/10"
+              aria-label="Close modal"
             >
-              <ChevronRightIcon fontSize="small" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
+          </div>
+
+          {/* Form content */}
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <TextField
+                required
+                value={addQuery.country}
+                label="Country"
+                variant="outlined"
+                name="country"
+                onChange={handleChangeAdd}
+                fullWidth
+                className="mb-4"
+                sx={{
+                  '& .MuiInputBase-input': { color: 'white' },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
+                    '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                    '&.Mui-focused fieldset': { borderColor: '#90caf9' },
+                  },
+                }}
+                InputLabelProps={{
+                  style: { color: 'rgba(255, 255, 255, 0.7)' },
+                }}
+              />
+              <TextField
+                required
+                value={addQuery.shipmentPrice}
+                label="Shipment Price"
+                variant="outlined"
+                name="shipmentPrice"
+                onChange={handleChangeAdd}
+                fullWidth
+                className="mb-4"
+                sx={{
+                  '& .MuiInputBase-input': { color: 'white' },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
+                    '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                    '&.Mui-focused fieldset': { borderColor: '#90caf9' },
+                  },
+                }}
+                InputLabelProps={{
+                  style: { color: 'rgba(255, 255, 255, 0.7)' },
+                }}
+              />
+              <TextField
+                required
+                value={addQuery.vat}
+                label="VAT"
+                variant="outlined"
+                name="vat"
+                onChange={handleChangeAdd}
+                fullWidth
+                className="mb-4"
+                sx={{
+                  '& .MuiInputBase-input': { color: 'white' },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
+                    '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                    '&.Mui-focused fieldset': { borderColor: '#90caf9' },
+                  },
+                }}
+                InputLabelProps={{
+                  style: { color: 'rgba(255, 255, 255, 0.7)' },
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex justify-end">
+            <Button onClick={cancelAdd} className="mr-2" variant="outlined">
+              Cancel
+            </Button>
+            <Button
+              onClick={mode ? submitEdit : submitAdd}
+              variant="contained"
+              startIcon={mode ? <ModeEditOutlineOutlinedIcon /> : <AddOutlinedIcon />}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              {mode ? 'Update' : 'Add'}
+            </Button>
           </div>
         </div>
+      </Modal>
 
-        {/* Add/Edit Modal */}
-        <Modal
-            open={modal}
-            onClose={handleCloseModal}
-            keepMounted
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              backdropFilter: 'blur(5px)',
-            }}
-        >
-          <div
-              className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-11/12 max-w-3xl transform transition-all"
-              style={{
-                maxHeight: '90vh',
-                overflowY: 'auto',
-                animation: 'fadeIn 0.3s ease-out'
-              }}
-          >
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-t-xl p-6 relative">
-              <h3 className="text-xl font-semibold text-white">
-                {mode ? "Edit Shipment" : "Add New Shipment"}
-              </h3>
-              <button
-                  onClick={handleCloseModal}
-                  className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors rounded-full p-1 hover:bg-white/10"
-                  aria-label="Close modal"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              </button>
-            </div>
-
-            {/* Form content */}
-            <div className="p-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <TextField
-                    required
-                    value={addQuery.country}
-                    label="Country"
-                    variant="outlined"
-                    name="country"
-                    onChange={handleChangeAdd}
-                    fullWidth
-                    className="mb-4"
-                    sx={{
-                      '& .MuiInputBase-input': {color: 'white'},
-                      '& .MuiInputLabel-root': {color: 'rgba(255, 255, 255, 0.7)'},
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': {borderColor: 'rgba(255, 255, 255, 0.23)'},
-                        '&:hover fieldset': {borderColor: 'rgba(255, 255, 255, 0.5)'},
-                        '&.Mui-focused fieldset': {borderColor: '#90caf9'}
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {color: 'rgba(255, 255, 255, 0.7)'},
-                    }}
-                />
-                <TextField
-                    required
-                    value={addQuery.shipmentPrice}
-                    label="Shipment Price"
-                    variant="outlined"
-                    name="shipmentPrice"
-                    onChange={handleChangeAdd}
-                    fullWidth
-                    className="mb-4"
-                    sx={{
-                      '& .MuiInputBase-input': {color: 'white'},
-                      '& .MuiInputLabel-root': {color: 'rgba(255, 255, 255, 0.7)'},
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': {borderColor: 'rgba(255, 255, 255, 0.23)'},
-                        '&:hover fieldset': {borderColor: 'rgba(255, 255, 255, 0.5)'},
-                        '&.Mui-focused fieldset': {borderColor: '#90caf9'}
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {color: 'rgba(255, 255, 255, 0.7)'},
-                    }}
-                />
-                <TextField
-                    required
-                    value={addQuery.vat}
-                    label="VAT"
-                    variant="outlined"
-                    name="vat"
-                    onChange={handleChangeAdd}
-                    fullWidth
-                    className="mb-4"
-                    sx={{
-                      '& .MuiInputBase-input': { color: 'white' },
-                      '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                      '& .MuiOutlinedInput-root': {
-                        '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                        '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                        '&.Mui-focused fieldset': { borderColor: '#90caf9' }
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: { color: 'rgba(255, 255, 255, 0.7)' },
-                    }}
-                />
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex justify-end">
-              <Button
-                  onClick={cancelAdd}
-                  className="mr-2"
-                  variant="outlined"
-              >
-                Cancel
-              </Button>
-              <Button
-                  onClick={mode ? submitEdit : submitAdd}
-                  variant="contained"
-                  startIcon={mode ? <ModeEditOutlineOutlinedIcon/> : <AddOutlinedIcon/>}
-                  className="bg-blue-600 hover:bg-blue-700"
-              >
-                {mode ? "Update" : "Add"}
-              </Button>
-            </div>
+      {/* Confirm Delete Dialog */}
+      <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>
+        <div className="flex flex-center flex-col p-10 items-center truncate">
+          <p className="text-lg mb-4">Are you sure you want to delete this shipment?</p>
+          <p className="text-sm text-gray-500 mb-6">This action cannot be undone.</p>
+          <div className="flex justify-center items-center">
+            <Button
+              sx={{ margin: 1 }}
+              variant="outlined"
+              onClick={() => setConfirmModal(false)}
+              autoFocus
+            >
+              Cancel
+            </Button>
+            <Button sx={{ margin: 1 }} variant="contained" color="error" onClick={submitDelete}>
+              Delete
+            </Button>
           </div>
-        </Modal>
-
-        {/* Confirm Delete Dialog */}
-        <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>
-          <div className="flex flex-center flex-col p-10 items-center truncate">
-            <p className="text-lg mb-4">Are you sure you want to delete this shipment?</p>
-            <p className="text-sm text-gray-500 mb-6">This action cannot be undone.</p>
-            <div className="flex justify-center items-center">
-              <Button
-                  sx={{margin: 1}}
-                  variant="outlined"
-                  onClick={() => setConfirmModal(false)}
-                  autoFocus
-              >
-                Cancel
-              </Button>
-              <Button
-                  sx={{margin: 1}}
-                  variant="contained"
-                  color="error"
-                  onClick={submitDelete}
-              >
-                Delete
-              </Button>
-            </div>
-          </div>
-        </Dialog>
-      </div>
+        </div>
+      </Dialog>
+    </div>
   );
 }

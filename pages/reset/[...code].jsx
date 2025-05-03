@@ -1,16 +1,16 @@
-import * as React from "react";
-import { useContext, useEffect, useState } from "react";
-import { AlertContext, UserContext } from "../_app";
-import styles from "./reset.module.scss";
-import { useRouter } from "next/router";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import { ax } from "../../utils/axios";
+import * as React from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AlertContext, UserContext } from '../_app';
+import styles from './reset.module.scss';
+import { useRouter } from 'next/router';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { ax } from '../../utils/axios';
 
 export default function Forgot({ data, error }) {
   const router = useRouter();
   const { setError, setMessage } = useContext(AlertContext);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [sent, setSend] = useState(false);
   const [errorMode, setErrorMode] = useState(false);
 
@@ -21,34 +21,33 @@ export default function Forgot({ data, error }) {
     }
   }, [error]);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setPassword(e.target.value);
   };
 
   const handleResetPassword = () => {
     if (!password) {
-      setMessage("Please enter a valid password");
-
+      setMessage('Please enter a valid password');
     } else {
-        const model = {
-            password,
-            id: data.data.id,
-            code: data.data.code,
-        };
-      ax.get("/api/forgot", model)
-        .then((res) => {
+      const model = {
+        password,
+        id: data.data.id,
+        code: data.data.code,
+      };
+      ax.get('/api/forgot', model)
+        .then(res => {
           setMessage(res.data.message);
           setSend(true);
         })
-        .catch((e) => {
+        .catch(e => {
           setError(e.response?.data?.message || e.message);
-          localStorage.removeItem("authenticated");
+          localStorage.removeItem('authenticated');
         });
     }
   };
 
   const handleRedirectToLogin = () => {
-    router.push("/login");
+    router.push('/login');
   };
 
   const renderComponent = () => {
@@ -59,7 +58,7 @@ export default function Forgot({ data, error }) {
           <Button
             onClick={handleRedirectToLogin}
             variant="contained"
-            sx={{ margin: ".5rem", height: "50px" }}
+            sx={{ margin: '.5rem', height: '50px' }}
           >
             Get Back to Login page!
           </Button>
@@ -73,7 +72,7 @@ export default function Forgot({ data, error }) {
           <Button
             onClick={handleRedirectToLogin}
             variant="contained"
-            sx={{ margin: ".5rem", height: "50px" }}
+            sx={{ margin: '.5rem', height: '50px' }}
           >
             Login Now!
           </Button>
@@ -95,7 +94,7 @@ export default function Forgot({ data, error }) {
         <Button
           onClick={handleResetPassword}
           variant="contained"
-          sx={{ margin: ".5rem", height: "50px" }}
+          sx={{ margin: '.5rem', height: '50px' }}
         >
           Change Password
         </Button>

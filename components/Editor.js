@@ -1,22 +1,12 @@
-import {useEffect, useRef} from "react";
+import { useEffect, useRef } from 'react';
 
 export const Editor = (editorLoaded, ...rest) => {
-    const editorRef = useRef();
-    const QuilEditor = editorRef.current;
+  const editorRef = useRef();
+  const QuilEditor = editorRef.current;
 
-    useEffect(() => {
-        editorRef.current = require("react-quill");
-    }, []);
+  useEffect(() => {
+    editorRef.current = require('react-quill');
+  }, []);
 
-    return (
-        <div>
-            {editorLoaded ? (
-                <QuilEditor
-                    {...rest}
-                />
-            ) : (
-                <div>Editor loading</div>
-            )}
-        </div>
-    );
-}
+  return <div>{editorLoaded ? <QuilEditor {...rest} /> : <div>Editor loading</div>}</div>;
+};

@@ -1,25 +1,25 @@
-import { Cancel, Tag } from "@mui/icons-material";
-import { FormControl, Stack, TextField, Typography } from "@mui/material";
-import {useEffect, useRef, useState} from "react";
+import { Cancel, Tag } from '@mui/icons-material';
+import { FormControl, Stack, TextField, Typography } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
 
 const Tags = ({ data, handleDelete }) => {
   return (
     <div
       style={{
-        background: "#283240",
-        height: "100%",
-        display: "flex",
-        padding: "0.4rem",
-        margin: "0 0.5rem 0 0",
-        justifyContent: "center",
-        alignContent: "center",
-        color: "#ffffff",
+        background: '#283240',
+        height: '100%',
+        display: 'flex',
+        padding: '0.4rem',
+        margin: '0 0.5rem 0 0',
+        justifyContent: 'center',
+        alignContent: 'center',
+        color: '#ffffff',
       }}
     >
       <Stack direction="row" gap={1}>
         <Typography>{data}</Typography>
         <Cancel
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: 'pointer' }}
           onClick={() => {
             handleDelete(data);
           }}
@@ -29,29 +29,29 @@ const Tags = ({ data, handleDelete }) => {
   );
 };
 
-export default function InputTags({onChange, value = []}) {
+export default function InputTags({ onChange, value = [] }) {
   const [tags, SetTags] = useState(value);
   const tagRef = useRef();
 
-    useEffect(() => {
-       onChange(tags)
-    }, [tags]);
+  useEffect(() => {
+    onChange(tags);
+  }, [tags]);
 
-    useEffect(() => {
-        SetTags(value)
-    }, [value]);
+  useEffect(() => {
+    SetTags(value);
+  }, [value]);
 
-  const handleDelete = (value) => {
-    const newtags = tags.filter((val) => val !== value);
+  const handleDelete = value => {
+    const newtags = tags.filter(val => val !== value);
     SetTags(newtags);
   };
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = e => {
     e.preventDefault();
     SetTags([...tags, tagRef.current.value]);
-    tagRef.current.value = "";
+    tagRef.current.value = '';
   };
   return (
-    <div >
+    <div>
       <form onSubmit={handleOnSubmit}>
         <TextField
           inputRef={tagRef}
@@ -60,14 +60,12 @@ export default function InputTags({onChange, value = []}) {
           size="small"
           margin="none"
           label="tags"
-          placeholder={tags.length < 5 ? "type a tag and press enter" : ""}
+          placeholder={tags.length < 5 ? 'type a tag and press enter' : ''}
           InputProps={{
             startAdornment: (
-              <div style={{ margin: "0 0.2rem 0 0", display: "flex" }}>
+              <div style={{ margin: '0 0.2rem 0 0', display: 'flex' }}>
                 {tags.map((data, index) => {
-                  return (
-                    <Tags data={data} handleDelete={handleDelete} key={index} />
-                  );
+                  return <Tags data={data} handleDelete={handleDelete} key={index} />;
                 })}
               </div>
             ),

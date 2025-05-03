@@ -1,5 +1,5 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div className="sm:flex sm:items-center sm:justify-between">
           <div className="flex-1 flex justify-center items-center">
-            <Image src='/logo.png' alt="coolgards logo" width={50} height={50} />
+            <Image src="/logo.png" alt="coolgards logo" width={50} height={50} />
             <p className="mr-2 text-logo">CoolGards</p>
           </div>
 
@@ -82,7 +82,7 @@ export default function Footer() {
 
         <hr className="my-6 border-gray-200 sm:mx-auto  lg:my-8" />
         <span className="block text-sm text-gray-500 sm:text-center">
-          © 2022{" "}
+          © 2022{' '}
           <a href="https://flowbite.com/" className="hover:underline">
             CoolGards™
           </a>
