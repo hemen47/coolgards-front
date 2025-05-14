@@ -1,126 +1,166 @@
 import * as React from 'react';
 import { useContext, useState } from 'react';
 import { AlertContext } from '../_app';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-import styles from './news.module.scss';
 import Link from 'next/link';
 import Head from 'next/head';
+import parse from 'html-react-parser';
 
 export default function News({ data, error }) {
   const { setError } = useContext(AlertContext);
-  const [hovered, setHovered] = useState('');
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   if (error) {
     setError(error);
   }
 
-  // Extract categories and tags for structured data
-  const categories = [...new Set(data?.data?.flatMap(item => item.tags || []))];
+  // Function to extract excerpt from HTML content
+  const extractExcerpt = (htmlContent, maxLength = 150) => {
+    // Remove HTML tags to get plain text
+    const plainText = htmlContent.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    // Truncate to desired length
+    return plainText.length > maxLength
+        ? plainText.substring(0, maxLength) + '...'
+        : plainText;
+  };
+
+  // Format date
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   return (
-    <>
-      <Head>
-        <title>Cold Compression Therapy News & Updates | CoolGards</title>
-        <meta
-          name="description"
-          content="Stay updated with the latest news on cold compression therapy, recovery techniques, and CoolGards product innovations for faster healing and reduced inflammation."
-        />
-        <meta
-          name="keywords"
-          content="cold compression therapy news, recovery techniques, post-surgery recovery, sports injury recovery, CoolGards updates"
-        />
-        <link rel="canonical" href="https://coolgards.com/news" />
-        <meta property="og:title" content="Cold Compression Therapy News & Updates | CoolGards" />
-        <meta
-          property="og:description"
-          content="Latest news and updates on cold compression therapy technology and recovery techniques from CoolGards."
-        />
-        <meta property="og:url" content="https://coolgards.com/news" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-      </Head>
+      <>
+        <Head>
+          <title>Cold Compression Therapy Blog | CoolGards</title>
+          <meta
+              name="description"
+              content="Discover the latest insights on cold compression therapy, recovery techniques, and injury rehabilitation."
+          />
+          <link rel="canonical" href="https://coolgards.com/news" />
+        </Head>
 
-      {/* JSON-LD structured data for news page */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'CollectionPage',
-            headline: 'Cold Compression Therapy News & Updates',
-            description:
-              'Stay updated with the latest news on cold compression therapy and recovery techniques',
-            url: 'https://coolgards.com/news',
-            about: {
-              '@type': 'Thing',
-              name: 'Cold Compression Therapy',
-            },
-            keywords: categories.join(', '),
-            mainEntity: {
-              '@type': 'ItemList',
-              itemListElement: data?.data?.map((item, index) => ({
-                '@type': 'ListItem',
-                position: index + 1,
-                url: `https://coolgards.com/news/${item.slug}`,
-                name: item.title,
-              })),
-            },
-          }),
-        }}
-      />
+        <div className="bg-gradient-to-b from-blue-50 to-white min-h-screen">
+          {/* Hero Section */}
+          <div className="relative bg-blue-600 text-white pt-32 pb-10">
+            <div className="absolute inset-0 opacity-20 bg-[url('/pattern.svg')] bg-repeat"></div>
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <div className="text-center">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+                  Cold Compression Therapy Insights
+                </h1>
+                <p className="text-xl max-w-3xl mx-auto opacity-90">
+                  Expert articles on recovery techniques, injury rehabilitation, and the science behind faster healing
+                </p>
+              </div>
+            </div>
+          </div>
 
-      <div className={styles.container}>
-        <h1 className={styles.mainTitle}>Cold Compression Therapy News & Updates</h1>
-        <p className={styles.newsIntro}>
-          Discover the latest developments in cold compression therapy, recovery techniques, and how
-          CoolGards products are helping patients and athletes recover faster with reduced pain and
-          inflammation.
-        </p>
+          {/* Blog Grid */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {data?.data?.map((article) => (
+                  <div
+                      key={article._id}
+                      className="bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+                      onMouseEnter={() => setHoveredCard(article._id)}
+                      onMouseLeave={() => setHoveredCard(null)}
+                  >
+                    <Link href={`/news/${article.slug}`} className="block">
+                      <div className="relative h-52 overflow-hidden">
+                        <img
+                            src={article.imageUrl}
+                            alt={article.title}
+                            className={`w-full h-full object-cover transition-transform duration-500 ${hoveredCard === article._id ? 'scale-110' : 'scale-100'}`}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <span className="inline-block bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                        Recovery
+                      </span>
+                        </div>
+                      </div>
 
-        <ResponsiveMasonry columnsCountBreakPoints={{ 350: 1, 550: 2, 750: 3 }}>
-          <Masonry columnsCount={5} gutter="20px">
-            {data?.data?.map(item => {
-              return (
-                <Link
-                  key={item._id}
-                  className={styles.card}
-                  href={'/news/' + item.slug}
-                  onMouseOver={() => setHovered(item._id)}
-                  onMouseLeave={() => setHovered('')}
-                  aria-label={`Read more about ${item.title}`}
-                >
-                  <img
-                    src={item.imageUrl}
-                    alt={`${item.title} - Cold Compression Therapy Article`}
-                    className={hovered === item._id ? styles.hovered : styles.released}
-                    width="400"
-                    height="300"
-                    loading="lazy"
-                  />
-                  <div className={styles.titleContainer}>
-                    <h2 className={styles.title}>{item.title}</h2>
-                    {item.excerpt && <p className={styles.excerpt}>{item.excerpt}</p>}
-                    <time
-                      dateTime={new Date(item.createdAt).toISOString().split('T')[0]}
-                      className={styles.date}
-                    >
-                      {new Date(item.createdAt).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}
-                    </time>
-                    <p className={hovered === item._id ? styles.readMoreHover : styles.readMore}>
-                      read more...
-                    </p>
+                      <div className="p-6">
+                        <h2 className="text-xl font-bold text-gray-800 mb-3 line-clamp-2">
+                          {article.title}
+                        </h2>
+                        <p className="text-gray-600 mb-4 line-clamp-3">
+                          {extractExcerpt(article.content)}
+                        </p>
+
+                        <div className="flex items-center justify-between mt-6">
+                          <div className="flex items-center">
+                            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
+                              {article.writerName?.charAt(0) || 'C'}
+                            </div>
+                            <span className="ml-2 text-sm text-gray-600">{article.writerName}</span>
+                          </div>
+                          <span className="text-xs text-gray-500">{formatDate(article.createdAt)}</span>
+                        </div>
+                      </div>
+                    </Link>
+
+                    <div className={`border-t border-gray-100 p-4 flex justify-between items-center transition-opacity duration-300 ${hoveredCard === article._id ? 'opacity-100' : 'opacity-70'}`}>
+                  <span className="text-sm text-gray-500">
+                    {formatDate(article.createdAt)}
+                  </span>
+                      <span className={`cursor-pointer text-blue-600 font-medium flex items-center transition-all duration-300 ${hoveredCard === article._id ? 'translate-x-1' : ''}`}>
+                    Read more
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                    </div>
                   </div>
-                </Link>
-              );
-            })}
-          </Masonry>
-        </ResponsiveMasonry>
-      </div>
-    </>
+              ))}
+            </div>
+          </div>
+
+          {/* Newsletter Section */}
+          <div className="bg-gray-50 py-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="bg-blue-600 rounded-2xl p-8 md:p-12 shadow-xl">
+                <div className="md:flex items-center justify-between">
+                  <div className="mb-6 md:mb-0 md:w-2/3">
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Stay Updated on Recovery Science</h2>
+                    <p className="text-blue-100">Get the latest articles and research on cold compression therapy delivered to your inbox.</p>
+                  </div>
+                  <div className="md:w-1/3">
+                    <div className="flex">
+                      <input
+                          type="email"
+                          placeholder="Enter your email"
+                          className="w-full px-4 py-3 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-300"
+                      />
+                      <button className="bg-white text-blue-600 px-4 py-3 font-medium rounded-r-lg hover:bg-blue-50 transition-colors">
+                        Subscribe
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Featured Categories */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <h2 className="text-2xl font-bold text-gray-800 mb-8">Explore Topics</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {['Rehabilitation', 'Sports Injuries', 'Cold Therapy', 'Post-Surgery'].map((category) => (
+                  <div key={category} className="bg-white rounded-lg p-6 text-center shadow-md hover:shadow-lg transition-shadow">
+                    <h3 className="font-medium text-gray-800">{category}</h3>
+                    <p className="text-sm text-gray-500 mt-1">Articles</p>
+                  </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </>
   );
 }
 
@@ -129,25 +169,7 @@ export async function getServerSideProps() {
     const res = await fetch(`${process.env.BASE_URL}/posts`);
     const data = await res.json();
 
-    // Add excerpt generation if not provided by API
-    if (data && data.data) {
-      data.data = data.data.map(post => {
-        if (!post.excerpt) {
-          // Create excerpt from content by stripping HTML and limiting length
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = post.content;
-          const textContent = tempDiv.textContent || tempDiv.innerText || '';
-          post.excerpt = textContent.substring(0, 160) + (textContent.length > 160 ? '...' : '');
-        }
-        return post;
-      });
-    }
-
-    return {
-      props: {
-        data: data,
-      },
-    };
+    return { props: { data } };
   } catch (err) {
     return { props: { error: err.response?.data?.message || err.message } };
   }

@@ -213,7 +213,7 @@ export default function Products({ data, error }) {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24">
         {/* Breadcrumbs navigation */}
-        <div className="py-4">
+        <div className="py-8">
           <Breadcrumbs separator={<NavigateNextIcon fontSize="small" />} aria-label="breadcrumb">
             <Link
               href="/"
@@ -603,7 +603,7 @@ export default function Products({ data, error }) {
             <div className="flex flex-col items-center">
               <LocalShippingOutlinedIcon className="text-blue-600 mb-2" style={{ fontSize: 40 }} />
               <h3 className="text-sm font-medium">Free Shipping</h3>
-              <p className="text-xs text-gray-500">For Europe</p>
+              <p className="text-xs text-gray-500">For Sweden</p>
             </div>
             <div className="flex flex-col items-center">
               <VerifiedOutlinedIcon className="text-blue-600 mb-2" style={{ fontSize: 40 }} />

@@ -20,7 +20,7 @@ export default function Shipment() {
     <>
       {display && (
         <div className="rounded-[2rem] z-50 bg-logo right-5 fixed bottom-5 p-4 text-white w-[22rem]">
-          <p>We currently offer free shipping to Europe now! More countries coming soon.</p>
+          <p>We currently offer free shipping to sweden now! More countries coming soon.</p>
           <div className="flex justify-center">
             <Button variant="contained" onClick={() => setDisplay(false)}>
               Ok!

@@ -14,7 +14,7 @@ export default function AddButton({ data }) {
     for (const item of cart) {
       if (item?._id === data?._id) {
         return (
-          <div className="flex items-center">
+          <div className="flex items-center justify-center">
             {item.quantity <= 1 ? (
               <IconButton
                 onClick={removeFromCart}
@@ -49,7 +49,7 @@ export default function AddButton({ data }) {
       }
     }
     return (
-      <Button onClick={addToCart} variant="contained" sx={{ margin: '.5rem', height: '50px' }}>
+      <Button onClick={addToCart} variant="contained" sx={{ margin: '0', height: '50px' }} fullWidth>
         Add to Cart
       </Button>
     );

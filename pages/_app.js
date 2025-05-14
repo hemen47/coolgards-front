@@ -35,7 +35,7 @@ const SEO_CONFIG = {
       'Medical-grade cold compression therapy devices for rehabilitation, pain relief, and swelling reduction. FDA & CE approved.',
     images: [
       {
-        url: 'https://coolgards.com/images/og-image.jpg', // Replace with your actual OG image
+        url: 'https://coolgards.com/cover.jpg',
         width: 1200,
         height: 630,
         alt: 'CoolGards Cold + Compression Therapy System',
@@ -43,7 +43,7 @@ const SEO_CONFIG = {
     ],
   },
   twitter: {
-    handle: '@coolgards', // Replace with your Twitter handle
+    handle: '@coolgards',
     site: '@coolgards',
     cardType: 'summary_large_image',
   },
@@ -161,13 +161,13 @@ function MyApp({ Component, pageProps }) {
                     description:
                       'CoolGards offers FDA & CE approved Cold + Compression Therapy devices for rehabilitation, pain relief, and swelling reduction.',
                     sameAs: [
-                      'https://facebook.com/coolgards', // Replace with actual social links
+                      'https://facebook.com/coolgards',
                       'https://twitter.com/coolgards',
                       'https://instagram.com/coolgards',
                     ],
                     contactPoint: {
                       '@type': 'ContactPoint',
-                      telephone: '+1-123-456-7890', // Replace with actual contact number
+                      telephone: '+1-778-776-2417',
                       contactType: 'customer service',
                       availableLanguage: ['English'],
                     },
