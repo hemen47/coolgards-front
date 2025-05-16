@@ -94,7 +94,7 @@ export default function Forgot({ data }) {
                 </svg>
                 <h2 className="mt-6 text-2xl font-bold text-gray-800">Check Your Email</h2>
                 <p className="mt-2 text-gray-600">
-                  We've sent a password reset link to your email address. Please check your inbox
+                  We&#39;ve sent a password reset link to your email address. Please check your inbox
                   and follow the instructions.
                 </p>
                 <div className="mt-6">
@@ -112,7 +112,7 @@ export default function Forgot({ data }) {
                   Reset Your Password
                 </h2>
                 <p className="mt-2 text-center text-sm text-gray-600">
-                  Enter your email address and we'll send you a link to reset your password.
+                  Enter your email address and we&#39;ll send you a link to reset your password.
                 </p>
                 <div className="mt-6">
                   <div className="mb-4">
