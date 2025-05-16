@@ -13,6 +13,7 @@ import Shipment from '../components/shipment';
 import Script from 'next/script';
 import { DefaultSeo } from 'next-seo';
 import NextTopLoader from 'nextjs-toploader';
+import { ax } from '../utils/axios'; // Make sure this import is correct
 
 export const UserContext = createContext();
 export const AlertContext = createContext();
@@ -73,10 +74,52 @@ const SEO_CONFIG = {
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState(null); // Initialize as null instead of empty string
+  const [isLoadingUser, setIsLoadingUser] = useState(true); // Add loading state
   const [cart, setCart] = useState([]);
   const [error, setError] = useState('');
   const [message, setMessage] = useState(null);
+
+  // Fetch user data on app initialization and store in state
+  useEffect(() => {
+    const fetchUserData = async () => {
+      // Check if user is authenticated according to localStorage
+      const isAuthenticated = localStorage.getItem('authenticated') === 'true';
+
+      if (isAuthenticated) {
+        try {
+          const response = await ax.get('/api/users/me');
+          setUser(response.data.data);
+        } catch (err) {
+          // If token is invalid, clear authentication state
+          console.error('Error fetching user data:', err);
+          localStorage.removeItem('authenticated');
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
+
+      setIsLoadingUser(false);
+    };
+
+    fetchUserData();
+  }, []);
+
+  // Persist user state changes to localStorage
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem('authenticated', 'true');
+      // Optionally store minimal user info in localStorage for faster initial render
+      localStorage.setItem(
+        'userInfo',
+        JSON.stringify({
+          id: user?.id,
+          roles: user?.roles,
+        })
+      );
+    }
+  }, [user]);
 
   // read cart from local storage for the first time
   useEffect(() => {
@@ -120,8 +163,9 @@ function MyApp({ Component, pageProps }) {
     )
       return <MainMenu />;
   };
+
   const renderPanelSideBar = () => {
-    if (router.pathname.includes('/panel') && user.roles?.includes('admin'))
+    if (router.pathname.includes('/panel') && user?.roles?.includes('admin'))
       return <PanelSideBar />;
   };
 
@@ -135,6 +179,15 @@ function MyApp({ Component, pageProps }) {
     setError('');
     setMessage('');
   };
+
+  // Show loading state while checking authentication
+  if (isLoadingUser && router.pathname.includes('/panel')) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -196,8 +249,43 @@ function MyApp({ Component, pageProps }) {
 
             {renderMainMenu()}
             {renderPanelSideBar()}
-            {router.pathname.includes('/panel') && !user.roles?.includes('admin') ? (
-              'Please Login As Admin'
+            {router.pathname.includes('/panel') && !user?.roles?.includes('admin') ? (
+              <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+                <div className="text-center p-8 bg-white rounded-lg shadow-md max-w-md">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-16 w-16 text-red-500 mx-auto mb-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    />
+                  </svg>
+                  <h2 className="text-2xl font-bold text-gray-800 mb-2">Admin Access Required</h2>
+                  <p className="text-gray-600 mb-6">
+                    You need to be logged in as an administrator to access this page.
+                  </p>
+                  <div className="flex justify-center space-x-4">
+                    <button
+                      onClick={() => router.push('/login?redirect=' + router.pathname)}
+                      className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      Login
+                    </button>
+                    <button
+                      onClick={() => router.push('/')}
+                      className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors"
+                    >
+                      Return to Home
+                    </button>
+                  </div>
+                </div>
+              </div>
             ) : (
               <Component {...pageProps} />
             )}

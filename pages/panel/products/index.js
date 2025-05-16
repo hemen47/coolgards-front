@@ -870,8 +870,6 @@ export default function Products() {
                 onChange={handleChangeAdd}
                 fullWidth
                 error={!!formErrors.slug}
-                fullWidth
-                error={!!formErrors.slug}
                 helperText={formErrors.slug}
               />
               <TextField
@@ -984,7 +982,7 @@ export default function Products() {
                   value={addQuery.content}
                   modules={modules}
                   onChange={handleEditorChange}
-                  style={{ minHeight: '200px' }}
+                  style={{ height: '250px' }}
                 />
               </div>
             </div>
@@ -1051,7 +1049,7 @@ export default function Products() {
           <h3 className="text-xl font-semibold mb-2">Delete Product</h3>
           <p className="text-gray-500 mb-6 text-center">
             Are you sure you want to delete{' '}
-            <span className="font-medium text-gray-700">"{selectedRow?.title}"</span>?<br />
+            <span className="font-medium text-gray-700">&#34;{selectedRow?.title}&#34;</span>?<br />
             This action cannot be undone.
           </p>
           <div className="flex justify-center items-center w-full">

@@ -112,7 +112,7 @@ export default function MainMenu() {
               {[
                 { name: 'Products', href: '/products' },
                 { name: 'News', href: '/news' },
-                { name: 'About', href: '/about' },
+                { name: 'About Us', href: '/about' },
                 { name: 'Contact Us', href: '/contact' },
               ].map(item => (
                 <Link
@@ -176,7 +176,7 @@ export default function MainMenu() {
                     <p className="text-xs text-gray-500 truncate">{user?.email}</p>
                   </div>
 
-                  {user.roles.includes('admin') && (
+                  {user?.roles.includes('admin') && (
                     <Link href="/panel">
                       <MenuItem onClick={handleClose} className="hover:bg-gray-50">
                         <ListItemIcon>

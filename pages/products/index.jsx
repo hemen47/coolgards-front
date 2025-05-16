@@ -377,17 +377,12 @@ export default function Products({ data, error }) {
           ) : filteredProducts.length === 0 ? (
             // Empty state
             <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
-              <img
-                src="/images/empty-results.svg"
-                alt="No products found"
-                className="w-32 h-32 mb-4 opacity-50"
-              />
               <Typography variant="h6" className="text-gray-600 mb-2">
                 No products found
               </Typography>
               <Typography variant="body2" className="text-gray-500 max-w-md mb-4">
-                We couldn't find any products matching your criteria. Try adjusting your filters or
-                search term.
+                We couldn&#39;t find any products matching your criteria. Try adjusting your filters
+                or search term.
               </Typography>
               <Button
                 variant="outlined"

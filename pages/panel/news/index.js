@@ -740,11 +740,11 @@ export default function Index() {
               value={addQuery.content}
               modules={modules}
               onChange={handleEditorChange}
-              style={{ height: '250px', marginBottom: '50px' }}
+              style={{ height: '250px' }}
             />
           </div>
 
-          <div className="flex justify-center items-start mt-8">
+          <div className="flex justify-center items-start mt-20">
             <Button
               sx={{ margin: 2 }}
               onClick={() => handleSubmitPost(mode)}
@@ -772,7 +772,7 @@ export default function Index() {
       <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>
         <div className="flex flex-center flex-col p-10 items-center truncate">
           <p>Are you sure you want to delete this post?</p>
-          <p className="text-sm text-gray-500 mt-2 mb-4">"{selectedRow?.title}"</p>
+          <p className="text-sm text-gray-500 mt-2 mb-4">&#34;{selectedRow?.title}&#34;</p>
           <div className="flex justify-center items-center">
             <Button sx={{ margin: 1 }} variant="contained" onClick={submitDelete}>
               Yes

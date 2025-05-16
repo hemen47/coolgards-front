@@ -49,7 +49,12 @@ export default function AddButton({ data }) {
       }
     }
     return (
-      <Button onClick={addToCart} variant="contained" sx={{ margin: '0', height: '50px' }} fullWidth>
+      <Button
+        onClick={addToCart}
+        variant="contained"
+        sx={{ margin: '0', height: '50px' }}
+        fullWidth
+      >
         Add to Cart
       </Button>
     );

@@ -651,7 +651,7 @@ export default function Index({ shipments }) {
       <Dialog open={confirmModal} onClose={() => setConfirmModal(false)}>
         <div className="flex flex-center flex-col p-10 items-center truncate">
           <p>Are you sure you want to delete this user?</p>
-          <p className="text-sm text-gray-500 mt-2 mb-4">"{selectedRow?.email}"</p>
+          <p className="text-sm text-gray-500 mt-2 mb-4">&#34;{selectedRow?.email}&#34;</p>
           <div className="flex justify-center items-center">
             <Button sx={{ margin: 1 }} variant="contained" onClick={submitDelete}>
               Yes
