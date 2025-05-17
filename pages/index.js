@@ -135,7 +135,7 @@ export default function Home() {
         {JSON.stringify(productStructuredData)}
       </Script>
 
-      <main className="pt-28">
+      <main className="pt-[6rem]">
         {/* Hero Section (Updated with new button link) */}
         <section className="relative w-full h-auto overflow-hidden bg-gradient-to-r from-gray-900 to-blue-900 md:aspect-[1920/1260]">
           {/* Background Image with Overlay */}

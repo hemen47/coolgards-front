@@ -702,8 +702,8 @@ export default function Products() {
       )}
 
       {/* Products grid */}
-      <div className="bg-white dark:bg-gray-100 rounded-lg shadow-lg overflow-hidden mb-6">
-        <div className="ag-theme-material h-[600px] w-full">
+      <div className="bg-white dark:bg-gray-100 rounded-lg shadow-lg overflow-auto mb-6">
+        <div className="ag-theme-material h-[600px]  w-full">
           <AgGridReact
             rowData={products.data}
             columnDefs={columnDefs}
