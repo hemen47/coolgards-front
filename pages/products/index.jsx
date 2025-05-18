@@ -34,7 +34,7 @@ export default function Products({ data, error, currentPage, totalPages, product
   const [searchTerm, setSearchTerm] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeTags, setActiveTags] = useState([]);
-  const [sortOption, setSortOption] = useState('featured');
+  const [sortOption, setSortOption] = useState('price-high');
   const router = useRouter();
 
   // Error handling
@@ -87,7 +87,48 @@ export default function Products({ data, error, currentPage, totalPages, product
     }
   }, [products]);
 
-  // Filter products based on search term and tags
+  // Handle sort change with server-side sorting
+  const handleSortChange = (newSortOption) => {
+    setSortOption(newSortOption);
+
+    // Map frontend sort options to backend sort parameters
+    let sortParams;
+    switch (newSortOption) {
+      case 'newest':
+        sortParams = { sort: 'createdAt', order: 'desc' };
+        break;
+      case 'oldest':
+        sortParams = { sort: 'createdAt', order: 'asc' };
+        break;
+      case 'price-high':
+        sortParams = { sort: 'price', order: 'desc' };
+        break;
+      case 'price-low':
+        sortParams = { sort: 'price', order: 'asc' };
+        break;
+      case 'name-asc':
+        sortParams = { sort: 'title', order: 'asc' };
+        break;
+      case 'name-desc':
+        sortParams = { sort: 'title', order: 'desc' };
+        break;
+      default:
+        sortParams = { sort: 'createdAt', order: 'desc' };
+    }
+
+    // Navigate with updated sort parameters
+    router.push({
+      pathname: '/products',
+      query: {
+        ...router.query,
+        sort: sortParams.sort,
+        order: sortParams.order,
+        page: 1 // Reset to first page when sorting changes
+      }
+    });
+  };
+
+  // Filter products based on search term and tags (client-side filtering)
   useEffect(() => {
     let result = [...products];
 
@@ -108,25 +149,33 @@ export default function Products({ data, error, currentPage, totalPages, product
       );
     }
 
-    // Apply sorting
-    switch (sortOption) {
-      case 'price-low':
-        result.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-        break;
-      case 'price-high':
-        result.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-        break;
-      case 'newest':
-        result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-        break;
-      case 'featured':
-      default:
-        // Keep original order for featured
-        break;
-    }
-
     setFilteredProducts(result);
-  }, [products, searchTerm, activeTags, sortOption]);
+  }, [products, searchTerm, activeTags]);
+
+// Initialize sortOption from URL on component mount
+  useEffect(() => {
+    const { sort, order } = router.query;
+
+    if (sort && order) {
+      // Map backend sort parameters to frontend sort options
+      if (sort === 'createdAt' && order === 'desc') {
+        setSortOption('newest');
+      } else if (sort === 'createdAt' && order === 'asc') {
+        setSortOption('oldest');
+      } else if (sort === 'price' && order === 'desc') {
+        setSortOption('price-high');
+      } else if (sort === 'price' && order === 'asc') {
+        setSortOption('price-low');
+      } else if (sort === 'title' && order === 'asc') {
+        setSortOption('name-asc');
+      } else if (sort === 'title' && order === 'desc') {
+        setSortOption('name-desc');
+      }
+    } else {
+      // Default sort option
+      setSortOption('price-high');
+    }
+  }, []);
 
   // Handle tag toggle
   const toggleTag = tag => {
@@ -176,6 +225,9 @@ export default function Products({ data, error, currentPage, totalPages, product
       itemListElement: itemListElements,
     };
   };
+
+  // Determine which products to display - use filtered products if search/tags are active
+  const displayProducts = searchTerm || activeTags.length > 0 ? filteredProducts : products;
 
   return (
       <>
@@ -273,7 +325,7 @@ export default function Products({ data, error, currentPage, totalPages, product
                   <Select
                       labelId="sort-select-label"
                       value={sortOption}
-                      onChange={e => setSortOption(e.target.value)}
+                      onChange={e => handleSortChange(e.target.value)}
                       label="Sort By"
                       startAdornment={
                         <InputAdornment position="start">
@@ -281,10 +333,12 @@ export default function Products({ data, error, currentPage, totalPages, product
                         </InputAdornment>
                       }
                   >
-                    <MenuItem value="featured">Featured</MenuItem>
-                    <MenuItem value="price-low">Price: Low to High</MenuItem>
-                    <MenuItem value="price-high">Price: High to Low</MenuItem>
                     <MenuItem value="newest">Newest First</MenuItem>
+                    <MenuItem value="oldest">Oldest First</MenuItem>
+                    <MenuItem value="price-high">Price: High to Low</MenuItem>
+                    <MenuItem value="price-low">Price: Low to High</MenuItem>
+                    <MenuItem value="name-asc">Name: A to Z</MenuItem>
+                    <MenuItem value="name-desc">Name: Z to A</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -349,8 +403,8 @@ export default function Products({ data, error, currentPage, totalPages, product
           {/* Results summary */}
           <div className="flex justify-between items-center mb-4">
             <Typography variant="body2" className="text-gray-600">
-              Showing {products.length > 0 ? ((currentPage - 1) * productsPerPage) + 1 : 0}-
-              {Math.min(currentPage * productsPerPage, totalProducts)} of {totalProducts}{' '}
+              Showing {displayProducts.length > 0 ? ((currentPage - 1) * productsPerPage) + 1 : 0}-
+              {Math.min(currentPage * productsPerPage, searchTerm || activeTags.length > 0 ? displayProducts.length : totalProducts)} of {searchTerm || activeTags.length > 0 ? displayProducts.length : totalProducts}{' '}
               products
             </Typography>
           </div>
@@ -378,7 +432,7 @@ export default function Products({ data, error, currentPage, totalPages, product
                       </div>
                     </div>
                 ))
-            ) : products.length === 0 ? (
+            ) : displayProducts.length === 0 ? (
                 // Empty state
                 <div className="col-span-full flex flex-col items-center justify-center py-12 text-center">
                   <Typography variant="h6" className="text-gray-600 mb-2">
@@ -400,7 +454,7 @@ export default function Products({ data, error, currentPage, totalPages, product
                 </div>
             ) : (
                 // Product cards - Smaller design
-                products.map(product => (
+                displayProducts.map(product => (
                     <article
                         key={product._id}
                         className="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-full transform transition-transform duration-300 hover:scale-[1.01] hover:shadow-md"
@@ -479,8 +533,8 @@ export default function Products({ data, error, currentPage, totalPages, product
             )}
           </section>
 
-          {/* Server-side Pagination */}
-          {totalPages > 1 && (
+          {/* Server-side Pagination - Only show when not filtering client-side */}
+          {totalPages > 1 && !(searchTerm || activeTags.length > 0) && (
               <div className="flex justify-center mt-8">
                 <Pagination
                     count={totalPages}
@@ -647,7 +701,7 @@ export async function getServerSideProps(context) {
     const size = parseInt(context.query.size) || 20; // Default to 20 items per page
 
     // Add any other query parameters
-    const { title, tags, price, sort, order, status } = context.query;
+    const { title, tags, price, sort = 'price', order = 'desc', status } = context.query;
 
     // Build query string
     const queryParams = new URLSearchParams();
@@ -657,8 +711,8 @@ export async function getServerSideProps(context) {
     if (title) queryParams.append('title', title);
     if (tags) queryParams.append('tags', tags);
     if (price) queryParams.append('price', price);
-    if (sort) queryParams.append('sort', sort);
-    if (order) queryParams.append('order', order);
+    queryParams.append('sort', sort);
+    queryParams.append('order', order);
     if (status) queryParams.append('status', status);
 
     // Make API request with pagination parameters
