@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useContext } from 'react';
 import { AlertContext } from '../_app';
-import { formatDistance, format, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import parse from 'html-react-parser';
 import Link from 'next/link';
 import Head from 'next/head';
@@ -183,6 +183,7 @@ export default function Post({ data, error, relatedPosts }) {
                   src={imageUrl}
                   alt={article.title}
                   layout="fill"
+                  fill
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -413,7 +414,7 @@ export default function Post({ data, error, relatedPosts }) {
                   <Link href={`/news/${post.slug}`} key={post._id} className="group">
                     <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow h-full flex flex-col">
                       <div className="relative h-48 overflow-hidden">
-                        <img
+                        <Image
                           src={
                             post.imageUrl.startsWith('http')
                               ? post.imageUrl

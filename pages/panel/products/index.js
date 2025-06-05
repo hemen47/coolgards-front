@@ -19,16 +19,9 @@ import dynamic from 'next/dynamic';
 import slug from 'slug';
 import { MiniUploader } from '../../../components/MiniUploader';
 import Link from 'next/link';
-import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
+import Image from 'next/image';
 import InputTags from '../../../components/InputTags';
-import {
-  Chip,
-  FormControl,
-  FormHelperText,
-  InputAdornment,
-  InputLabel,
-  Tooltip,
-} from '@mui/material';
+import { Chip, FormControl, InputAdornment, InputLabel, Tooltip } from '@mui/material';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
@@ -417,7 +410,12 @@ export default function Products() {
 
     return (
       <div className="flex items-center justify-center">
-        <img src={params.value[0]} alt="Product" className="w-10 h-10 object-cover rounded-md" />
+        <Image
+          src={params.value[0]}
+          alt="Product"
+          fill
+          className="w-10 h-10 object-cover rounded-md"
+        />
         {params.value.length > 1 && (
           <span className="ml-2 text-xs text-gray-500">+{params.value.length - 1} more</span>
         )}
@@ -1092,10 +1090,11 @@ export default function Products() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 {selectedRow.imageUrls && selectedRow.imageUrls.length > 0 && (
-                  <img
+                  <Image
                     src={selectedRow.imageUrls[0]}
                     alt={selectedRow.title}
                     className="w-full h-64 object-cover rounded-lg mb-4"
+                    fill
                   />
                 )}
 

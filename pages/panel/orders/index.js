@@ -3,20 +3,18 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
 import { ax } from '../../../utils/axios';
-import TextField from '@mui/material/TextField';
+import Image from 'next/image';
 import Select from '@mui/material/Select';
 import { queryRemover } from '../../../utils/queryRemover';
 import MenuItem from '@mui/material/MenuItem';
 import { AlertContext } from '../../_app';
 import Modal from '@mui/material/Modal';
 import Dialog from '@mui/material/Dialog';
-import { InputAdornment } from '@mui/material';
 import Button from '@mui/material/Button';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Link from 'next/link';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import Image from 'next/image';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { FiClipboard } from 'react-icons/fi';
@@ -177,10 +175,11 @@ export default function Index() {
             >
               {item.imageUrls && item.imageUrls[0] && (
                 <div className="h-10 w-10 mr-2 rounded overflow-hidden flex-shrink-0">
-                  <img
+                  <Image
                     src={item.imageUrls[0]}
                     alt={item.title}
                     className="h-full w-full object-cover"
+                    fill
                   />
                 </div>
               )}

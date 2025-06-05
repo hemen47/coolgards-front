@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { AlertContext, CartContext, UserContext } from '../_app';
 import Link from 'next/link';
+import Image from 'next/image'; // Import the Image component [[0]](#__0)
 import { ax } from '../../utils/axios';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
@@ -431,11 +432,19 @@ export default function Cart({ shipments }) {
                     {/* Product Info - Full Width on Mobile */}
                     <div className="flex md:w-2/3">
                       <Link className="flex items-center" href={'/products/' + item.slug}>
-                        <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
-                          <img
-                            className="h-full w-full object-cover object-center"
+                        <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 relative">
+                          {/* Replacing img with Next.js Image component */}
+                          <Image
                             src={item?.imageUrls[0]}
                             alt={item?.title}
+                            fill
+                            sizes="96px"
+                            style={{
+                              objectFit: 'cover',
+                              objectPosition: 'center',
+                            }}
+                            priority={false}
+                            quality={80}
                           />
                         </div>
                         <div className="ml-4 flex flex-col">

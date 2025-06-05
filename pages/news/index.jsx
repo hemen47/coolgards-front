@@ -3,7 +3,7 @@ import { useContext, useState } from 'react';
 import { AlertContext } from '../_app';
 import Link from 'next/link';
 import Head from 'next/head';
-import parse from 'html-react-parser';
+import Image from 'next/image';
 
 export default function News({ data, error }) {
   const { setError } = useContext(AlertContext);
@@ -74,12 +74,13 @@ export default function News({ data, error }) {
               >
                 <Link href={`/news/${article.slug}`} className="block">
                   <div className="relative h-52 overflow-hidden">
-                    <img
+                    <Image
                       src={article.imageUrl}
                       alt={article.title}
                       className={`w-full h-full object-cover transition-transform duration-500 ${
                         hoveredCard === article._id ? 'scale-110' : 'scale-100'
                       }`}
+                      fill
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
                     <div className="absolute bottom-0 left-0 right-0 p-4">

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { ax } from '../utils/axios';
 import { queryRemover } from '../utils/queryRemover';
 import { AlertContext } from '../pages/_app';
@@ -8,7 +9,6 @@ import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import 'filepond/dist/filepond.min.css';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import Pagination from '@mui/material/Pagination';
@@ -167,42 +167,45 @@ export default function Uploader({ onSelect, onClose, mediaMode = false }) {
         </Dialog>
 
         <div className={`${mediaMode ? 'mt-6' : 'mt-2'}`}>
-          <ResponsiveMasonry
-            columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 3, 1200: mediaMode ? 4 : 3 }}
-          >
-            <Masonry columnsCount={3} gutter="20px">
-              {downloadedFiles.data.map(pic => (
-                <div key={pic._id} className="relative group">
-                  <div
-                    className={`
-                      transform transition-transform duration-300 ease-out 
-                      ${
-                        selectedImage?._id === pic._id
-                          ? 'border-4 border-dashed border-blue-500'
-                          : ''
-                      } 
-                      hover:scale-105 hover:shadow-lg rounded overflow-hidden
-                    `}
-                    onClick={() => handleSelect(pic)}
-                    onDoubleClick={() => {
-                      handleSelect(pic);
-                      if (!mediaMode) onSelect(pic);
-                    }}
-                  >
-                    {/* Using img instead of Next.js Image for masonry layout compatibility */}
-                    <img id={pic._id} alt={pic.name} src={pic.path} className="w-full block" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {downloadedFiles.data.map(pic => (
+              <div key={pic._id} className="relative group">
+                <div
+                  className={`
+                    transform transition-transform duration-300 ease-out 
+                    ${
+                      selectedImage?._id === pic._id ? 'border-4 border-dashed border-blue-500' : ''
+                    } 
+                    hover:scale-105 hover:shadow-lg rounded overflow-hidden
+                  `}
+                  onClick={() => handleSelect(pic)}
+                  onDoubleClick={() => {
+                    handleSelect(pic);
+                    if (!mediaMode) onSelect(pic);
+                  }}
+                >
+                  <div className="relative aspect-square">
+                    <Image
+                      id={pic._id}
+                      src={pic.path}
+                      alt={pic.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover"
+                      priority={currentPage === 1 && downloadedFiles.data.indexOf(pic) < 4}
+                    />
                   </div>
-                  <button
-                    onClick={e => confirmDelete(pic, e)}
-                    className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
-                    title="Delete image"
-                  >
-                    <DeleteIcon fontSize="small" />
-                  </button>
                 </div>
-              ))}
-            </Masonry>
-          </ResponsiveMasonry>
+                <button
+                  onClick={e => confirmDelete(pic, e)}
+                  className="absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-600"
+                  title="Delete image"
+                >
+                  <DeleteIcon fontSize="small" />
+                </button>
+              </div>
+            ))}
+          </div>
 
           {downloadedFiles.totalPages > 1 && (
             <div className="flex justify-center mt-8 mb-4">

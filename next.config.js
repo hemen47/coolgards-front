@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    domains: ['localhost', 'coolgards.com'],
+    domains: ['localhost', 'coolgards.com', 'i.ytimg.com'],
   },
   async rewrites() {
     return [

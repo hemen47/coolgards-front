@@ -6,7 +6,7 @@ export default function ShipmentPolicy() {
   // SEO metadata
   const pageTitle = 'Shipping Policy | COOLGARDS';
   const pageDescription =
-    'Learn about COOLGARDS shipping methods, delivery timeframes, international shipping options, and our free shipping policy for European customers.';
+    'Learn about COOLGARDS shipping methods, delivery timeframes, international shipping options, and our free shipping policy for Sweden customers.';
   const canonicalUrl = 'https://coolgards.com/shipping-policy';
   const ogImage = 'https://coolgards.com/cover.jpg';
 
@@ -52,10 +52,10 @@ export default function ShipmentPolicy() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'Is shipping free in Europe?',
+        name: 'Is shipping free in Sweden?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes, COOLGARDS provides complimentary shipping services to customers within Europe.',
+          text: 'Yes, COOLGARDS provides complimentary shipping services to customers within Sweden.',
         },
       },
       {
@@ -110,7 +110,7 @@ export default function ShipmentPolicy() {
         {/* Additional meta tags */}
         <meta
           name="keywords"
-          content="COOLGARDS shipping, free shipping Europe, international shipping, shipping timeframes"
+          content="COOLGARDS shipping, free shipping to Sweden, international shipping, shipping timeframes"
         />
         <meta name="author" content="COOLGARDS" />
 

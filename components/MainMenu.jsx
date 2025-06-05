@@ -13,7 +13,6 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Image from 'next/image';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import CloseIcon from '@mui/icons-material/Close';
-import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
 import { useRouter } from 'next/router';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import PersonIcon from '@mui/icons-material/Person';
@@ -114,6 +113,7 @@ export default function MainMenu() {
                 { name: 'News', href: '/news' },
                 { name: 'About Us', href: '/about' },
                 { name: 'Contact Us', href: '/contact' },
+                { name: 'Videos', href: '/videos' },
               ].map(item => (
                 <Link
                   key={item.name}
@@ -263,6 +263,7 @@ export default function MainMenu() {
             { name: 'News', href: '/news' },
             { name: 'About', href: '/about' },
             { name: 'Contact Us', href: '/contact' },
+            { name: 'Videos', href: '/videos' },
           ].map(item => (
             <Link
               key={item.name}
