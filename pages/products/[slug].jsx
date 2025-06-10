@@ -724,21 +724,6 @@ export default function Product({ data, error }) {
             </div>
           </section>
 
-          <section className="border-t border-gray-200 bg-gray-50 p-6 lg:p-8">
-            <div className="mt-8">
-              <Link href="/products" legacyBehavior>
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  className="py-3"
-                  startIcon={<ReplyOutlinedIcon />}
-                >
-                  View All Cold Therapy Devices
-                </Button>
-              </Link>
-            </div>
-          </section>
-
           {/* Trust badges section - replacing any images with Next.js Image */}
           <div className="border-t border-gray-200 p-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
