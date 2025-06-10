@@ -97,16 +97,6 @@ export default function News({ data, error }) {
                     <p className="text-gray-600 mb-4 line-clamp-3">
                       {extractExcerpt(article.content)}
                     </p>
-
-                    <div className="flex items-center justify-between mt-6">
-                      <div className="flex items-center">
-                        <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold">
-                          {article.writerName?.charAt(0) || 'C'}
-                        </div>
-                        <span className="ml-2 text-sm text-gray-600">{article.writerName}</span>
-                      </div>
-                      <span className="text-xs text-gray-500">{formatDate(article.createdAt)}</span>
-                    </div>
                   </div>
                 </Link>
 

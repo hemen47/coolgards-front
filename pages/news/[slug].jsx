@@ -113,7 +113,6 @@ export default function Post({ data, error, relatedPosts }) {
         <meta property="og:image" content={imageUrl} />
         <meta property="article:published_time" content={article.createdAt} />
         <meta property="article:modified_time" content={article.updatedAt} />
-        <meta property="article:author" content={article.writerName} />
         {article.tags?.map(tag => (
           <meta property="article:tag" content={tag} key={tag} />
         ))}
@@ -138,8 +137,8 @@ export default function Post({ data, error, relatedPosts }) {
             datePublished: article.createdAt,
             dateModified: article.updatedAt,
             author: {
-              '@type': 'Person',
-              name: article.writerName,
+              '@type': 'Company',
+              name: 'CoolGards',
             },
             publisher: {
               '@type': 'Organization',
@@ -189,54 +188,6 @@ export default function Post({ data, error, relatedPosts }) {
                 />
               </div>
               <div className="p-6 md:p-8">
-                <div className="flex flex-wrap items-center text-sm text-gray-500 mb-4 gap-4">
-                  {/* Author */}
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium mr-2">
-                      {article.writerName?.charAt(0) || 'C'}
-                    </div>
-                    <span itemProp="author">{article.writerName}</span>
-                  </div>
-
-                  {/* Divider */}
-                  <span className="hidden md:inline-block">•</span>
-
-                  {/* Publish Date */}
-                  <time dateTime={isoPublishDate} itemProp="datePublished">
-                    {formattedPublishDate}
-                  </time>
-
-                  {/* Updated Date (if different) */}
-                  {article.updatedAt && article.updatedAt !== article.createdAt && (
-                    <>
-                      <span className="hidden md:inline-block">•</span>
-                      <time dateTime={isoModifiedDate} itemProp="dateModified" className="italic">
-                        Updated: {formattedModifiedDate}
-                      </time>
-                    </>
-                  )}
-
-                  {/* Reading Time */}
-                  <span className="hidden md:inline-block">•</span>
-                  <span className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-4 w-4 mr-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    {readingTime} min read
-                  </span>
-                </div>
-
                 {/* Title */}
                 <h1
                   className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4"
@@ -259,6 +210,46 @@ export default function Post({ data, error, relatedPosts }) {
                     ))}
                   </div>
                 )}
+
+                <div className="flex flex-wrap items-center text-sm text-gray-500 mb-4 gap-4">
+                  {/* Divider */}
+                  <span className="flex items-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 mr-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    {readingTime} min read
+                  </span>
+                  <span className="hidden md:inline-block">•</span>
+
+                  {/* Publish Date */}
+                  <time dateTime={isoPublishDate} itemProp="datePublished">
+                    {formattedPublishDate}
+                  </time>
+
+                  {/* Updated Date (if different) */}
+                  {article.updatedAt && article.updatedAt !== article.createdAt && (
+                    <>
+                      <span className="hidden md:inline-block">•</span>
+                      <time dateTime={isoModifiedDate} itemProp="dateModified" className="italic">
+                        Updated: {formattedModifiedDate}
+                      </time>
+                    </>
+                  )}
+
+                  {/* Reading Time */}
+                  <span className="hidden md:inline-block">•</span>
+                </div>
               </div>
             </div>
           </div>
@@ -466,9 +457,6 @@ export default function Post({ data, error, relatedPosts }) {
           </div>
         )}
 
-
-
-
         {/* CTA Section */}
         <div className="container mx-auto px-4 mt-16">
           <div className="max-w-5xl mx-auto bg-gradient-to-r from-blue-600 to-blue-800 rounded-2xl p-8 md:p-12 shadow-xl">
@@ -494,10 +482,6 @@ export default function Post({ data, error, relatedPosts }) {
           </div>
         </div>
 
-
-
-
-
         {/* Back to News Button */}
         <div className="container mx-auto px-4 mt-12 text-center">
           <Link
@@ -520,10 +504,9 @@ export default function Post({ data, error, relatedPosts }) {
           </Link>
         </div>
 
-
         <div className="container mx-auto px-4 mt-16">
           <h1>Related Products</h1>
-          <RelatedProducts/>
+          <RelatedProducts />
         </div>
       </article>
     </>
