@@ -445,7 +445,7 @@ export default function Shipments() {
         }}
       >
         <div
-          className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-11/12 max-w-3xl transform transition-all"
+          className="bg-white rounded-xl shadow-2xl w-11/12 max-w-3xl transform transition-all"
           style={{
             maxHeight: '90vh',
             overflowY: 'auto',
@@ -491,18 +491,6 @@ export default function Shipments() {
                 onChange={handleChangeAdd}
                 fullWidth
                 className="mb-4"
-                sx={{
-                  '& .MuiInputBase-input': { color: 'white' },
-                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                    '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                    '&.Mui-focused fieldset': { borderColor: '#90caf9' },
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: 'rgba(255, 255, 255, 0.7)' },
-                }}
               />
               <TextField
                 required
@@ -513,18 +501,6 @@ export default function Shipments() {
                 onChange={handleChangeAdd}
                 fullWidth
                 className="mb-4"
-                sx={{
-                  '& .MuiInputBase-input': { color: 'white' },
-                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                    '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                    '&.Mui-focused fieldset': { borderColor: '#90caf9' },
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: 'rgba(255, 255, 255, 0.7)' },
-                }}
               />
               <TextField
                 required
@@ -535,24 +511,12 @@ export default function Shipments() {
                 onChange={handleChangeAdd}
                 fullWidth
                 className="mb-4"
-                sx={{
-                  '& .MuiInputBase-input': { color: 'white' },
-                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                  '& .MuiOutlinedInput-root': {
-                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.23)' },
-                    '&:hover fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
-                    '&.Mui-focused fieldset': { borderColor: '#90caf9' },
-                  },
-                }}
-                InputLabelProps={{
-                  style: { color: 'rgba(255, 255, 255, 0.7)' },
-                }}
               />
             </div>
           </div>
 
           {/* Footer */}
-          <div className="border-t border-gray-200 dark:border-gray-700 p-4 flex justify-end">
+          <div className="border-t border-gray-200 p-4 flex justify-end">
             <Button onClick={cancelAdd} className="mr-2" variant="outlined">
               Cancel
             </Button>

@@ -54,7 +54,8 @@
     "react-schemaorg": "^2.0.0",
     "recharts": "^2.15.3",
     "sharp": "^0.33.5",
-    "slug": "^8.2.2"
+    "slug": "^8.2.2",
+    "yet-another-react-lightbox": "^3.23.2"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

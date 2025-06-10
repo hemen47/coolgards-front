@@ -13,7 +13,10 @@ import Shipment from '../components/shipment';
 import Script from 'next/script';
 import { DefaultSeo } from 'next-seo';
 import NextTopLoader from 'nextjs-toploader';
-import { ax } from '../utils/axios'; // Make sure this import is correct
+import { ax } from '../utils/axios';
+import 'yet-another-react-lightbox/styles.css';
+import 'yet-another-react-lightbox/plugins/thumbnails.css';
+import 'yet-another-react-lightbox/plugins/captions.css';
 
 export const UserContext = createContext();
 export const AlertContext = createContext();
