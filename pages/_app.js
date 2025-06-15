@@ -39,7 +39,7 @@ const SEO_CONFIG = {
       'Medical-grade cold compression therapy devices for rehabilitation, pain relief, and swelling reduction. FDA & CE approved.',
     images: [
       {
-        url: 'https://coolgards.com/cover.jpg',
+        url: 'https://coolgards.com/cover.webp',
         width: 1200,
         height: 630,
         alt: 'CoolGards Cold + Compression Therapy System',

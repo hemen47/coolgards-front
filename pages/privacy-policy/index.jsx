@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
   const pageDescription =
     'Learn about how COOLGARDS collects, uses, and protects your personal information. Our privacy policy explains your rights and our practices regarding your data.';
   const canonicalUrl = 'https://coolgards.com/privacy-policy';
-  const ogImage = 'https://coolgards.com/cover.jpg';
+  const ogImage = 'https://coolgards.com/cover.webp';
 
   // Structured data for privacy policy page
   const structuredData = {

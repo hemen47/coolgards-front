@@ -207,11 +207,11 @@ export default function Footer() {
                   ></path>
                 </svg>
                 <span className="text-gray-300">
-                  Skrivarevägen 46
+                  8518 Glenlyon Pkwy #132
                   <br />
-                  Lund, Sweden
+                  Burnaby, Canada
                   <br />
-                  226 27
+                  BC V5J 2X9
                 </span>
               </li>
               <li className="flex items-center">

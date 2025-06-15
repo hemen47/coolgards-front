@@ -454,26 +454,26 @@ export default function Product({ data, error }) {
               >
                 Key Benefits
               </button>
-              <button
-                onClick={() => setActiveTab('specifications')}
-                className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                  activeTab === 'specifications'
-                    ? 'border-b-2 border-blue-600 text-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                Specifications
-              </button>
-              <button
-                onClick={() => setActiveTab('shipping')}
-                className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${
-                  activeTab === 'shipping'
-                    ? 'border-b-2 border-blue-600 text-blue-600'
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-              >
-                Shipping & Returns
-              </button>
+              {/*<button*/}
+              {/*  onClick={() => setActiveTab('specifications')}*/}
+              {/*  className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${*/}
+              {/*    activeTab === 'specifications'*/}
+              {/*      ? 'border-b-2 border-blue-600 text-blue-600'*/}
+              {/*      : 'text-gray-600 hover:text-gray-900'*/}
+              {/*  }`}*/}
+              {/*>*/}
+              {/*  Specifications*/}
+              {/*</button>*/}
+              {/*<button*/}
+              {/*  onClick={() => setActiveTab('shipping')}*/}
+              {/*  className={`px-6 py-3 text-sm font-medium whitespace-nowrap ${*/}
+              {/*    activeTab === 'shipping'*/}
+              {/*      ? 'border-b-2 border-blue-600 text-blue-600'*/}
+              {/*      : 'text-gray-600 hover:text-gray-900'*/}
+              {/*  }`}*/}
+              {/*>*/}
+              {/*  Shipping & Returns*/}
+              {/*</button>*/}
             </div>
 
             <div className="p-6 lg:p-8">
@@ -530,101 +530,101 @@ export default function Product({ data, error }) {
                 </div>
               )}
 
-              {activeTab === 'specifications' && (
-                <div className="space-y-6">
-                  <h2 className="text-xl font-medium text-gray-900">Technical Specifications</h2>
-                  <div className="border rounded-lg overflow-hidden">
-                    <table className="min-w-full divide-y divide-gray-200">
-                      <tbody className="divide-y divide-gray-200">
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 w-1/3">
-                            Certification
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            FDA & CE Approved Medical Device
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">
-                            Temperature Range
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            0°C to 10°C (32°F to 50°F)
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">
-                            Compression Settings
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            Adjustable (5-75 mmHg)
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">
-                            Power Source
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            AC Adapter (included) / Rechargeable Battery
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">
-                            Battery Life
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            Up to 6 hours continuous use
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">
-                            Warranty
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
-                            2-year manufacturer warranty
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
+              {/*{activeTab === 'specifications' && (*/}
+              {/*  <div className="space-y-6">*/}
+              {/*    <h2 className="text-xl font-medium text-gray-900">Technical Specifications</h2>*/}
+              {/*    <div className="border rounded-lg overflow-hidden">*/}
+              {/*      <table className="min-w-full divide-y divide-gray-200">*/}
+              {/*        <tbody className="divide-y divide-gray-200">*/}
+              {/*          <tr>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50 w-1/3">*/}
+              {/*              Certification*/}
+              {/*            </td>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">*/}
+              {/*              FDA & CE Approved Medical Device*/}
+              {/*            </td>*/}
+              {/*          </tr>*/}
+              {/*          <tr>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">*/}
+              {/*              Temperature Range*/}
+              {/*            </td>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">*/}
+              {/*              0°C to 10°C (32°F to 50°F)*/}
+              {/*            </td>*/}
+              {/*          </tr>*/}
+              {/*          <tr>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">*/}
+              {/*              Compression Settings*/}
+              {/*            </td>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">*/}
+              {/*              Adjustable (5-75 mmHg)*/}
+              {/*            </td>*/}
+              {/*          </tr>*/}
+              {/*          <tr>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">*/}
+              {/*              Power Source*/}
+              {/*            </td>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">*/}
+              {/*              AC Adapter (included) / Rechargeable Battery*/}
+              {/*            </td>*/}
+              {/*          </tr>*/}
+              {/*          <tr>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">*/}
+              {/*              Battery Life*/}
+              {/*            </td>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">*/}
+              {/*              Up to 6 hours continuous use*/}
+              {/*            </td>*/}
+              {/*          </tr>*/}
+              {/*          <tr>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 bg-gray-50">*/}
+              {/*              Warranty*/}
+              {/*            </td>*/}
+              {/*            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">*/}
+              {/*              2-year manufacturer warranty*/}
+              {/*            </td>*/}
+              {/*          </tr>*/}
+              {/*        </tbody>*/}
+              {/*      </table>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*)}*/}
 
-              {activeTab === 'shipping' && (
-                <div className="space-y-6">
-                  <h2 className="text-xl font-medium text-gray-900">Shipping & Returns</h2>
-                  <div className="space-y-4">
-                    <div className="bg-blue-50 p-6 rounded-lg">
-                      <h3 className="text-lg font-medium text-blue-800 mb-2">
-                        Fast Sweden Shipping
-                      </h3>
-                      <p className="text-gray-700">
-                        We offer free standard shipping to all Sweden. Delivery typically takes 3-5
-                        business days.
-                      </p>
-                    </div>
-                    <div className="bg-blue-50 p-6 rounded-lg">
-                      <h3 className="text-lg font-medium text-blue-800 mb-2">
-                        International Shipping
-                      </h3>
-                      <p className="text-gray-700">
-                        We ship worldwide. International shipping costs and delivery times vary by
-                        location. Please contact us for specific details.
-                      </p>
-                    </div>
-                    <div className="bg-blue-50 p-6 rounded-lg">
-                      <h3 className="text-lg font-medium text-blue-800 mb-2">
-                        30-Day Return Policy
-                      </h3>
-                      <p className="text-gray-700">
-                        If you&#39;re not completely satisfied with your purchase, you can return it
-                        within 30 days for a full refund. The product must be in its original
-                        condition and packaging.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
+              {/*{activeTab === 'shipping' && (*/}
+              {/*  <div className="space-y-6">*/}
+              {/*    <h2 className="text-xl font-medium text-gray-900">Shipping & Returns</h2>*/}
+              {/*    <div className="space-y-4">*/}
+              {/*      <div className="bg-blue-50 p-6 rounded-lg">*/}
+              {/*        <h3 className="text-lg font-medium text-blue-800 mb-2">*/}
+              {/*          Fast Sweden Shipping*/}
+              {/*        </h3>*/}
+              {/*        <p className="text-gray-700">*/}
+              {/*          We offer free standard shipping to all Sweden. Delivery typically takes 3-5*/}
+              {/*          business days.*/}
+              {/*        </p>*/}
+              {/*      </div>*/}
+              {/*      <div className="bg-blue-50 p-6 rounded-lg">*/}
+              {/*        <h3 className="text-lg font-medium text-blue-800 mb-2">*/}
+              {/*          International Shipping*/}
+              {/*        </h3>*/}
+              {/*        <p className="text-gray-700">*/}
+              {/*          We ship worldwide. International shipping costs and delivery times vary by*/}
+              {/*          location. Please contact us for specific details.*/}
+              {/*        </p>*/}
+              {/*      </div>*/}
+              {/*      <div className="bg-blue-50 p-6 rounded-lg">*/}
+              {/*        <h3 className="text-lg font-medium text-blue-800 mb-2">*/}
+              {/*          30-Day Return Policy*/}
+              {/*        </h3>*/}
+              {/*        <p className="text-gray-700">*/}
+              {/*          If you&#39;re not completely satisfied with your purchase, you can return it*/}
+              {/*          within 30 days for a full refund. The product must be in its original*/}
+              {/*          condition and packaging.*/}
+              {/*        </p>*/}
+              {/*      </div>*/}
+              {/*    </div>*/}
+              {/*  </div>*/}
+              {/*)}*/}
             </div>
           </div>
 

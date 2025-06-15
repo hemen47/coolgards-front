@@ -8,17 +8,17 @@ export default function ShipmentPolicy() {
   const pageDescription =
     'Learn about COOLGARDS shipping methods, delivery timeframes, international shipping options, and our free shipping policy for Sweden customers.';
   const canonicalUrl = 'https://coolgards.com/shipping-policy';
-  const ogImage = 'https://coolgards.com/cover.jpg';
+  const ogImage = 'https://coolgards.com/cover.webp';
 
   // Company information
   const companyInfo = {
     phone: '+1-778-776-2417',
     email: 'info@coolgards.com',
     address: {
-      street: 'Skrivarevägen 46',
-      city: 'Lund',
-      country: 'Sweden',
-      postal: '226 27',
+      street: '8518 Glenlyon Parkway #132, Burnaby',
+      city: 'Burnaby',
+      country: 'Canada',
+      postal: 'V5J 2X9',
     },
   };
 

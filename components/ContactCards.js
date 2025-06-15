@@ -21,7 +21,7 @@ const ContactCards = ({ showContactForm = false }) => {
       bgImageSrc: '/contact-us-card2.webp',
       iconSrc: '/contact-us-office.svg',
       title: 'Visit Our Office',
-      description: 'Skrivarevägen 46, 226 27 Lund, Sweden',
+      description: '8518 Glenlyon Pkwy #132, Burnaby, BC V5J 2X9, Canada',
     },
     {
       bgImageSrc: '/contact-us-card2.webp',

@@ -10,7 +10,7 @@ export default function Videos() {
   const pageDescription =
     'Explore our collection of informative videos on cold compression therapy, recovery techniques, and rehabilitation strategies.';
   const canonicalUrl = 'https://coolgards.com/videos';
-  const ogImage = 'https://coolgards.com/images/videos-cover.jpg';
+  const ogImage = 'https://coolgards.com/cover.webp';
 
   // State for videos
   const [videos, setVideos] = useState([]);

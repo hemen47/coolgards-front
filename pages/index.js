@@ -6,6 +6,7 @@ import { FaCheck, FaArrowRight, FaPhone, FaEnvelope, FaShoppingCart } from 'reac
 import { MdLocalHospital, MdSportsHandball, MdHome } from 'react-icons/md';
 import Script from 'next/script';
 import ContactCards from '../components/ContactCards';
+import * as React from 'react';
 
 export default function Home() {
   const images = [
@@ -124,7 +125,7 @@ export default function Home() {
           property="og:description"
           content="Medical-grade cold compression therapy systems for injury recovery, rehabilitation, and pain management. FDA & CE approved."
         />
-        <meta property="og:image" content="https://coolgards.com/cover.jpg" />
+        <meta property="og:image" content="https://coolgards.com/cover.webp" />
         <meta property="og:url" content="https://coolgards.com" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -140,7 +141,7 @@ export default function Home() {
         <section className="relative w-full h-auto overflow-hidden bg-gradient-to-r from-gray-900 to-blue-900 md:aspect-[1920/1260]">
           {/* Background Image with Overlay */}
           <div
-            className="absolute inset-0 bg-[url('/cover.jpg')] aspect-auto bg-cover bg-right bg-no-repeat opacity-70"
+            className="absolute inset-0 bg-[url('/cover.webp')] aspect-auto bg-cover bg-right bg-no-repeat opacity-70"
             aria-hidden="true"
           ></div>
 
@@ -150,26 +151,26 @@ export default function Home() {
             <div className="flex flex-col md:flex-row items-center mb-6 md:mb-8">
               <Image
                 className="w-32 h-auto md:w-40 lg:w-48"
-                src="/logo-big.png"
+                src="/logo-big.webp"
                 alt="CoolGards cold compression therapy system logo"
                 width={200}
                 height={181}
                 priority
               />
-              <h1 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold ml-3 tracking-wide">
+              <h1 className="text-[#0a6ab4] text-4xl md:text-5xl lg:text-6xl font-bold ml-3 tracking-wide">
                 COOLGARDS
               </h1>
             </div>
 
             {/* Tagline with improved spacing */}
-            <div className="text-white text-center md:text-left">
+            <div className="text-center md:text-left">
               <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
                 Cold + Compression
               </p>
               <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-2">
                 Therapy System
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl font-medium tracking-wider mt-2 mb-8 text-blue-200">
+              <p className="text-lg md:text-xl lg:text-2xl font-medium tracking-wider mt-2 mb-8 text-blue-100">
                 ENGINEERED FOR THE COMEBACK
               </p>
             </div>

@@ -19,7 +19,7 @@ export default function Contact({ error }) {
   const pageDescription =
     "Have questions about our rehabilitation services or products? Contact COOLGARDS today. We're here to help with all your rehabilitation and health product needs.";
   const canonicalUrl = 'https://coolgards.com/contact';
-  const ogImage = 'https://coolgards.com/cover.jpg';
+  const ogImage = 'https://coolgards.com/cover.webp';
 
   // Structured data for contact page
   const structuredData = {
@@ -34,10 +34,11 @@ export default function Contact({ error }) {
       email: 'info@coolgards.com',
       address: {
         '@type': 'PostalAddress',
-        streetAddress: 'Skrivarevägen 46',
-        addressLocality: 'Lund',
-        postalCode: '226 27',
-        addressCountry: 'Sweden',
+        streetAddress: '8518 Glenlyon Parkway #132',
+        addressLocality: 'Burnaby',
+        addressRegion: 'BC',
+        postalCode: 'V5J 2X9',
+        addressCountry: 'Canada',
       },
     },
   };

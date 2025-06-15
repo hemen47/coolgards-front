@@ -12,12 +12,12 @@ export default function About() {
   const pageDescription =
     'COOLGARD provides comprehensive rehabilitation treatment services and premium products for athletes, physiotherapists, and health-conscious individuals.';
   const canonicalUrl = 'https://coolgards.com/about';
-  const ogImage = 'https://coolgards.com/images/about-cover.jpg';
+  const ogImage = 'https://coolgards.com/cover.webp';
 
-  // Company location coordinates (Lund, Sweden)
+  // Company location coordinates
   const [viewState, setViewState] = useState({
-    longitude: 13.1913, // Approximate longitude for Lund, Sweden
-    latitude: 55.7047, // Approximate latitude for Lund, Sweden
+    longitude: -122.9975, // Approximate longitude
+    latitude: 49.246445, // Approximate latitude
     zoom: 14,
   });
 
@@ -47,11 +47,11 @@ export default function About() {
     ],
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Skrivarevägen 46',
-      addressLocality: 'Lund',
-      addressRegion: '',
-      postalCode: '226 27',
-      addressCountry: 'Sweden',
+      streetAddress: '8518 Glenlyon Parkway #132',
+      addressLocality: 'Burnaby',
+      addressRegion: 'BC',
+      postalCode: 'V5J 2X9',
+      addressCountry: 'Canada',
     },
     contactPoint: {
       '@type': 'ContactPoint',
@@ -86,7 +86,7 @@ export default function About() {
         {/* Additional meta tags for better SEO */}
         <meta
           name="keywords"
-          content="rehabilitation, physiotherapy, athletes, health products, COOLGARDS, Lund, Sweden"
+          content="rehabilitation, physiotherapy, athletes, health products, COOLGARDS, Burnaby, Canada"
         />
         <meta name="author" content="COOLGARDS" />
 
@@ -386,11 +386,11 @@ export default function About() {
                   <div>
                     <h4 className="font-semibold text-lg text-gray-800 mb-1">Address</h4>
                     <address className="not-italic text-gray-600 leading-relaxed">
-                      Skrivarevägen 46
+                      8518 Glenlyon Pkwy #132
                       <br />
-                      226 27 Lund
+                      Burnaby
                       <br />
-                      Sweden
+                      Canada
                     </address>
                   </div>
                 </div>
@@ -495,7 +495,7 @@ export default function About() {
                   mapboxAccessToken={process.env.NEXT_PUBLIC_MAP_BOX_ACCESS_TOKEN}
                   style={{ width: '100%', height: '100%' }}
                 >
-                  <Marker longitude={13.1913} latitude={55.7047} anchor="bottom">
+                  <Marker longitude={-122.9975} latitude={49.246445} anchor="bottom">
                     <div className="flex flex-col items-center">
                       <div className="w-8 h-8 bg-blue-600 rounded-full border-4 border-white shadow-lg transform-gpu pulse-animation"></div>
                       <div className="mt-2 px-3 py-1.5 bg-white rounded-lg shadow-md text-sm font-medium">
