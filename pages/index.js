@@ -179,7 +179,7 @@ export default function Home() {
             <div className="mt-4 md:mt-6">
               <Link
                 href="/products"
-                className="inline-flex justify-center items-center gap-x-3 text-center hover:bg-gradient-to-r bg-gradient-to-r from-stone-400 to-[#fff] hover:from-blue-600 hover:to-violet-600 hover:shadow-lg hover:shadow-blue-700/50 border border-transparent hover:text-white text-base md:text-lg font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 md:px-8 transition-all duration-300 hover:-translate-y-1"
+                className="inline-flex justify-center items-center gap-x-3 text-center hover:bg-gradient-to-r bg-[#fff] hover:from-blue-600 hover:to-violet-600 hover:shadow-lg hover:shadow-blue-700/50 border border-transparent hover:text-white text-base md:text-lg font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 md:px-8 transition-transform duration-300 hover:-translate-y-1"
                 aria-label="View our products"
               >
                 View Products
