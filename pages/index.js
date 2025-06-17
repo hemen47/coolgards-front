@@ -138,39 +138,39 @@ export default function Home() {
 
       <main className="pt-[6rem]">
         {/* Hero Section (Updated with new button link) */}
-        <section className="relative w-full h-auto overflow-hidden bg-gradient-to-r from-gray-900 to-blue-900 md:aspect-[1920/1260]">
+        <section className="relative w-full h-auto overflow-hidden md:aspect-[1920/1260]">
           {/* Background Image with Overlay */}
           <div
-            className="absolute inset-0 bg-[url('/cover.webp')] aspect-auto bg-cover bg-right bg-no-repeat opacity-70"
+            className="absolute inset-0 bg-[url('/cover.webp')] aspect-auto bg-cover bg-right bg-no-repeat "
             aria-hidden="true"
           ></div>
 
           {/* Content Container */}
-          <div className="relative container mx-auto px-4 py-20 md:py-28 lg:py-32 flex flex-col items-center md:items-start">
+          <div className="relative container mx-auto px-4 pt-40 pb-10 md:py-28 lg:py-32 flex flex-col items-center md:items-start">
             {/* Logo and Title */}
             <div className="flex flex-col md:flex-row items-center mb-6 md:mb-8">
               <Image
-                className="w-32 h-auto md:w-40 lg:w-48"
+                className="w-15 h-auto md:w-40 lg:w-48 -md:absolute left-10 top-2"
                 src="/logo-big.webp"
                 alt="CoolGards cold compression therapy system logo"
                 width={200}
                 height={181}
                 priority
               />
-              <h1 className="text-[#0a6ab4] text-4xl md:text-5xl lg:text-6xl font-bold ml-3 tracking-wide">
+              <h1 className="text-[#0a6ab4] text-4xl md:text-5xl lg:text-6xl font-bold ml-3 tracking-wide -md:absolute -md:text-lg left-1 top-15">
                 COOLGARDS
               </h1>
             </div>
 
             {/* Tagline with improved spacing */}
-            <div className="text-center md:text-left">
+            <div className="text-center md:text-left ">
               <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight">
                 Cold + Compression
               </p>
               <p className="text-2xl md:text-3xl lg:text-4xl font-bold leading-tight mb-2">
                 Therapy System
               </p>
-              <p className="text-lg md:text-xl lg:text-2xl font-medium tracking-wider mt-2 mb-8 text-blue-100">
+              <p className="text-lg md:text-xl lg:text-2xl font-medium tracking-wider mt-2  text-[#0a6ab4]">
                 ENGINEERED FOR THE COMEBACK
               </p>
             </div>
@@ -179,7 +179,7 @@ export default function Home() {
             <div className="mt-4 md:mt-6">
               <Link
                 href="/products"
-                className="inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-r from-blue-600 to-violet-600 shadow-lg hover:shadow-blue-700/50 border border-transparent text-white text-base md:text-lg font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 md:px-8 transition-all duration-300 hover:-translate-y-1"
+                className="inline-flex justify-center items-center gap-x-3 text-center hover:bg-gradient-to-r bg-gradient-to-r from-stone-400 to-[#fff] hover:from-blue-600 hover:to-violet-600 hover:shadow-lg hover:shadow-blue-700/50 border border-transparent hover:text-white text-base md:text-lg font-medium rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-6 md:px-8 transition-all duration-300 hover:-translate-y-1"
                 aria-label="View our products"
               >
                 View Products

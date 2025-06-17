@@ -12,7 +12,7 @@ export default function About() {
   const pageDescription =
     'COOLGARD provides comprehensive rehabilitation treatment services and premium products for athletes, physiotherapists, and health-conscious individuals.';
   const canonicalUrl = 'https://coolgards.com/about';
-  const ogImage = 'https://coolgards.com/cover.webp';
+  const ogImage = 'https://coolgards.com/og.webp';
 
   // Company location coordinates
   const [viewState, setViewState] = useState({

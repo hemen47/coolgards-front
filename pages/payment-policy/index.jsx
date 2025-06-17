@@ -10,7 +10,7 @@ export default function PaymentPolicy() {
   const pageDescription =
     "Learn about COOLGARDS' secure payment methods including credit cards and PayPal. We prioritize your security with encrypted transactions and never share your payment information.";
   const canonicalUrl = 'https://coolgards.com/payment-policy';
-  const ogImage = 'https://coolgards.com/cover.webp';
+  const ogImage = 'https://coolgards.com/og.webp';
 
   // Company information
   const companyInfo = {

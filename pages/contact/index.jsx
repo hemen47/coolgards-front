@@ -19,7 +19,7 @@ export default function Contact({ error }) {
   const pageDescription =
     "Have questions about our rehabilitation services or products? Contact COOLGARDS today. We're here to help with all your rehabilitation and health product needs.";
   const canonicalUrl = 'https://coolgards.com/contact';
-  const ogImage = 'https://coolgards.com/cover.webp';
+  const ogImage = 'https://coolgards.com/og.webp';
 
   // Structured data for contact page
   const structuredData = {

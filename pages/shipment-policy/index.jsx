@@ -8,7 +8,7 @@ export default function ShipmentPolicy() {
   const pageDescription =
     'Learn about COOLGARDS shipping methods, delivery timeframes, international shipping options, and our free shipping policy for Sweden customers.';
   const canonicalUrl = 'https://coolgards.com/shipping-policy';
-  const ogImage = 'https://coolgards.com/cover.webp';
+  const ogImage = 'https://coolgards.com/og.webp';
 
   // Company information
   const companyInfo = {
