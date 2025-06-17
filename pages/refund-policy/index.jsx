@@ -108,7 +108,7 @@ export default function RefundPolicy() {
         />
         <meta property="og:url" content="https://coolgards.com/refund-policy" />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://coolgards.com/cover.webp" />
+        <meta property="og:image" content="https://coolgards.com/og.webp" />
         <meta property="og:site_name" content="COOLGARDS" />
 
         {/* Twitter Card Tags */}

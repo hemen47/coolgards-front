@@ -125,7 +125,7 @@ export default function Home() {
           property="og:description"
           content="Medical-grade cold compression therapy systems for injury recovery, rehabilitation, and pain management. FDA & CE approved."
         />
-        <meta property="og:image" content="https://coolgards.com/cover.webp" />
+        <meta property="og:image" content="https://coolgards.com/og.webp" />
         <meta property="og:url" content="https://coolgards.com" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
